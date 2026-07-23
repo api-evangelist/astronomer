@@ -1,0 +1,1443 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Environment API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- name: Environment
+paths:
+  /organizations/{organizationId}/environment-objects:
+    get:
+      description: List environment objects in a Workspace or Deployment.
+      operationId: ListEnvironmentObjects
+      parameters:
+      - description: The ID of the Organization to which the environment object belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The number of results to skip before returning values.
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: The maximum number of results to return.
+        in: query
+        name: limit
+        schema:
+          default: 20
+          minimum: 0
+          type: integer
+      - description: A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`.
+        in: query
+        name: sorts
+        schema:
+          items:
+            enum:
+            - objectType:asc
+            - objectType:desc
+            - objectKey:asc
+            - objectKey:desc
+            - createdAt:asc
+            - createdAt:desc
+            - updatedAt:asc
+            - updatedAt:desc
+            type: string
+          type: array
+      - description: The Workspace ID to filter for. The API returns details for all environment objects belonging only to this specified Workspace.
+        in: query
+        name: workspaceId
+        schema:
+          type: string
+      - description: The Deployment ID to filter for. The API returns details for all environment objects belonging only to this specified Deployment.
+        in: query
+        name: deploymentId
+        schema:
+          type: string
+      - description: The environment object type to filter for. The API returns details for all environment objects belonging only to this specified object type.
+        in: query
+        name: objectType
+        schema:
+          enum:
+          - CONNECTION
+          - ENVIRONMENT_VARIABLE
+          - AIRFLOW_VARIABLE
+          - METRICS_EXPORT
+          type: string
+      - description: The environment object key to filter for. The API returns details for all environment objects belonging only to the specified object key.
+        in: query
+        name: objectKey
+        schema:
+          type: string
+      - description: If true, returns the actual values of fields of type secret in the API response.
+        in: query
+        name: showSecrets
+        schema:
+          type: boolean
+      - description: Resolve and return the environment objects linked to the specified Deployment or Workspace in the API response.
+        in: query
+        name: resolveLinked
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentObjectsPaginated'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method Not Allowed
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List environment objects
+      tags:
+      - Environment
+      x-permission:
+      - action: organization.envObjects.access
+    post:
+      description: Create an environment object for a Deployment or Workspace. An environment object represents a connection, environment variable, Airflow variable, or metrics export resource that is managed by the Astro Environment Manager.
+      operationId: CreateEnvironmentObject
+      parameters:
+      - description: The ID of the Organization in which to create the environment object.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironmentObjectRequest'
+        description: The request body for creating a new environment object.
+        required: true
+        x-originalParamName: data
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEnvironmentObject'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method Not Allowed
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Create a new environment object
+      tags:
+      - Environment
+      x-permission:
+      - action: organization.envObjects.access
+  /organizations/{organizationId}/environment-objects/{environmentObjectId}:
+    delete:
+      description: Delete an environment object from a Deployment or Workspace.
+      operationId: DeleteEnvironmentObject
+      parameters:
+      - description: The ID of the Organization to which the environment object belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The environment object's ID.
+        in: path
+        name: environmentObjectId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method Not Allowed
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Delete an environment object
+      tags:
+      - Environment
+      x-permission:
+      - action: organization.envObjects.access
+    get:
+      description: Retrieve details about an environment object.
+      operationId: GetEnvironmentObject
+      parameters:
+      - description: The ID of the Organization to which the environment object belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The environment object's ID.
+        in: path
+        name: environmentObjectId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentObject'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method Not Allowed
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get environment object
+      tags:
+      - Environment
+      x-permission:
+      - action: organization.envObjects.access
+    post:
+      description: Update an existing Deployment level or Workspace level environment object.
+      operationId: UpdateEnvironmentObject
+      parameters:
+      - description: The ID of the Organization to which the environment object belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The environment object's ID.
+        in: path
+        name: environmentObjectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEnvironmentObjectRequest'
+        description: The request body for updating an environment object.
+        required: true
+        x-originalParamName: data
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentObject'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method Not Allowed
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Update an environment object
+      tags:
+      - Environment
+      x-permission:
+      - action: organization.envObjects.access
+  /organizations/{organizationId}/environment-objects/{environmentObjectId}/exclude-linking:
+    post:
+      description: Exclude a specific Deployment from linking to an environment object created at the Workspace level.
+      operationId: ExcludeLinkingEnvironmentObject
+      parameters:
+      - description: The ID of the Organization to which the environment object belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The environment object's ID.
+        in: path
+        name: environmentObjectId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExcludeLinkEnvironmentObjectRequest'
+        description: The request body to exclude linking an environment object.
+        required: true
+        x-originalParamName: data
+      responses:
+        '200':
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Method Not Allowed
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Exclude linking an environment object
+      tags:
+      - Environment
+      x-permission:
+      - action: organization.envObjects.access
+components:
+  schemas:
+    ExcludeLinkEnvironmentObjectRequest:
+      properties:
+        scope:
+          description: Scope of the entity to exclude for environment object
+          enum:
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: Entity ID to exclude for the environment object
+          type: string
+      required:
+      - scope
+      - scopeEntityId
+      type: object
+    CreateEnvironmentObjectRequest:
+      properties:
+        airflowVariable:
+          $ref: '#/components/schemas/CreateEnvironmentObjectAirflowVariableRequest'
+        autoLinkDeployments:
+          description: Whether or not to automatically link Deployments to the environment object. Only applicable for WORKSPACE scope
+          type: boolean
+        connection:
+          $ref: '#/components/schemas/CreateEnvironmentObjectConnectionRequest'
+        description:
+          description: The description of the environment object
+          maxLength: 500
+          type: string
+        environmentVariable:
+          $ref: '#/components/schemas/CreateEnvironmentObjectEnvironmentVariableRequest'
+        excludeLinks:
+          description: The links to exclude from the environment object. Only applicable for WORKSPACE scope
+          items:
+            $ref: '#/components/schemas/ExcludeLinkEnvironmentObjectRequest'
+          type: array
+        links:
+          description: The Deployments that Astro links to the environment object. Only applicable for WORKSPACE scope
+          items:
+            $ref: '#/components/schemas/CreateEnvironmentObjectLinkRequest'
+          type: array
+        metricsExport:
+          $ref: '#/components/schemas/CreateEnvironmentObjectMetricsExportRequest'
+        objectKey:
+          description: The key for the environment object
+          type: string
+        objectType:
+          description: The type of environment object
+          enum:
+          - CONNECTION
+          - ENVIRONMENT_VARIABLE
+          - AIRFLOW_VARIABLE
+          - METRICS_EXPORT
+          type: string
+        scope:
+          description: The scope of the environment object
+          enum:
+          - WORKSPACE
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: The ID of the scope entity where the environment object is created
+          type: string
+      required:
+      - objectKey
+      - objectType
+      - scope
+      - scopeEntityId
+      type: object
+    UpdateEnvironmentObjectAirflowVariableOverridesRequest:
+      properties:
+        value:
+          description: The value of the Airflow variable
+          type: string
+      type: object
+    EnvironmentObjectLink:
+      properties:
+        airflowVariableOverrides:
+          $ref: '#/components/schemas/EnvironmentObjectAirflowVariableOverrides'
+        connectionOverrides:
+          $ref: '#/components/schemas/EnvironmentObjectConnectionOverrides'
+        environmentVariableOverrides:
+          $ref: '#/components/schemas/EnvironmentObjectEnvironmentVariableOverrides'
+        metricsExportOverrides:
+          $ref: '#/components/schemas/EnvironmentObjectMetricsExportOverrides'
+        scope:
+          description: Scope of the linked entity for the environment object
+          enum:
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: Linked entity ID the environment object
+          type: string
+        setFields:
+          description: Names of override fields that have a value set on this link. Secret values are masked, so this list distinguishes a set secret override from an unset one. Map members appear as dotted paths (for example "headers.X-Key")
+          items:
+            type: string
+          type: array
+      required:
+      - scope
+      - scopeEntityId
+      - setFields
+      type: object
+    CreateEnvironmentObjectAirflowVariableRequest:
+      properties:
+        isSecret:
+          description: Whether the value is a secret or not
+          type: boolean
+        value:
+          description: The value of the Airflow variable
+          type: string
+      type: object
+    CreateEnvironmentObjectAirflowVariableOverridesRequest:
+      properties:
+        value:
+          description: The value of the Airflow variable
+          type: string
+      type: object
+    UpdateEnvironmentObjectMetricsExportRequest:
+      properties:
+        authType:
+          description: The type of authentication to use when connecting to the remote endpoint
+          enum:
+          - BASIC
+          - AUTH_TOKEN
+          - SIGV4
+          type: string
+        basicToken:
+          description: The bearer token to connect to the remote endpoint
+          type: string
+        endpoint:
+          description: The Prometheus endpoint where the metrics are exported
+          type: string
+        exporterType:
+          description: The type of exporter
+          enum:
+          - PROMETHEUS
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Add key-value pairs to the HTTP request headers made by Astro when connecting to the remote endpoint
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Any key-value pair metrics labels for your export. You can use these to filter your metrics in downstream applications.
+          type: object
+        password:
+          description: The password to connect to the remote endpoint
+          type: string
+        sigV4AssumeArn:
+          description: The AWS IAM role ARN to assume for SigV4 authentication
+          type: string
+        sigV4StsRegion:
+          description: The AWS STS region to use for SigV4 authentication
+          type: string
+        username:
+          description: The username to connect to the remote endpoint
+          type: string
+      type: object
+    EnvironmentObject:
+      properties:
+        airflowVariable:
+          $ref: '#/components/schemas/EnvironmentObjectAirflowVariable'
+        autoLinkDeployments:
+          description: Whether or not to automatically link Deployments to the environment object
+          type: boolean
+        connection:
+          $ref: '#/components/schemas/EnvironmentObjectConnection'
+        createdAt:
+          description: The time when the environment object was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        description:
+          description: The description of the environment object
+          type: string
+        environmentVariable:
+          $ref: '#/components/schemas/EnvironmentObjectEnvironmentVariable'
+        excludeLinks:
+          description: The excluded links for the environment object
+          items:
+            $ref: '#/components/schemas/EnvironmentObjectExcludeLink'
+          type: array
+        id:
+          description: The ID of the environment object
+          type: string
+        links:
+          description: The Deployments linked to the environment object
+          items:
+            $ref: '#/components/schemas/EnvironmentObjectLink'
+          type: array
+        metricsExport:
+          $ref: '#/components/schemas/EnvironmentObjectMetricsExport'
+        objectKey:
+          description: The key for the environment object
+          type: string
+        objectType:
+          description: The type of environment object
+          enum:
+          - CONNECTION
+          - ENVIRONMENT_VARIABLE
+          - AIRFLOW_VARIABLE
+          - METRICS_EXPORT
+          type: string
+        scope:
+          description: The scope of the environment object
+          enum:
+          - WORKSPACE
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: The ID of the scope entity where the environment object is created
+          type: string
+        setFields:
+          description: Names of fields that have a value set on the environment object. Secret values are masked in responses, so this list lets clients tell a set secret from an unset field. Map members appear as dotted paths (for example "extra.aws_secret")
+          items:
+            type: string
+          type: array
+        sourceScope:
+          description: The source scope of the environment object, if it is resolved from a link
+          enum:
+          - WORKSPACE
+          - DEPLOYMENT
+          type: string
+        sourceScopeEntityId:
+          description: The source scope entity ID of the environment object, if it is resolved from a link
+          type: string
+        updatedAt:
+          description: The time when the environment object was updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`
+          type: string
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+      required:
+      - objectKey
+      - objectType
+      - scope
+      - scopeEntityId
+      - setFields
+      type: object
+    UpdateEnvironmentObjectLinkRequest:
+      properties:
+        overrides:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectOverridesRequest'
+        scope:
+          description: Scope of the entity to link the environment object
+          enum:
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: Entity ID to link the environment object
+          type: string
+      required:
+      - scope
+      - scopeEntityId
+      type: object
+    EnvironmentObjectAirflowVariable:
+      properties:
+        isSecret:
+          description: Whether the value is a secret or not
+          type: boolean
+        value:
+          description: The value of the Airflow variable. If the value is a secret, the value returned is empty
+          type: string
+      required:
+      - isSecret
+      - value
+      type: object
+    ConnectionAuthTypeParameter:
+      properties:
+        airflowParamName:
+          description: The name of the parameter in Airflow
+          type: string
+        dataType:
+          description: The data type of the parameter
+          type: string
+        description:
+          description: A description of the parameter
+          type: string
+        example:
+          description: An example value for the parameter
+          type: string
+        friendlyName:
+          description: The UI-friendly name for the parameter
+          type: string
+        isInExtra:
+          description: Whether or not the parameter is included in the "extra" field
+          type: boolean
+        isRequired:
+          description: Whether the parameter is required
+          type: boolean
+        isSecret:
+          description: Whether the parameter is a secret
+          type: boolean
+        pattern:
+          description: A regex pattern for the parameter
+          type: string
+      required:
+      - airflowParamName
+      - dataType
+      - description
+      - friendlyName
+      - isInExtra
+      - isRequired
+      - isSecret
+      type: object
+    UpdateEnvironmentObjectMetricsExportOverridesRequest:
+      properties:
+        authType:
+          description: The type of authentication to use when connecting to the remote endpoint
+          enum:
+          - BASIC
+          - AUTH_TOKEN
+          - SIGV4
+          type: string
+        basicToken:
+          description: The bearer token to connect to the remote endpoint
+          type: string
+        endpoint:
+          description: The Prometheus endpoint where the metrics are exported
+          type: string
+        exporterType:
+          description: The type of exporter
+          enum:
+          - PROMETHEUS
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Add key-value pairs to the HTTP request headers made by Astro when connecting to the remote endpoint
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Any key-value pair metrics labels for your export. You can use these to filter your metrics in downstream applications.
+          type: object
+        password:
+          description: The password to connect to the remote endpoint
+          type: string
+        sigV4AssumeArn:
+          description: The AWS IAM role ARN to assume for SigV4 authentication
+          type: string
+        sigV4StsRegion:
+          description: The AWS STS region to use for SigV4 authentication
+          type: string
+        username:
+          description: The username to connect to the remote endpoint
+          type: string
+      type: object
+    CreateEnvironmentObjectConnectionRequest:
+      properties:
+        authTypeId:
+          description: The ID for the connection auth type
+          type: string
+        extra:
+          description: Extra connection details, if any
+          type: object
+        host:
+          description: The host address for the connection
+          type: string
+        login:
+          description: The username used for the connection
+          type: string
+        password:
+          description: The password used for the connection
+          type: string
+        port:
+          description: The port for the connection
+          type: integer
+        schema:
+          description: The schema for the connection
+          type: string
+        type:
+          description: The type of connection
+          type: string
+      required:
+      - type
+      type: object
+    CreateEnvironmentObjectMetricsExportOverridesRequest:
+      properties:
+        authType:
+          description: The type of authentication to use when connecting to the remote endpoint
+          enum:
+          - BASIC
+          - AUTH_TOKEN
+          - SIGV4
+          type: string
+        basicToken:
+          description: The bearer token to connect to the remote endpoint
+          type: string
+        endpoint:
+          description: The Prometheus endpoint where the metrics are exported
+          type: string
+        exporterType:
+          description: The type of exporter
+          enum:
+          - PROMETHEUS
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Add key-value pairs to the HTTP request headers made by Astro when connecting to the remote endpoint
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Any key-value pair metrics labels for your export. You can use these to filter your metrics in downstream applications.
+          type: object
+        password:
+          description: The password to connect to the remote endpoint
+          type: string
+        sigV4AssumeArn:
+          description: The AWS IAM role ARN to assume for SigV4 authentication
+          type: string
+        sigV4StsRegion:
+          description: The AWS STS region to use for SigV4 authentication
+          type: string
+        username:
+          description: The username to connect to the remote endpoint
+          type: string
+      type: object
+    EnvironmentObjectExcludeLink:
+      properties:
+        scope:
+          description: Scope of the excluded entity for environment object
+          enum:
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: ID for the excluded entity for the environment object
+          type: string
+      required:
+      - scope
+      - scopeEntityId
+      type: object
+    CreateEnvironmentObjectEnvironmentVariableOverridesRequest:
+      properties:
+        value:
+          description: The value of the environment variable
+          type: string
+      type: object
+    EnvironmentObjectEnvironmentVariableOverrides:
+      properties:
+        value:
+          description: The value of the environment variable
+          type: string
+      required:
+      - value
+      type: object
+    EnvironmentObjectEnvironmentVariable:
+      properties:
+        isSecret:
+          description: Whether the value is a secret or not
+          type: boolean
+        value:
+          description: The value of the environment variable. If the value is a secret, the value returned is empty
+          type: string
+      required:
+      - isSecret
+      - value
+      type: object
+    UpdateEnvironmentObjectOverridesRequest:
+      properties:
+        airflowVariable:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectAirflowVariableOverridesRequest'
+        connection:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectConnectionOverridesRequest'
+        environmentVariable:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectEnvironmentVariableOverridesRequest'
+        metricsExport:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectMetricsExportOverridesRequest'
+        unsetFields:
+          description: Names of override fields to unset on the linked entity so it inherits the parent value. For connections and metrics exports, individual fields are named (for example "password"); for map fields a single key can be unset with a dotted path (for example "extra.aws_secret"). A field cannot be both set above and listed here.
+          items:
+            type: string
+          maxItems: 100
+          type: array
+      type: object
+    EnvironmentObjectsPaginated:
+      properties:
+        environmentObjects:
+          description: The list of environment objects
+          items:
+            $ref: '#/components/schemas/EnvironmentObject'
+          type: array
+        limit:
+          description: The maximum number of environment objects in current page
+          type: integer
+        offset:
+          description: The offset of the current page of environment objects
+          type: integer
+        totalCount:
+          description: The total number of environment objects
+          type: integer
+      required:
+      - environmentObjects
+      - limit
+      - offset
+      - totalCount
+      type: object
+    UpdateEnvironmentObjectConnectionRequest:
+      properties:
+        authTypeId:
+          description: The ID for the connection auth type
+          type: string
+        extra:
+          description: Extra connection details, if any
+          type: object
+        host:
+          description: The host address for the connection
+          type: string
+        login:
+          description: The username used for the connection
+          type: string
+        password:
+          description: The password used for the connection
+          type: string
+        port:
+          description: The port for the connection
+          type: integer
+        schema:
+          description: The schema for the connection
+          type: string
+        type:
+          description: The type of connection
+          type: string
+      required:
+      - type
+      type: object
+    CreateEnvironmentObjectLinkRequest:
+      properties:
+        overrides:
+          $ref: '#/components/schemas/CreateEnvironmentObjectOverridesRequest'
+        scope:
+          description: Scope to link the environment object
+          enum:
+          - DEPLOYMENT
+          type: string
+        scopeEntityId:
+          description: Entity ID of the scope to link the environment object
+          type: string
+      required:
+      - scope
+      - scopeEntityId
+      type: object
+    EnvironmentObjectConnection:
+      properties:
+        connectionAuthType:
+          $ref: '#/components/schemas/ConnectionAuthType'
+        extra:
+          description: Extra connection details, if any
+          type: object
+        host:
+          description: The host address for the connection
+          type: string
+        login:
+          description: The username used for the connection
+          type: string
+        password:
+          description: The password used for the connection
+          type: string
+        port:
+          description: The port for the connection
+          type: integer
+        schema:
+          description: The schema for the connection
+          type: string
+        type:
+          description: The type of connection
+          type: string
+      required:
+      - type
+      type: object
+    CreateEnvironmentObjectConnectionOverridesRequest:
+      properties:
+        extra:
+          description: Extra connection details, if any
+          type: object
+        host:
+          description: The host address for the connection
+          type: string
+        login:
+          description: The username used for the connection
+          type: string
+        password:
+          description: The password used for the connection
+          type: string
+        port:
+          description: The port for the connection
+          type: integer
+        schema:
+          description: The schema for the connection
+          type: string
+        type:
+          description: The type of connection
+          type: string
+      type: object
+    UpdateEnvironmentObjectRequest:
+      properties:
+        airflowVariable:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectAirflowVariableRequest'
+        autoLinkDeployments:
+          description: Whether or not to automatically link Deployments to the environment object. Only applicable for WORKSPACE scope
+          type: boolean
+        connection:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectConnectionRequest'
+        description:
+          description: The description of the environment object
+          maxLength: 500
+          type: string
+        environmentVariable:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectEnvironmentVariableRequest'
+        excludeLinks:
+          description: The links to exclude from the environment object. Only applicable for WORKSPACE scope
+          items:
+            $ref: '#/components/schemas/ExcludeLinkEnvironmentObjectRequest'
+          type: array
+        links:
+          description: The Deployments that Astro links to the environment object. Only applicable for WORKSPACE scope
+          items:
+            $ref: '#/components/schemas/UpdateEnvironmentObjectLinkRequest'
+          type: array
+        metricsExport:
+          $ref: '#/components/schemas/UpdateEnvironmentObjectMetricsExportRequest'
+      type: object
+    UpdateEnvironmentObjectEnvironmentVariableOverridesRequest:
+      properties:
+        value:
+          description: The value of the environment variable
+          type: string
+      type: object
+    UpdateEnvironmentObjectConnectionOverridesRequest:
+      properties:
+        extra:
+          description: Extra connection details, if any
+          type: object
+        host:
+          description: The host address for the connection
+          type: string
+        login:
+          description: The username used for the connection
+          type: string
+        password:
+          description: The password used for the connection
+          type: string
+        port:
+          description: The port for the connection
+          type: integer
+        schema:
+          description: The schema for the connection
+          type: string
+        type:
+          description: The type of connection
+          type: string
+      type: object
+    CreateEnvironmentObject:
+      properties:
+        id:
+          description: The ID of the environment object
+          type: string
+      required:
+      - id
+      type: object
+    ConnectionAuthType:
+      properties:
+        airflowType:
+          description: The type of connection in Airflow
+          type: string
+        authMethodName:
+          description: The name of the auth method used in the connection
+          type: string
+        description:
+          description: A description of the connection auth type
+          type: string
+        guidePath:
+          description: The URL to the guide for the connection auth type
+          type: string
+        id:
+          description: The ID of the connection auth type
+          type: string
+        name:
+          description: The name of the connection auth type
+          type: string
+        parameters:
+          description: The parameters for the connection auth type
+          items:
+            $ref: '#/components/schemas/ConnectionAuthTypeParameter'
+          type: array
+        providerLogo:
+          description: The URL of the provider logo
+          type: string
+        providerPackageName:
+          description: The name of the provider package
+          type: string
+      required:
+      - airflowType
+      - authMethodName
+      - description
+      - id
+      - name
+      - parameters
+      - providerPackageName
+      type: object
+    CreateEnvironmentObjectMetricsExportRequest:
+      properties:
+        authType:
+          description: The type of authentication to use when connecting to the remote endpoint
+          enum:
+          - BASIC
+          - AUTH_TOKEN
+          - SIGV4
+          type: string
+        basicToken:
+          description: The bearer token to connect to the remote endpoint
+          type: string
+        endpoint:
+          description: The Prometheus endpoint where the metrics are exported
+          type: string
+        exporterType:
+          description: The type of exporter
+          enum:
+          - PROMETHEUS
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Add key-value pairs to the HTTP request headers made by Astro when connecting to the remote endpoint
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Any key-value pair metrics labels for your export. You can use these to filter your metrics in downstream applications.
+          type: object
+        password:
+          description: The password to connect to the remote endpoint
+          type: string
+        sigV4AssumeArn:
+          description: The AWS IAM role ARN to assume for SigV4 authentication
+          type: string
+        sigV4StsRegion:
+          description: The AWS STS region to use for SigV4 authentication
+          type: string
+        username:
+          description: The username to connect to the remote endpoint
+          type: string
+      required:
+      - endpoint
+      - exporterType
+      type: object
+    UpdateEnvironmentObjectEnvironmentVariableRequest:
+      properties:
+        value:
+          description: The value of the environment variable
+          type: string
+      type: object
+    UpdateEnvironmentObjectAirflowVariableRequest:
+      properties:
+        value:
+          description: The value of the Airflow variable
+          type: string
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    EnvironmentObjectMetricsExportOverrides:
+      properties:
+        authType:
+          description: The type of authentication to use when connecting to the remote endpoint
+          enum:
+          - BASIC
+          - AUTH_TOKEN
+          - SIGV4
+          type: string
+        basicToken:
+          description: The bearer token to connect to the remote endpoint
+          type: string
+        endpoint:
+          description: The Prometheus endpoint where the metrics are exported
+          type: string
+        exporterType:
+          description: The type of exporter
+          enum:
+          - PROMETHEUS
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Add key-value pairs to the HTTP request headers made by Astro when connecting to the remote endpoint
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Any key-value pair metrics labels for your export. You can use these to filter your metrics in downstream applications.
+          type: object
+        password:
+          description: The password to connect to the remote endpoint
+          type: string
+        sigV4AssumeArn:
+          description: The AWS IAM role ARN to assume for SigV4 authentication
+          type: string
+        sigV4StsRegion:
+          description: The AWS STS region to use for SigV4 authentication
+          type: string
+        username:
+          description: The username to connect to the remote endpoint
+          type: string
+      type: object
+    CreateEnvironmentObjectOverridesRequest:
+      properties:
+        airflowVariable:
+          $ref: '#/components/schemas/CreateEnvironmentObjectAirflowVariableOverridesRequest'
+        connection:
+          $ref: '#/components/schemas/CreateEnvironmentObjectConnectionOverridesRequest'
+        environmentVariable:
+          $ref: '#/components/schemas/CreateEnvironmentObjectEnvironmentVariableOverridesRequest'
+        metricsExport:
+          $ref: '#/components/schemas/CreateEnvironmentObjectMetricsExportOverridesRequest'
+      type: object
+    EnvironmentObjectConnectionOverrides:
+      properties:
+        extra:
+          description: Extra connection details, if any
+          type: object
+        host:
+          description: The host address for the connection
+          type: string
+        login:
+          description: The username used for the connection
+          type: string
+        password:
+          description: The password used for the connection
+          type: string
+        port:
+          description: The port for the connection
+          type: integer
+        schema:
+          description: The schema for the connection
+          type: string
+        type:
+          description: The type of connection
+          type: string
+      type: object
+    EnvironmentObjectAirflowVariableOverrides:
+      properties:
+        value:
+          description: The value of the Airflow variable
+          type: string
+      required:
+      - value
+      type: object
+    EnvironmentObjectMetricsExport:
+      properties:
+        authType:
+          description: The type of authentication to use when connecting to the remote endpoint
+          enum:
+          - BASIC
+          - AUTH_TOKEN
+          - SIGV4
+          type: string
+        basicToken:
+          description: The bearer token to connect to the remote endpoint
+          type: string
+        endpoint:
+          description: The Prometheus endpoint where the metrics are exported
+          type: string
+        exporterType:
+          description: The type of exporter
+          enum:
+          - PROMETHEUS
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          description: Add key-value pairs to the HTTP request headers made by Astro when connecting to the remote endpoint
+          type: object
+        labels:
+          additionalProperties:
+            type: string
+          description: Any key-value pair metrics labels for your export. You can use these to filter your metrics in downstream applications.
+          type: object
+        password:
+          description: The password to connect to the remote endpoint
+          type: string
+        sigV4AssumeArn:
+          description: The AWS IAM role ARN to assume for SigV4 authentication
+          type: string
+        sigV4StsRegion:
+          description: The AWS STS region to use for SigV4 authentication
+          type: string
+        username:
+          description: The username to connect to the remote endpoint
+          type: string
+      required:
+      - endpoint
+      - exporterType
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    CreateEnvironmentObjectEnvironmentVariableRequest:
+      properties:
+        isSecret:
+          description: Whether the value is a secret or not
+          type: boolean
+        value:
+          description: The value of the environment variable
+          type: string
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

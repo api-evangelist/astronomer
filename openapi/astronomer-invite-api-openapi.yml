@@ -1,0 +1,260 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Invite API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- name: Invite
+paths:
+  /organizations/{organizationId}/invites:
+    post:
+      description: Invite a user to an Organization.
+      operationId: CreateUserInvite
+      parameters:
+      - description: The ID of the Organization to invite the user to.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserInviteRequest'
+        description: The request body for creating user invite.
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invite'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Create a user invitation
+      tags:
+      - Invite
+      x-permission:
+      - action: organization.users.create
+  /organizations/{organizationId}/invites/{inviteId}:
+    delete:
+      description: Delete an existing user invite.
+      operationId: DeleteUserInvite
+      parameters:
+      - description: The ID of the Organization where the user was invited to.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The invite's ID.
+        in: path
+        name: inviteId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Delete a user invite
+      tags:
+      - Invite
+      x-permission:
+      - action: organization.users.delete
+components:
+  schemas:
+    CreateUserInviteRequest:
+      properties:
+        inviteeEmail:
+          description: The email of the user to invite.
+          example: user1@company.com
+          type: string
+        role:
+          description: The user's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
+      required:
+      - inviteeEmail
+      - role
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    Invite:
+      properties:
+        expiresAt:
+          description: The time when the invite is expired in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        inviteId:
+          description: The invite ID.
+          example: clm9t1g17000008jmfsw20lsz
+          type: string
+        invitee:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        inviter:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        organizationId:
+          description: The ID of the Organization where the invite was sent.
+          example: clm9t0gbt000108jv4f1cfu8u
+          type: string
+        organizationName:
+          description: The name of the Organization where the invite was sent.
+          example: My Organization
+          type: string
+        userId:
+          description: The ID for the user who was invited.
+          example: clm9t060z000008jv3mira7x5
+          type: string
+      required:
+      - expiresAt
+      - inviteId
+      - invitee
+      - inviter
+      - organizationId
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

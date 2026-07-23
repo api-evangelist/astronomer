@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Astro Platform API
+  version: 1.0.0
+extends: openapi/astronomer-astro-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: astronomer
+    x-apievangelist-api: astro-platform-api
+    x-apievangelist-rating-artifacts:
+      authentication: authentication/astronomer-authentication.yml
+      conventions: conventions/astronomer-conventions.yml
+      errors: errors/astronomer-problem-types.yml
+      lifecycle: lifecycle/astronomer-lifecycle.yml
+      data-model: data-model/astronomer-data-model.yml
+      agentic-access: agentic-access/astronomer-agentic-access.yml
+- target: $.info
+  update:
+    x-apievangelist-rate-limits:
+      per_token: true
+      GET: 25/s
+      POST: 10/s
+      DELETE: 5/s
+      source: https://www.astronomer.io/docs/astro/api/overview
+- target: $.info
+  update:
+    x-apievangelist-versioning:
+      scheme: major-in-path + X-API-Version header for minor
+      current: v1
+      deprecated: v1beta1 (end of support 2027-01)

@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/astronomer-astro-openapi-original.yml
+skills:
+- file: astronomer-provision-deployment.md
+  name: Provision an Astro Deployment in a Workspace
+  api: openapi/astronomer-astro-openapi-original.yml
+  operations: [ListOrganizations, CreateWorkspace, GetClusterOptions, GetDeploymentOptions, CreateDeployment, GetDeployment]
+- file: astronomer-deploy-to-deployment.md
+  name: Deploy an image or DAGs to a Deployment
+  api: openapi/astronomer-astro-openapi-original.yml
+  operations: [ListDeployments, CreateDeploy, FinalizeDeploy, GetDeploy, DeployRollback]
+- file: astronomer-manage-api-tokens.md
+  name: Create, scope, rotate, and revoke API tokens
+  api: openapi/astronomer-astro-openapi-original.yml
+  operations: [ListApiTokens, CreateApiToken, UpdateApiTokenRoles, RotateApiToken, DeleteApiToken]
+- file: astronomer-manage-teams-rbac.md
+  name: Manage Teams, membership, and RBAC roles
+  api: openapi/astronomer-astro-openapi-original.yml
+  operations: [ListRoles, CreateTeam, AddTeamMembers, UpdateTeamRoles, ListPermissionGroups]

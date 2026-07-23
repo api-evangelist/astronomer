@@ -1,0 +1,49 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  https://www.astronomer.io/docs/astro/api/overview +
+  openapi/astronomer-astro-openapi-original.yml
+authentication:
+  style: bearer
+  scheme: "Authorization: Bearer <token>"
+  token_types: [Organization API token, Workspace API token, Deployment API token]
+  ref: authentication/astronomer-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    The Astro Platform API does not document an Idempotency-Key header, and none
+    appears in the OpenAPI. Creates are not idempotent; retry POSTs with care.
+pagination:
+  style: offset-limit
+  request_params:
+    offset: Zero-based item offset.
+    limit: Maximum number of items to return per page.
+    sorts: Sort expression(s) for ordering results.
+  response_fields:
+    limit: Echo of the applied limit.
+    offset: Echo of the applied offset.
+    totalCount: Total number of matching items across all pages.
+  notes: >-
+    List responses wrap results in a typed envelope (e.g. DeploymentsPaginated,
+    WorkspacesPaginated) carrying limit, offset, and totalCount.
+versioning:
+  scheme: major-in-path (v1) with X-API-Version header for minor pinning
+  ref: lifecycle/astronomer-lifecycle.yml
+error_envelope:
+  media_type: application/json
+  shape: {message, requestId, statusCode, fieldErrors}
+  request_id_field: requestId
+  ref: errors/astronomer-problem-types.yml
+rate_limiting:
+  per_token: true
+  limits:
+    GET: 25 requests/second
+    POST: 10 requests/second
+    DELETE: 5 requests/second
+  source: https://www.astronomer.io/docs/astro/api/overview
+resource_hierarchy:
+  notes: >-
+    Most endpoints are nested under an Organization
+    (/organizations/{organizationId}/...) and further under Workspaces,
+    Deployments, and Clusters. IDs are opaque CUID-style strings (e.g.
+    clma5y9hu000208k2aumf7pbd).

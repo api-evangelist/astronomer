@@ -1,0 +1,813 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken User API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- description: The `user` object represents a user account in your Astro Organization. Astro creates a new `user` object whenever you invite a user by email or add a user to Astro through an identity provider. The object contains all information about a user, including their personal information, roles, and login attempts. It doesn't include attributes for actions that the user completes after they log in, such as updating a Deployment. Make requests to `user` endpoints to manage permissions for existing users both at the Organization and Workspace level. To create new users, make requests to `invite` endpoints instead.
+  name: User
+paths:
+  /organizations/{organizationId}/users:
+    get:
+      description: List users in an Organization or a specific Workspace within an Organization.
+      operationId: ListUsers
+      parameters:
+      - description: The ID of the Organization to list users for.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The ID of the Workspace to filter the list of users for. When specified, the API returns only users belonging to the specified Workspace.
+        in: query
+        name: workspaceId
+        schema:
+          type: string
+      - description: The ID of the Deployment to filter the list of users for. When specified, the API returns only users belonging to the specified Deployment.
+        in: query
+        name: deploymentId
+        schema:
+          type: string
+      - description: The ID of the DAG to filter the list of users for. When specified, the API returns only users belonging to the specified DAG.
+        in: query
+        name: dagId
+        schema:
+          type: string
+      - description: The Tags of the DAG to filter the list of users for. When specified, the API returns users belonging to the specified DAG tags.
+        in: query
+        name: dagTags
+        schema:
+          items:
+            type: string
+          type: array
+      - description: Offset for pagination
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: Limit for pagination
+        in: query
+        name: limit
+        schema:
+          default: 20
+          maximum: 1000
+          minimum: 0
+          type: integer
+      - description: Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'
+        in: query
+        name: sorts
+        schema:
+          items:
+            enum:
+            - id:asc
+            - id:desc
+            - username:asc
+            - username:desc
+            - fullName:asc
+            - fullName:desc
+            - createdAt:asc
+            - createdAt:desc
+            - updatedAt:asc
+            - updatedAt:desc
+            type: string
+          type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersPaginated'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List users in an Organization
+      tags:
+      - User
+      x-permission:
+      - action: organization.users.get
+  /organizations/{organizationId}/users/{userId}:
+    get:
+      description: Retrieve user information about a specific user account.
+      operationId: GetUser
+      parameters:
+      - description: The ID of the Organization to which the user belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The user's ID.
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get user information
+      tags:
+      - User
+      x-permission:
+      - action: organization.users.get
+  /organizations/{organizationId}/users/{userId}/roles:
+    post:
+      description: Update Organization and Workspace roles for a user.
+      operationId: UpdateUserRoles
+      parameters:
+      - description: The ID of the Organization to which the user belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The user's ID
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRolesRequest'
+        description: The request body for updating the user's roles
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubjectRoles'
+          description: The response body containing the user's roles
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Update a user's roles
+      tags:
+      - User
+      x-permission:
+      - action: organization.userRoles.access
+  /organizations/{organizationId}/users/{userId}/teams:
+    get:
+      description: List the teams a user belongs to within an Organization.
+      operationId: ListUserTeams
+      parameters:
+      - description: The ID of the Organization.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The user's ID.
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+      - description: Offset for pagination
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: Limit for pagination
+        in: query
+        name: limit
+        schema:
+          default: 20
+          maximum: 1000
+          minimum: 0
+          type: integer
+      - description: Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'
+        in: query
+        name: sorts
+        schema:
+          items:
+            enum:
+            - name:asc
+            - name:desc
+            - description:asc
+            - description:desc
+            - createdAt:asc
+            - createdAt:desc
+            - updatedAt:asc
+            - updatedAt:desc
+            type: string
+          type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserTeamsPaginated'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List teams for a user
+      tags:
+      - User
+      x-permission:
+      - action: organization.teams.get
+  /users/self:
+    get:
+      description: Get the authenticated user's profile and roles.
+      operationId: GetSelfUser
+      parameters:
+      - description: Create the user if they don't already exist.
+        in: query
+        name: createIfNotExist
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfUser'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get current user
+      tags:
+      - User
+components:
+  schemas:
+    UserTeamMembership:
+      properties:
+        dagRoles:
+          description: The Team's role in each DAG it belongs to.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: The Team's role in each Deployment it belongs to.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        description:
+          description: The Team's description.
+          example: My Team description
+          type: string
+        id:
+          description: The Team's ID.
+          example: clma5ftgk000008mhgev00k7d
+          type: string
+        isIdpManaged:
+          description: Whether the Team is managed by an identity provider (IdP).
+          example: false
+          type: boolean
+        name:
+          description: The Team's name.
+          example: My Team
+          type: string
+        organizationRole:
+          description: The Team's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
+        rolesCount:
+          description: The number of roles the Team has.
+          example: 1
+          type: integer
+        workspaceRoles:
+          description: The Team's role in each Workspace it belongs to.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      required:
+      - id
+      - isIdpManaged
+      - name
+      - organizationRole
+      type: object
+    UsersPaginated:
+      properties:
+        limit:
+          description: The maximum number of users in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of users.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of users.
+          example: 100
+          type: integer
+        users:
+          description: The list of users in the current page.
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+      required:
+      - limit
+      - offset
+      - totalCount
+      - users
+      type: object
+    SelfUserFeatureFlag:
+      properties:
+        key:
+          description: The feature flag key.
+          type: string
+        value:
+          description: The feature flag value.
+          type: boolean
+      required:
+      - key
+      - value
+      type: object
+    UserTeamsPaginated:
+      properties:
+        limit:
+          description: The maximum number of teams in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page.
+          example: 0
+          type: integer
+        teams:
+          description: The list of teams the user belongs to in the current page.
+          items:
+            $ref: '#/components/schemas/UserTeamMembership'
+          type: array
+        totalCount:
+          description: The total number of teams.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - teams
+      - totalCount
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    SelfUserRoleScope:
+      properties:
+        dagTag:
+          description: The DAG tag (only for DAG tag-scoped roles).
+          type: string
+        deploymentId:
+          description: The Deployment ID (only for DAG-scoped roles).
+          type: string
+        entityId:
+          description: The ID of the scoped entity.
+          type: string
+        type:
+          description: The scope type (e.g. ORGANIZATION, WORKSPACE, DEPLOYMENT, DAG).
+          type: string
+      required:
+      - entityId
+      - type
+      type: object
+    SelfUserRole:
+      properties:
+        role:
+          description: The role name.
+          type: string
+        scope:
+          $ref: '#/components/schemas/SelfUserRoleScope'
+      required:
+      - role
+      - scope
+      type: object
+    User:
+      properties:
+        avatarUrl:
+          description: The URL for the user's profile image.
+          example: https://avatar.url
+          type: string
+        createdAt:
+          description: The time when the user was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        dagRoles:
+          description: The user's DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: The user's Deployment roles.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        fullName:
+          description: The user's full name.
+          example: Jane Doe
+          type: string
+        id:
+          description: The user's ID.
+          example: clm9sq6s0000008kz7uvl7yz7
+          type: string
+        organizationRole:
+          description: The user's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
+        status:
+          description: The user's status.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PENDING
+          - BANNED
+          example: ACTIVE
+          type: string
+        updatedAt:
+          description: The time when the user was updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        username:
+          description: The user's username.
+          example: user1@company.com
+          type: string
+        workspaceRoles:
+          description: The user's Workspace roles.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      required:
+      - avatarUrl
+      - createdAt
+      - fullName
+      - id
+      - status
+      - updatedAt
+      - username
+      type: object
+    SelfUserInvite:
+      properties:
+        expiresAt:
+          description: The time when the invite expires.
+          format: date-time
+          type: string
+        inviteId:
+          description: The invite ID.
+          type: string
+        organizationId:
+          description: The Organization ID.
+          type: string
+      required:
+      - expiresAt
+      - inviteId
+      - organizationId
+      type: object
+    DeploymentRole:
+      properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
+    UpdateUserRolesRequest:
+      properties:
+        dagRoles:
+          description: The user's updated DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: The user's updated Deployment roles. Requires also specifying an `OrganizationRole`.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The user's updated Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: The user's updated Workspace roles. Requires also specifying an `OrganizationRole`.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
+    SelfUser:
+      properties:
+        avatarUrl:
+          description: The URL for the user's profile image.
+          type: string
+        createdAt:
+          description: The time when the user was created.
+          format: date-time
+          type: string
+        featureFlags:
+          description: The user's feature flags.
+          items:
+            $ref: '#/components/schemas/SelfUserFeatureFlag'
+          type: array
+        fullName:
+          description: The user's full name.
+          type: string
+        id:
+          description: The user's ID.
+          type: string
+        invites:
+          description: The user's pending Organization invites.
+          items:
+            $ref: '#/components/schemas/SelfUserInvite'
+          type: array
+        isIdpManaged:
+          description: Whether the user is managed by an identity provider.
+          type: boolean
+        organizationId:
+          description: The user's primary Organization ID.
+          type: string
+        roles:
+          description: The user's roles across all scopes.
+          items:
+            $ref: '#/components/schemas/SelfUserRole'
+          type: array
+        status:
+          description: The user's status.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PENDING
+          - BANNED
+          type: string
+        updatedAt:
+          description: The time when the user was last updated.
+          format: date-time
+          type: string
+        username:
+          description: The user's username.
+          type: string
+      required:
+      - avatarUrl
+      - createdAt
+      - fullName
+      - id
+      - status
+      - updatedAt
+      - username
+      type: object
+    WorkspaceRole:
+      properties:
+        role:
+          description: The role of the subject in the Workspace.
+          enum:
+          - WORKSPACE_OWNER
+          - WORKSPACE_OPERATOR
+          - WORKSPACE_AUTHOR
+          - WORKSPACE_MEMBER
+          - WORKSPACE_ACCESSOR
+          example: WORKSPACE_MEMBER
+          type: string
+        workspaceId:
+          description: The Workspace ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+      required:
+      - role
+      - workspaceId
+      type: object
+    SubjectRoles:
+      properties:
+        dagRoles:
+          description: A list of the subject's DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: A list of the subject's Deployment roles. Currently only for API tokens.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The subject's Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: A list of the subject's Workspace roles.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
+    DagRole:
+      properties:
+        dagId:
+          description: The DAG ID. Required if Tag is not specified.
+          example: my_dag
+          type: string
+        dagTag:
+          description: The DAG tag. Required if DagId is not specified.
+          example: team-a
+          type: string
+        deploymentId:
+          description: The Deployment ID containing the DAG.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The role name (DAG_VIEWER, DAG_AUTHOR, or custom DAG role).
+          example: DAG_VIEWER
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

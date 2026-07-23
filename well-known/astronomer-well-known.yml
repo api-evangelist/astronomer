@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: searched
+source: live probes of /.well-known/ on Astronomer hosts
+hosts:
+- host: https://api.astronomer.io
+  documents:
+  - {path: /.well-known/security.txt, status: 403}
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}
+  - {path: /.well-known/api-catalog, status: 403}
+  - {path: /.well-known/ai-plugin.json, status: 403}
+- host: https://www.astronomer.io
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://astronomer.io
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+documents_found: []
+notes: >-
+  No /.well-known/ discovery documents were served. api.astronomer.io returns 403
+  for well-known paths (bot/edge protection); the marketing hosts return 404. A
+  responsible-disclosure program exists but is published as an HTML page
+  (https://www.astronomer.io/vulnerability-disclosure/), not as /.well-known/security.txt.

@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: searched
+probe: true
+source: https://trust.astronomer.io/
+url: https://trust.astronomer.io/
+certifications:
+- SOC 2
+- PCI DSS
+- GDPR
+evidence:
+- source: https://trust.astronomer.io/
+  keywords:
+  - soc 2
+  - pci dss
+  - trust center
+  - gdpr

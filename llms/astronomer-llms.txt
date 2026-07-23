@@ -1,0 +1,49 @@
+# Astronomer Documentation
+
+## Instructions for AI Agents
+
+- For clean Markdown of any page, append `.md` to the page URL
+- For section-specific indexes, append `/llms.txt` to any section URL
+- For AI client integration (Claude Code, Cursor, etc.), connect to the MCP server at https://www.astronomer.io/docs/_mcp/server
+
+## Products
+
+- [Docs Home](https://www.astronomer.io/docs/llms.txt): Fully managed data operations, powered by Apache Airflow.
+  - [Documentation Home](https://www.astronomer.io/docs.md)
+- [Astro](https://www.astronomer.io/docs/astro/llms.txt): Fully managed Apache Airflow from experts.
+  - [About Astro](https://www.astronomer.io/docs/astro/astro-architecture.md)
+  - [Features](https://www.astronomer.io/docs/astro/features.md)
+  - [Start a trial](https://www.astronomer.io/docs/astro/trial.md)
+  - [When Signing Up for Astro](https://www.astronomer.io/docs/astro/first-dag-onboarding.md)
+  - [With GitHub Actions](https://www.astronomer.io/docs/astro/first-dag-github-actions.md)
+- [Astro Private Cloud](https://www.astronomer.io/docs/astro-private-cloud/llms.txt): A better way to manage Apache Airflow yourself.
+  - [Astro Private Cloud overview](https://www.astronomer.io/docs/astro-private-cloud/v-2-x/astro-private-cloud-overview.md)
+  - [Astro Private Cloud features](https://www.astronomer.io/docs/astro-private-cloud/v-2-x/apc-features.md)
+  - [Control plane architecture](https://www.astronomer.io/docs/astro-private-cloud/v-2-x/control-plane-architecture.md)
+  - [Data plane architecture](https://www.astronomer.io/docs/astro-private-cloud/v-2-x/data-plane-architecture.md)
+  - [Unified architecture](https://www.astronomer.io/docs/astro-private-cloud/v-2-x/unified-architecture.md)
+- [Otto](/docs/astro/otto-overview/llms.txt): Astronomer's data engineering agent.
+- [Astro Runtime](https://www.astronomer.io/docs/runtime/llms.txt): The distribution of Apache Airflow that powers Astro.
+  - [Overview](https://www.astronomer.io/docs/runtime/overview.md)
+  - [Astro Runtime architecture](https://www.astronomer.io/docs/runtime/runtime-image-architecture.md)
+  - [Upgrade Astro Deployment Runtime](https://www.astronomer.io/docs/runtime/upgrade-astro-runtime.md)
+  - [Upgrade Astro Private Cloud Deployment Runtime](https://www.astronomer.io/docs/runtime/manage-airflow-versions.md)
+  - [Version upgrade considerations](https://www.astronomer.io/docs/runtime/version-upgrade-considerations.md)
+- [Astro CLI](https://www.astronomer.io/docs/astro/cli/llms.txt): Manage and configure your Astro projects.
+  - [Astro CLI](https://www.astronomer.io/docs/astro/cli/v-1-43/overview.md)
+  - [Quickstart](https://www.astronomer.io/docs/astro/cli/v-1-43/get-started-cli.md)
+  - [Install the Astro CLI](https://www.astronomer.io/docs/astro/cli/v-1-43/install-cli.md)
+  - [Uninstall the Astro CLI](https://www.astronomer.io/docs/astro/cli/v-1-43/uninstall-cli.md)
+  - [Upgrade the Astro CLI](https://www.astronomer.io/docs/astro/cli/v-1-43/upgrade-cli.md)
+- [Astro API](https://www.astronomer.io/docs/astro/api/llms.txt): Programmatic control of Astro resources and Airflow operations.
+  - [Overview](https://www.astronomer.io/docs/astro/api/v-1/overview.md)
+  - [Get started](https://www.astronomer.io/docs/astro/api/v-1/get-started.md)
+  - [Versioning and support](https://www.astronomer.io/docs/astro/api/v-1/versioning-and-support.md)
+  - [Migrate to v1](https://www.astronomer.io/docs/astro/api/v-1/migrate-v1-api.md)
+  - [Deploy with the API](https://www.astronomer.io/docs/astro/api/v-1/deploy-with-api.md)
+- [Learn](https://www.astronomer.io/docs/learn/llms.txt): Learn Apache Airflow.
+  - [Overview](https://www.astronomer.io/docs/learn/airflow-3/overview.md)
+  - [Introduction to data pipelines](https://www.astronomer.io/docs/learn/airflow-3/intro-to-data-pipelines.md)
+  - [Introduction to Airflow](https://www.astronomer.io/docs/learn/airflow-3/intro-to-airflow.md)
+  - [ETL quickstart](https://www.astronomer.io/docs/learn/airflow-3/airflow-quickstart-etl.md)
+  - [GenAI quickstart](https://www.astronomer.io/docs/learn/airflow-3/airflow-quickstart-genai.md)

@@ -1,0 +1,42 @@
+{
+  "provider": "astronomer",
+  "sources": [
+    "astronomer-agenttoken-api-openapi.yml",
+    "astronomer-allowedipaddressrange-api-openapi.yml",
+    "astronomer-apitoken-api-openapi.yml",
+    "astronomer-authorization-api-openapi.yml",
+    "astronomer-cluster-api-openapi.yml",
+    "astronomer-deploy-api-openapi.yml",
+    "astronomer-deployment-api-openapi.yml",
+    "astronomer-environment-api-openapi.yml",
+    "astronomer-invite-api-openapi.yml",
+    "astronomer-options-api-openapi.yml",
+    "astronomer-organization-api-openapi.yml",
+    "astronomer-role-api-openapi.yml",
+    "astronomer-team-api-openapi.yml",
+    "astronomer-user-api-openapi.yml",
+    "astronomer-workspace-api-openapi.yml"
+  ],
+  "outputs": [
+    "astronomer-agenttoken-api-openapi.yml",
+    "astronomer-allowedipaddressrange-api-openapi.yml",
+    "astronomer-apitoken-api-openapi.yml",
+    "astronomer-authorization-api-openapi.yml",
+    "astronomer-cluster-api-openapi.yml",
+    "astronomer-deploy-api-openapi.yml",
+    "astronomer-deployment-api-openapi.yml",
+    "astronomer-environment-api-openapi.yml",
+    "astronomer-invite-api-openapi.yml",
+    "astronomer-options-api-openapi.yml",
+    "astronomer-organization-api-openapi.yml",
+    "astronomer-role-api-openapi.yml",
+    "astronomer-team-api-openapi.yml",
+    "astronomer-user-api-openapi.yml",
+    "astronomer-workspace-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

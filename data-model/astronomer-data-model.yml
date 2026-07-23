@@ -1,0 +1,84 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/astronomer-astro-openapi-original.yml
+notes: >-
+  Entity-relationship graph derived from the Astro Platform API path hierarchy and
+  request/response schemas. IDs are opaque CUID-style strings. Organization is the
+  top-level tenant; nearly all resources are scoped beneath it.
+entities:
+- name: Organization
+  id_field: id
+  description: Top-level tenant. Root of Workspaces, Clusters, Users, Teams, Roles, and API tokens.
+  relationships:
+  - {type: has_many, target: Workspace, via: organizationId}
+  - {type: has_many, target: Cluster, via: organizationId}
+  - {type: has_many, target: Deployment, via: organizationId}
+  - {type: has_many, target: Team, via: organizationId}
+  - {type: has_many, target: ApiToken, via: organizationId}
+  - {type: has_many, target: User, via: organizationId}
+  - {type: has_many, target: Role, via: organizationId}
+- name: Workspace
+  id_field: id
+  description: A collaboration boundary grouping Deployments within an Organization.
+  relationships:
+  - {type: belongs_to, target: Organization, via: organizationId}
+  - {type: has_many, target: Deployment, via: workspaceId}
+  - {type: has_many, target: ApiToken, via: workspaceId}
+- name: Cluster
+  id_field: id
+  description: Compute infrastructure (dedicated or hybrid) that hosts Deployments.
+  relationships:
+  - {type: belongs_to, target: Organization, via: organizationId}
+  - {type: has_many, target: Deployment, via: clusterId}
+  - {type: has_many, target: AllowedIpAddressRange, via: clusterId}
+- name: Deployment
+  id_field: id
+  description: A running Airflow environment. The primary unit of orchestration.
+  relationships:
+  - {type: belongs_to, target: Workspace, via: workspaceId}
+  - {type: belongs_to, target: Cluster, via: clusterId}
+  - {type: has_many, target: Deploy, via: deploymentId}
+  - {type: has_many, target: AgentToken, via: deploymentId}
+- name: Deploy
+  id_field: id
+  description: A single image or DAG deploy event against a Deployment (supports rollback).
+  relationships:
+  - {type: belongs_to, target: Deployment, via: deploymentId}
+- name: AgentToken
+  id_field: id
+  description: Remote Execution Agent Token scoped to a Deployment.
+  relationships:
+  - {type: belongs_to, target: Deployment, via: deploymentId}
+- name: ApiToken
+  id_field: id
+  description: Bearer token scoped to an Organization or Workspace, bound to roles.
+  relationships:
+  - {type: belongs_to, target: Organization, via: organizationId}
+  - {type: has_many, target: Role, via: roles}
+- name: Team
+  id_field: id
+  description: A named group of Users, assignable to roles.
+  relationships:
+  - {type: belongs_to, target: Organization, via: organizationId}
+  - {type: has_many, target: User, via: teamMembers}
+- name: User
+  id_field: id
+  description: A member of an Organization, may belong to Teams and hold roles.
+  relationships:
+  - {type: belongs_to, target: Organization, via: organizationId}
+  - {type: has_many, target: Team, via: teams}
+- name: Role
+  id_field: id
+  description: RBAC role (template or custom) granting permission groups.
+  relationships:
+  - {type: belongs_to, target: Organization, via: organizationId}
+- name: EnvironmentObject
+  id_field: id
+  description: Environment object (e.g. connection/variable) linkable to Deployments and Workspaces.
+  relationships:
+  - {type: belongs_to, target: Workspace, via: workspaceId}
+- name: AllowedIpAddressRange
+  id_field: id
+  description: Allowed IP CIDR range for cluster/network access control.
+  relationships:
+  - {type: belongs_to, target: Cluster, via: clusterId}

@@ -1,0 +1,585 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Workspace API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- description: The `workspace` object represents an Astro Workspace, which is a collection of Deployments that can be accessed by a specific group of users. It contains metadata about a Workspace, but does not contain objects within the Workspace such as users and Deployments. Make requests to `workspace` endpoints to manage high level details about your Workspace. To manage resources within a Workspace, make requests to the endpoints related to those resources, such as `users`, and use the `workspaceIds` parameter to filter results by Workspace. See [Configure Workspaces](https://astronomer.io/docs/astro/manage-workspaces).
+  name: Workspace
+paths:
+  /organizations/{organizationId}/workspaces:
+    get:
+      description: List Workspaces in an Organization
+      operationId: ListWorkspaces
+      parameters:
+      - description: The ID of the Organization to list Workspaces for.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: A list of IDs for specific Workspaces to list. The API will list information only for Workspaces which have been specified in this list.
+        in: query
+        name: workspaceIds
+        schema:
+          items:
+            type: string
+          type: array
+      - description: A list of names for specific Workspaces to filter by. The API will list information only for Workspaces which have been specified in this list.
+        in: query
+        name: names
+        schema:
+          items:
+            type: string
+          type: array
+      - description: The number of results to skip before returning values.
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: The maximum number of results to return.
+        in: query
+        name: limit
+        schema:
+          default: 20
+          maximum: 1000
+          minimum: 0
+          type: integer
+      - description: A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`.
+        in: query
+        name: sorts
+        schema:
+          items:
+            enum:
+            - name:asc
+            - name:desc
+            - createdAt:asc
+            - createdAt:desc
+            - updatedAt:asc
+            - updatedAt:desc
+            type: string
+          type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspacesPaginated'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List Workspaces
+      tags:
+      - Workspace
+      x-permission:
+      - action: organization.workspaces.get
+    post:
+      description: Create a Workspace.
+      operationId: CreateWorkspace
+      parameters:
+      - description: The ID of the Organization to which the Workspace will belong.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWorkspaceRequest'
+        description: The request body for creating a new Workspace.
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Create Workspace
+      tags:
+      - Workspace
+      x-permission:
+      - action: organization.workspaces.create
+  /organizations/{organizationId}/workspaces/{workspaceId}:
+    delete:
+      description: Delete a Workspace.
+      operationId: DeleteWorkspace
+      parameters:
+      - description: The ID of the Organization to which the Workspace belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The Workspace's ID.
+        in: path
+        name: workspaceId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Delete Workspace
+      tags:
+      - Workspace
+      x-permission:
+      - action: workspace.delete
+    get:
+      description: Get information about a Workspace.
+      operationId: GetWorkspace
+      parameters:
+      - description: The ID of the Organization to which the Workspace belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The Workspace's ID.
+        in: path
+        name: workspaceId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get Workspace
+      tags:
+      - Workspace
+      x-permission:
+      - action: workspace.get
+    post:
+      description: Update a Workspace.
+      operationId: UpdateWorkspace
+      parameters:
+      - description: The ID of the Organization to which the Workspace belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The Workspace's ID.
+        in: path
+        name: workspaceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWorkspaceRequest'
+        description: The request body for updating a new Workspace.
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workspace'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Update Workspace
+      tags:
+      - Workspace
+      x-permission:
+      - action: workspace.settings.update
+components:
+  schemas:
+    UpdateWorkspaceRequest:
+      properties:
+        cicdEnforcedDefault:
+          description: Whether new Deployments enforce CI/CD deploys by default.
+          example: true
+          type: boolean
+        defaultCloudProvider:
+          description: The default cloud provider for new Deployments. Must be provided together with `defaultRegion`. Mutually exclusive with `defaultClusterId`.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AWS
+          type: string
+        defaultClusterId:
+          description: The ID of the default cluster for new Deployments. Mutually exclusive with `defaultCloudProvider` and `defaultRegion`.
+          example: clmh9g6zj000008mg77if5wa2
+          type: string
+        defaultRegion:
+          description: The default region for new Deployments. Must be provided together with `defaultCloudProvider`. Mutually exclusive with `defaultClusterId`.
+          example: us-east-1
+          type: string
+        description:
+          description: The Workspace's description.
+          example: This is a test workspace
+          type: string
+        name:
+          description: The Workspace's name.
+          example: My Workspace
+          maxLength: 50
+          type: string
+      required:
+      - cicdEnforcedDefault
+      - description
+      - name
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    WorkspacesPaginated:
+      properties:
+        limit:
+          description: The maximum number of workspaces that can be retrieved per page.
+          example: 0
+          type: integer
+        offset:
+          description: The offset for the current page of workspaces in the complete result.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of Workspaces in the paginated result.
+          example: 0
+          type: integer
+        workspaces:
+          description: An array of Workspace objects representing a list of workspaces.
+          items:
+            $ref: '#/components/schemas/Workspace'
+          type: array
+      required:
+      - limit
+      - offset
+      - totalCount
+      - workspaces
+      type: object
+    CreateWorkspaceRequest:
+      properties:
+        cicdEnforcedDefault:
+          description: Whether new Deployments enforce CI/CD deploys by default.
+          example: true
+          type: boolean
+        defaultCloudProvider:
+          description: The default cloud provider for new Deployments. Must be provided together with `defaultRegion`. Mutually exclusive with `defaultClusterId`.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AWS
+          type: string
+        defaultClusterId:
+          description: The ID of the default cluster for new Deployments. Mutually exclusive with `defaultCloudProvider` and `defaultRegion`.
+          example: clmh9g6zj000008mg77if5wa2
+          type: string
+        defaultRegion:
+          description: The default region for new Deployments. Must be provided together with `defaultCloudProvider`. Mutually exclusive with `defaultClusterId`.
+          example: us-east-1
+          type: string
+        description:
+          description: The Workspace's description.
+          example: This is a test workspace
+          type: string
+        name:
+          description: The Workspace's name.
+          example: My Workspace
+          maxLength: 50
+          type: string
+      required:
+      - name
+      type: object
+    Workspace:
+      properties:
+        cicdEnforcedDefault:
+          description: Whether CI/CD deploys are enforced by default.
+          example: true
+          type: boolean
+        createdAt:
+          description: The time when the Workspace was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`
+          example: '2023-09-08T12:00:00Z'
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        defaultCloudProvider:
+          description: The default cloud provider for new Deployments.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AWS
+          type: string
+        defaultClusterId:
+          description: The ID of the default cluster for new Deployments.
+          example: clmh9g6zj000008mg77if5wa2
+          type: string
+        defaultRegion:
+          description: The default region for new Deployments.
+          example: us-east-1
+          type: string
+        description:
+          description: The Workspace's description.
+          example: This is a test workspace
+          type: string
+        id:
+          description: The Workspace's ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+        name:
+          description: The Workspace's name.
+          example: My Workspace
+          type: string
+        organizationId:
+          description: The ID of the organization to which the workspace belongs.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+        organizationName:
+          description: The name of the Organization to which the Workspace belongs.
+          example: My Organization
+          type: string
+        updatedAt:
+          description: The time when the Workspace was updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`
+          example: '2023-09-08T13:30:00Z'
+          format: date-time
+          type: string
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+      required:
+      - cicdEnforcedDefault
+      - createdAt
+      - id
+      - name
+      - organizationId
+      - updatedAt
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

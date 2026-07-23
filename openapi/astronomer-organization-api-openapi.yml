@@ -1,0 +1,605 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Organization API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- description: The `organization` object contains the metadata and configurations of an Astro Organization. It does not include objects within the Organization, such as users and clusters. Make requests to `organization` endpoints to view and update high level settings for your Organization, including settings related to authentication and billing. To manage resources within an Organization, make requests to the endpoints related to those resources, such as `users`. See [Billing](https://astronomer.io/docs/astro/manage-billing), [Set up single sign-on](https://astronomer.io/docs/astro/configure-idp), and [Manage domains](https://astronomer.io/docs/astro/manage-domains).
+  name: Organization
+paths:
+  /organizations:
+    get:
+      description: List the details about all Organizations that you have access to. Requires using a personal access token (PAT) for authentication.
+      operationId: ListOrganizations
+      parameters:
+      - description: Filters the Organization list by product plan.
+        in: query
+        name: productPlan
+        schema:
+          enum:
+          - TRIAL
+          - BASIC
+          - STANDARD
+          - PREMIUM
+          - BUSINESS_CRITICAL
+          type: string
+      - description: filter by astronomer product, should be one of ASTRO
+        in: query
+        name: astronomerProduct
+        schema:
+          enum:
+          - ASTRO
+          type: string
+      - description: Filters the Organization list by product.
+        in: query
+        name: product
+        schema:
+          enum:
+          - HOSTED
+          - HYBRID
+          type: string
+      - description: The number of results to skip before returning values.
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: The maximum number of results to return.
+        in: query
+        name: limit
+        schema:
+          default: 20
+          maximum: 1000
+          minimum: 0
+          type: integer
+      - description: A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`.
+        in: query
+        name: sorts
+        schema:
+          items:
+            enum:
+            - name:asc
+            - name:desc
+            - createdAt:asc
+            - createdAt:desc
+            - updatedAt:asc
+            - updatedAt:desc
+            type: string
+          type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationsPaginated'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List Organizations
+      tags:
+      - Organization
+  /organizations/{organizationId}:
+    get:
+      description: Retrieve information about a specific Organization.
+      operationId: GetOrganization
+      parameters:
+      - description: The Organization's ID.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: Whether to show only Organization metadata.
+        in: query
+        name: isLookUpOnly
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get an Organization
+      tags:
+      - Organization
+      x-permission:
+      - action: organization.get
+    post:
+      description: Update an Organization's details.
+      operationId: UpdateOrganization
+      parameters:
+      - description: The Organization's ID.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationRequest'
+        description: The request body for updating the Organization.
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Update an Organization
+      tags:
+      - Organization
+      x-permission:
+      - action: organization.settings.update
+  /organizations/{organizationId}/audit-logs:
+    get:
+      description: Retrieve logs across a specified time period for an Organization.
+      operationId: GetOrganizationAuditLogs
+      parameters:
+      - description: The ID of the Organization to retrieve audit logs for.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The start date of the logs.
+        in: query
+        name: startDate
+        schema:
+          format: date-time
+          type: string
+      - description: The end date of the logs.
+        in: query
+        name: endDate
+        schema:
+          format: date-time
+          type: string
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                items:
+                  type: integer
+                type: array
+          description: OK
+        '400':
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get Organization audit logs
+      tags:
+      - Organization
+      x-permission:
+      - action: organization.auditLogs.get
+components:
+  schemas:
+    UpdateOrganizationRequest:
+      properties:
+        allowEnhancedSupportAccess:
+          example: false
+          type: boolean
+        billingEmail:
+          description: The Organization's billing email.
+          example: billing@company.com
+          type: string
+        hasAiFeaturesDisabled:
+          example: false
+          type: boolean
+        isScimEnabled:
+          description: Whether SCIM is enabled for the Organization.
+          example: false
+          type: boolean
+        name:
+          description: The name of the Organization.
+          example: My Organization
+          maxLength: 50
+          type: string
+        shouldEnforceDedicatedClusters:
+          type: boolean
+      required:
+      - billingEmail
+      - isScimEnabled
+      - name
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    ManagedDomain:
+      properties:
+        createdAt:
+          description: The time when the domain was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          format: date-time
+          type: string
+        enforcedLogins:
+          description: A list of login types that are enforced for users belonging to the domain.
+          example:
+          - password
+          items:
+            type: string
+          type: array
+        id:
+          description: The managed domain's ID.
+          example: cln203mz7000008jv0jyz9m3y
+          type: string
+        name:
+          description: The managed domain's name/ URL.
+          example: mycompany.com
+          type: string
+        organizationId:
+          description: The ID of the Organization to which the managed domain belongs.
+          example: cln204xr2000008mu3hhe3zwe
+          type: string
+        status:
+          description: Whether the managed domain has completed the verification process.
+          enum:
+          - PENDING
+          - VERIFIED
+          type: string
+        updatedAt:
+          description: The time when the domain was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - id
+      - name
+      - organizationId
+      - status
+      - updatedAt
+      type: object
+    OrganizationProductPlan:
+      properties:
+        astronomerProduct:
+          enum:
+          - ASTRO
+          type: string
+        organizationId:
+          type: string
+        productPlanId:
+          type: string
+        productPlanName:
+          enum:
+          - INACTIVE
+          - INTERNAL
+          - POV
+          - TRIAL
+          - BASIC
+          - BASIC_PAYGO
+          - TEAM_PAYGO
+          - STANDARD
+          - PREMIUM
+          - BUSINESS_CRITICAL
+          - BUSINESS
+          - TEAM
+          - ENTERPRISE
+          - DEVELOPER
+          - DEVELOPER_PAYGO
+          - TEAM_V2
+          - BUSINESS_V2
+          - ENTERPRISE_V2
+          - TRIAL_V2
+          - ENTERPRISE_BUSINESS_CRITICAL
+          - IBM_ENTERPRISE
+          example: BUSINESS_CRITICAL
+          type: string
+      required:
+      - astronomerProduct
+      - organizationId
+      - productPlanId
+      - productPlanName
+      type: object
+    Organization:
+      properties:
+        allowEnhancedSupportAccess:
+          description: Whether the organization allows CRE to have view access to their entities
+          type: boolean
+        billingEmail:
+          description: The Organization's billing email.
+          example: billing@company.com
+          type: string
+        createdAt:
+          description: The time when the Organization was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        hasAiFeaturesDisabled:
+          type: boolean
+        hasAllowedIpAddressRanges:
+          description: Whether the Organization has at least one IP address range configured.
+          example: false
+          type: boolean
+        id:
+          description: The Organization's ID.
+          example: clmaxoarx000008l2c5ayb9pt
+          type: string
+        isBlockedEnableAiFeatures:
+          example: false
+          type: boolean
+        isScimEnabled:
+          description: Whether SCIM is enabled for the Organization.
+          example: false
+          type: boolean
+        managedDomains:
+          description: The list of managed domains configured in the Organization.
+          items:
+            $ref: '#/components/schemas/ManagedDomain'
+          type: array
+        name:
+          description: The Organization's name.
+          example: My organization
+          type: string
+        paymentMethod:
+          description: The Organization's payment method.
+          enum:
+          - CREDIT_CARD
+          - INVOICE
+          - AWS_MARKETPLACE
+          - AZURE_MARKETPLACE
+          - GCP_MARKETPLACE
+          - SNOWFLAKE_MARKETPLACE
+          example: CREDIT_CARD
+          type: string
+        product:
+          description: The Organization's product type.
+          enum:
+          - HOSTED
+          - HYBRID
+          example: HOSTED
+          type: string
+        productPlans:
+          items:
+            $ref: '#/components/schemas/OrganizationProductPlan'
+          type: array
+        shouldEnforceDedicatedClusters:
+          type: boolean
+        status:
+          description: The Organization's status.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - SUSPENDED
+          example: ACTIVE
+          type: string
+        trialExpiresAt:
+          description: The time when the Organization's trial expires in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`. Organizations that are no longer in Trial will not have a expiry date.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        updatedAt:
+          description: The time when the Organization was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+      required:
+      - allowEnhancedSupportAccess
+      - createdAt
+      - createdBy
+      - hasAllowedIpAddressRanges
+      - id
+      - isBlockedEnableAiFeatures
+      - isScimEnabled
+      - name
+      - productPlans
+      - shouldEnforceDedicatedClusters
+      - updatedAt
+      - updatedBy
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    OrganizationsPaginated:
+      properties:
+        limit:
+          description: The maximum number of Organizations in the page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the Organizations in the page.
+          example: 0
+          type: integer
+        organizations:
+          description: The list of Organizations in the page.
+          items:
+            $ref: '#/components/schemas/Organization'
+          type: array
+        totalCount:
+          description: The total number of Organizations.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - organizations
+      - totalCount
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

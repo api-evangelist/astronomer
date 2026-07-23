@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Authorization API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- name: Authorization
+paths:
+  /authorization/permission-groups:
+    get:
+      description: List the available permissions you can grant to a custom role.
+      operationId: ListPermissionGroups
+      parameters:
+      - description: Filter the returned permissions based on the scope they apply to. Note that currently, the only available permissions are in the `DEPLOYMENT` and `DAG` scopes.
+        in: query
+        name: scopeType
+        schema:
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          - DAG
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PermissionGroup'
+                type: array
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List authorization permission groups
+      tags:
+      - Authorization
+components:
+  schemas:
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    PermissionEntry:
+      properties:
+        action:
+          description: The permission's action.
+          example: get
+          type: string
+        description:
+          description: The permission's description.
+          example: Subject is permitted to get the scope.
+          type: string
+      required:
+      - action
+      - description
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    PermissionGroup:
+      properties:
+        description:
+          description: The permission group's description.
+          example: Astro notification channel defines where alert messages can be sent. For example, alert messages issued via email or slack.
+          type: string
+        name:
+          description: The permission group's name.
+          example: workspace.notificationChannels
+          type: string
+        permissions:
+          description: The permission group's permissions.
+          items:
+            $ref: '#/components/schemas/PermissionEntry'
+          type: array
+        scope:
+          description: The permission group's scope.
+          example: Workspace NotificationChannels
+          type: string
+      required:
+      - description
+      - name
+      - permissions
+      - scope
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

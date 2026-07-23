@@ -1,0 +1,28 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.astronomer.io/docs/astro/api/v-1/v1/changelog
+scheme: dated-entries + version-level (major.minor)
+current_version: v1
+notes: >-
+  The Astro Platform API publishes a dated changelog for the GA v1 API (and a
+  separate one for the deprecated v1beta1). Entries below are the recent window
+  captured from the live changelog and the GA announcement; see the source for the
+  authoritative full history.
+entries:
+- date: '2026-07-01'
+  type: additions
+  highlights:
+  - Dated changelog entry published for the v1 Astro Platform API.
+- date: '2026-06-04'
+  type: additions
+  highlights:
+  - Dated changelog entry published for the v1 Astro Platform API.
+- date: '2026-01-28'
+  version: v1
+  type: release
+  highlights:
+  - Astro API v1 reached General Availability under standard Astronomer support SLAs.
+  - Support for creating the Remote Execution Agent Token via the API (previously UI-only).
+  - Astro API support for Airflow 3 Deployments.
+  - New endpoints for managing deploys — image deploys, DAG deploys, and deploy rollbacks.
+  - Alerts and notification channels manageable through the API.

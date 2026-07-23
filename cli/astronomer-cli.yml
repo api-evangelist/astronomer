@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.astronomer.io/docs/astro/cli/overview
+name: astro
+binary: astro
+repo: https://github.com/astronomer/astro-cli
+docs: https://www.astronomer.io/docs/astro/cli/overview
+current_version_series: v1.43
+description: >-
+  The Astro CLI is Astronomer's first-party command-line tool for developing,
+  testing, and deploying Apache Airflow projects to Astro. It runs Airflow locally
+  in Docker, scaffolds projects, and deploys images/DAGs to Astro Deployments.
+install:
+  homebrew: brew install astro
+  curl: curl -sSL https://install.astronomer.io | sudo bash -s
+  winget: winget install -e --id Astronomer.Astro
+command_groups:
+- name: dev
+  summary: Build and run an Airflow environment locally in Docker (start, stop, restart, logs, pytest, parse)
+- name: deploy
+  summary: Deploy a project (image and/or DAGs) to an Astro Deployment
+- name: deployment
+  summary: Manage Astro Deployments (create, list, update, delete, logs, variable, worker-queue, hibernate)
+- name: workspace
+  summary: Manage and switch between Workspaces
+- name: organization
+  summary: Manage and switch between Organizations
+- name: login
+  summary: Authenticate the CLI to Astro (browser OAuth or API token)
+- name: logout
+  summary: Log out of the current Astro session
+- name: config
+  summary: Manage local project and global CLI configuration
+- name: dbt
+  summary: Manage and deploy dbt projects to Astro
+- name: run
+  summary: Run an Airflow DAG locally in the container
+- name: registry
+  summary: Pull DAGs, providers, and modules from the Astronomer Registry
+key_flows:
+- Local development: astro dev init then astro dev start to run Airflow in Docker
+- Deploy: astro deploy to push an image or astro deploy --dags for a DAG-only deploy
+- Auth: astro login (browser) or astro login with an API token for CI/CD

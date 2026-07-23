@@ -1,0 +1,1133 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Cluster API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- description: A `cluster` object represents an Astro cluster, which is a Kubernetes cluster that hosts the infrastructure required to run Deployments. Make requests to `cluster` endpoints to manage your standard and dedicated clusters. See [Create a dedicated cluster](https://astronomer.io/docs/astro/create-dedicated-cluster).
+  name: Cluster
+paths:
+  /organizations/{organizationId}/clusters:
+    get:
+      description: List clusters in an Organization.
+      operationId: ListClusters
+      parameters:
+      - description: The Organization's unique ID.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: A list of names for Clusters to filter by. The API returns details only for the specified Clusters.
+        in: query
+        name: names
+        schema:
+          items:
+            type: string
+          type: array
+      - description: The cloud provider to list clusters for. Clusters from other providers will be filtered out of the results.
+        in: query
+        name: provider
+        schema:
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          type: string
+      - description: The number of results to skip before returning values.
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: The maximum number of results to return.
+        in: query
+        name: limit
+        schema:
+          default: 20
+          maximum: 1000
+          minimum: 0
+          type: integer
+      - description: A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`.
+        in: query
+        name: sorts
+        schema:
+          items:
+            enum:
+            - name:asc
+            - name:desc
+            - createdAt:asc
+            - createdAt:desc
+            - updatedAt:asc
+            - updatedAt:desc
+            type: string
+          type: array
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClustersPaginated'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: List clusters
+      tags:
+      - Cluster
+      x-permission:
+      - action: organization.clusters.get
+    post:
+      description: Create a cluster in the Organization. An Astro cluster is a Kubernetes cluster that hosts the infrastructure required to run Deployments.
+      operationId: CreateCluster
+      parameters:
+      - description: The ID of the Organization to create the cluster in.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClusterRequest'
+        description: The request body for creating a cluster
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '412':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Precondition Failed
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Create a cluster
+      tags:
+      - Cluster
+      x-permission:
+      - action: organization.clusters.create
+  /organizations/{organizationId}/clusters/{clusterId}:
+    delete:
+      description: Delete a cluster.
+      operationId: DeleteCluster
+      parameters:
+      - description: The ID of the Organization to which the cluster belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The cluster's ID.
+        in: path
+        name: clusterId
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Delete a cluster
+      tags:
+      - Cluster
+      x-permission:
+      - action: organization.clusters.delete
+    get:
+      description: Retrieve details about a cluster.
+      operationId: GetCluster
+      parameters:
+      - description: The ID of the Organization to which the cluster belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The cluster's ID.
+        in: path
+        name: clusterId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get a cluster
+      tags:
+      - Cluster
+      x-permission:
+      - action: organization.clusters.get
+    post:
+      description: Update a cluster in the Organization.
+      operationId: UpdateCluster
+      parameters:
+      - description: The ID of the Organization to which the cluster belongs.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The cluster's ID
+        in: path
+        name: clusterId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClusterRequest'
+        description: The request body for updating the cluster
+        required: true
+        x-originalParamName: body
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '412':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Precondition Failed
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Update a cluster
+      tags:
+      - Cluster
+      x-permission:
+      - action: organization.clusters.update
+components:
+  schemas:
+    ClusterMetadata:
+      properties:
+        externalIPs:
+          description: External IPs of the cluster.
+          example:
+          - 35.100.100.1
+          items:
+            type: string
+          type: array
+        kubeDnsIp:
+          description: The IP address of the kube-dns service.
+          example: 10.100.100.0
+          type: string
+        oidcIssuerUrl:
+          description: OIDC issuer URL for the cluster
+          example: https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/
+          type: string
+      type: object
+    ClusterK8sTag:
+      properties:
+        key:
+          description: The tag's key.
+          example: key1
+          type: string
+        value:
+          description: The tag's value.
+          example: value1
+          type: string
+      type: object
+    CreateNodePoolRequest:
+      properties:
+        isDefault:
+          description: Whether the node pool is the default node pool of the cluster.
+          example: true
+          type: boolean
+        maxNodeCount:
+          description: The maximum number of nodes that can be created in the node pool.
+          example: 10
+          type: integer
+        name:
+          description: The name of the node pool.
+          example: my-nodepool
+          type: string
+        nodeInstanceType:
+          description: The type of node instance that is used for the node pool.
+          example: t3.medium
+          type: string
+      required:
+      - maxNodeCount
+      - name
+      - nodeInstanceType
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    CreateAzureClusterRequest:
+      properties:
+        cloudProvider:
+          description: The cluster's cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AZURE
+          type: string
+        dbInstanceType:
+          description: The type of database instance that is used for the cluster. Required for Hybrid clusters.
+          example: Small General Purpose
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery.
+          example: us-west-2
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
+          example: 172.20.0.0/22
+          type: string
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
+          type: boolean
+        k8sTags:
+          description: The Kubernetes tags in the cluster.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        name:
+          description: The cluster's name.
+          example: My cluster
+          type: string
+        nodePools:
+          description: The list of node pools to create in the cluster.
+          items:
+            $ref: '#/components/schemas/CreateNodePoolRequest'
+          type: array
+        providerAccount:
+          description: The provider account ID. Required for Hybrid clusters.
+          example: provider-account
+          type: string
+        region:
+          description: The cluster's region.
+          example: us-east-1
+          type: string
+        tenantId:
+          description: The tenant ID. For Azure clusters only.
+          example: 82ab587e-33f8-47a2-8909-b9269551d45c
+          type: string
+        type:
+          description: The cluster's type.
+          enum:
+          - DEDICATED
+          - HYBRID
+          example: DEDICATED
+          type: string
+        vpcSubnetRange:
+          description: The VPC subnet range.
+          example: 172.20.0.0/22
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster.
+          items:
+            type: string
+          type: array
+      required:
+      - cloudProvider
+      - name
+      - region
+      - type
+      - vpcSubnetRange
+      type: object
+    UpdateNodePoolRequest:
+      properties:
+        id:
+          description: The node pool's ID.
+          example: clm8bvk8b000008l9deowc5lx
+          type: string
+        isDefault:
+          description: Whether the node pool is the default node pool of the cluster.
+          example: true
+          type: boolean
+        maxNodeCount:
+          description: The maximum number of nodes that can be created in the node pool.
+          example: 10
+          type: integer
+        name:
+          description: The name of the node pool.
+          example: my-nodepool
+          type: string
+        nodeInstanceType:
+          description: The type of node instance that is used for the node pool.
+          example: t3.medium
+          type: string
+      required:
+      - maxNodeCount
+      - name
+      - nodeInstanceType
+      type: object
+    CreateClusterRequest:
+      discriminator:
+        mapping:
+          AWS: '#/components/schemas/CreateAwsClusterRequest'
+          AZURE: '#/components/schemas/CreateAzureClusterRequest'
+          GCP: '#/components/schemas/CreateGcpClusterRequest'
+        propertyName: cloudProvider
+      oneOf:
+      - $ref: '#/components/schemas/CreateAwsClusterRequest'
+      - $ref: '#/components/schemas/CreateAzureClusterRequest'
+      - $ref: '#/components/schemas/CreateGcpClusterRequest'
+      type: object
+    CreateGcpClusterRequest:
+      properties:
+        cloudProvider:
+          description: The cluster's cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AZURE
+          type: string
+        dbInstanceType:
+          description: The type of database instance that is used for the cluster. Required for Hybrid clusters.
+          example: Small General Purpose
+          type: string
+        drPodSubnetRange:
+          description: The disaster recovery subnet range for Pods. For GCP clusters only.
+          example: 172.21.0.0/19
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery.
+          example: us-west-2
+          type: string
+        drServicePeeringRange:
+          description: The disaster recovery service peering range. For GCP clusters only.
+          example: 172.23.0.0/20
+          type: string
+        drServiceSubnetRange:
+          description: The disaster recovery service subnet range. For GCP clusters only.
+          example: 172.22.0.0/22
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
+          example: 172.20.0.0/22
+          type: string
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
+          type: boolean
+        k8sTags:
+          description: The Kubernetes tags in the cluster.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        name:
+          description: The cluster's name.
+          example: My cluster
+          type: string
+        nodePools:
+          description: The list of node pools to create in the cluster.
+          items:
+            $ref: '#/components/schemas/CreateNodePoolRequest'
+          type: array
+        podSubnetRange:
+          description: The subnet range for Pods. For GCP clusters only.
+          example: 172.21.0.0/19
+          type: string
+        providerAccount:
+          description: The provider account ID. Required for Hybrid clusters.
+          example: provider-account
+          type: string
+        region:
+          description: The cluster's region.
+          example: us-east-1
+          type: string
+        servicePeeringRange:
+          description: The service subnet range. For GCP clusters only.
+          example: 172.23.0.0/20
+          type: string
+        serviceSubnetRange:
+          description: The service peering range. For GCP clusters only.
+          example: 172.22.0.0/22
+          type: string
+        type:
+          description: The cluster's type.
+          enum:
+          - DEDICATED
+          - HYBRID
+          example: DEDICATED
+          type: string
+        vpcSubnetRange:
+          description: The VPC subnet range.
+          example: 172.20.0.0/22
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster.
+          items:
+            type: string
+          type: array
+      required:
+      - cloudProvider
+      - name
+      - podSubnetRange
+      - region
+      - servicePeeringRange
+      - serviceSubnetRange
+      - type
+      - vpcSubnetRange
+      type: object
+    CreateAwsClusterRequest:
+      properties:
+        cloudProvider:
+          description: The cluster's cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AZURE
+          type: string
+        dbInstanceType:
+          description: The type of database instance that is used for the cluster. Required for Hybrid clusters.
+          example: Small General Purpose
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery.
+          example: us-west-2
+          type: string
+        drSecondaryVpcCidr:
+          description: The secondary CIDR for the DR region. Defaults to the primary secondary CIDR if not specified. For AWS clusters only.
+          example: 100.64.0.0/19
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
+          example: 172.20.0.0/22
+          type: string
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
+          type: boolean
+        isPrivateNetworkEgressEnabled:
+          description: When true, enables Private Network Egress mode, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
+          type: boolean
+        k8sTags:
+          description: The Kubernetes tags in the cluster.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        name:
+          description: The cluster's name.
+          example: My cluster
+          type: string
+        nodePools:
+          description: The list of node pools to create in the cluster.
+          items:
+            $ref: '#/components/schemas/CreateNodePoolRequest'
+          type: array
+        providerAccount:
+          description: The provider account ID. Required for Hybrid clusters.
+          example: provider-account
+          type: string
+        region:
+          description: The cluster's region.
+          example: us-east-1
+          type: string
+        secondaryVpcCidr:
+          description: The secondary VPC CIDR for pods. For AWS clusters only.
+          example: 100.64.0.0/16
+          type: string
+        type:
+          description: The cluster's type.
+          enum:
+          - DEDICATED
+          - HYBRID
+          example: DEDICATED
+          type: string
+        vpcSubnetRange:
+          description: The VPC subnet range.
+          example: 172.20.0.0/22
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster.
+          items:
+            type: string
+          type: array
+      required:
+      - cloudProvider
+      - name
+      - region
+      - type
+      - vpcSubnetRange
+      type: object
+    ClusterHealthStatusDetail:
+      properties:
+        code:
+          description: The health status for a specific component.
+          type: string
+        component:
+          type: string
+        description:
+          description: A description of the component that was assessed.
+          type: string
+        severity:
+          description: The weight this component is given in overall cluster health assessment.
+          type: string
+      required:
+      - code
+      - description
+      - severity
+      type: object
+    UpdateHybridClusterRequest:
+      properties:
+        clusterType:
+          description: The cluster's type.
+          enum:
+          - HYBRID
+          example: HYBRID
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster. If this value is not provided, the existing list of Workspaces remains. If this value is '[]' then all workspace cluster mappings are removed.
+          items:
+            type: string
+          type: array
+      required:
+      - clusterType
+      type: object
+    UpdateDedicatedClusterRequest:
+      properties:
+        clusterType:
+          description: The cluster's type.
+          enum:
+          - DEDICATED
+          example: DEDICATED
+          type: string
+        dbInstanceType:
+          description: The cluster's database instance type. Required for Hybrid clusters.
+          example: Small General Purpose
+          type: string
+        drPodSubnetRange:
+          description: The disaster recovery subnet range for Pods. For GCP clusters only.
+          example: 172.21.0.0/19
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery.
+          example: us-west-2
+          type: string
+        drServicePeeringRange:
+          description: The disaster recovery service peering range. For GCP clusters only.
+          example: 172.23.0.0/20
+          type: string
+        drServiceSubnetRange:
+          description: The disaster recovery service subnet range. For GCP clusters only.
+          example: 172.22.0.0/22
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
+          example: 172.20.0.0/22
+          type: string
+        enableDr:
+          description: Set to false to disable Disaster Recovery. Enabling DR on existing clusters is only supported via the admin API.
+          type: boolean
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
+          type: boolean
+        isFailedOver:
+          description: Whether to trigger a DR failover for the cluster.
+          type: boolean
+        isPrivateNetworkEgressEnabled:
+          description: When true, enables Private Network Egress mode, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
+          type: boolean
+        k8sTags:
+          description: A list of Kubernetes tags to add to the cluster.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        name:
+          description: The cluster's name.
+          example: My cluster
+          type: string
+        nodePools:
+          description: A list of node pools to add to the cluster. For Hybrid clusters only.
+          items:
+            $ref: '#/components/schemas/UpdateNodePoolRequest'
+          type: array
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster. If this value is not provided, the existing list of Workspaces remains. If this value is '[]' then all workspace cluster mappings are removed.
+          items:
+            type: string
+          type: array
+      required:
+      - k8sTags
+      - name
+      type: object
+    Cluster:
+      properties:
+        cloudProvider:
+          description: The name of the cluster's cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AWS
+          type: string
+        createdAt:
+          description: The time when the cluster was created in UTC. formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        dbInstanceType:
+          description: The type of database instance that is used for the cluster.
+          example: db.t3.medium
+          type: string
+        drPodSubnetRange:
+          description: The disaster recovery subnet range for Pods. For GCP clusters only.
+          example: 172.21.0.0/19
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery for the cluster.
+          example: us-east-1
+          type: string
+        drSecondaryVpcCidr:
+          description: The secondary CIDR for the DR region. For AWS clusters only.
+          type: string
+        drServicePeeringRange:
+          description: The disaster recovery service peering range. For GCP clusters only.
+          example: 172.23.0.0/20
+          type: string
+        drServiceSubnetRange:
+          description: The disaster recovery service subnet range. For GCP clusters only.
+          example: 172.22.0.0/22
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region.
+          type: string
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control is enabled for DR.
+          type: boolean
+        failoverInProgress:
+          description: Whether a failover is currently in progress.
+          type: boolean
+        healthStatus:
+          $ref: '#/components/schemas/ClusterHealthStatus'
+        id:
+          description: The cluster's ID.
+          example: clm7k8tgw000008jz97i37y81
+          type: string
+        isDrEnabled:
+          description: Whether Disaster Recovery is enabled on the cluster
+          type: boolean
+        isFailedOver:
+          description: Whether the cluster is currently failed over to the DR region.
+          type: boolean
+        isLimited:
+          description: Whether the cluster is limited.
+          example: false
+          type: boolean
+        isPrivateNetworkEgressEnabled:
+          description: Whether Private Network Egress mode is enabled, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/ClusterMetadata'
+        name:
+          description: The cluster's name.
+          example: my cluster
+          type: string
+        nodePools:
+          description: The list of node pools that are created in the cluster.
+          items:
+            $ref: '#/components/schemas/NodePool'
+          type: array
+        organizationId:
+          description: The ID of the Organization that the cluster belongs to.
+          example: clm88r8hi000008jwhzxu5crg
+          type: string
+        podSubnetRange:
+          description: The subnet range for Pods. For GCP clusters only.
+          example: 172.21.0.0/19
+          type: string
+        providerAccount:
+          description: The provider account ID. For GCP clusters only.
+          example: provider-account
+          type: string
+        region:
+          description: The region in which the cluster is created.
+          example: us-east-1
+          type: string
+        secondaryVpcCidr:
+          description: The secondary VPC CIDR. For AWS clusters only.
+          type: string
+        servicePeeringRange:
+          description: The service peering range. For GCP clusters only.
+          example: 172.23.0.0/20
+          type: string
+        serviceSubnetRange:
+          description: The service subnet range. For GCP clusters only.
+          example: 172.22.0.0/22
+          type: string
+        status:
+          description: The status of the cluster.
+          enum:
+          - CREATING
+          - CREATED
+          - CREATE_FAILED
+          - UPDATE_FAILED
+          - UPDATING
+          - ACCESS_DENIED
+          - UPGRADE_PENDING
+          - FAILING_OVER
+          - FAILOVER_FAILED
+          example: CREATED
+          type: string
+        tags:
+          description: The Kubernetes tags in the cluster. For AWS Hybrid clusters only.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        tenantId:
+          description: The tenant ID. For Azure clusters only.
+          example: your-tenant-id
+          type: string
+        type:
+          description: The type of the cluster.
+          enum:
+          - DEDICATED
+          - HYBRID
+          example: DEDICATED
+          type: string
+        updatedAt:
+          description: The time when the cluster was last updated in UTC. formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        vpcSubnetRange:
+          description: The VPC subnet range.
+          example: 172.20.0.0/22
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster.
+          example:
+          - clm88rddl000108jwgeka2div
+          items:
+            type: string
+          type: array
+      required:
+      - cloudProvider
+      - createdAt
+      - dbInstanceType
+      - drRegion
+      - id
+      - isDrEnabled
+      - name
+      - organizationId
+      - region
+      - status
+      - type
+      - updatedAt
+      - vpcSubnetRange
+      type: object
+    NodePool:
+      properties:
+        cloudProvider:
+          description: The name of the cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AWS
+          type: string
+        clusterId:
+          description: The ID of the cluster that the node pool belongs to.
+          example: clm891jb6000308jrc3vjdtde
+          type: string
+        createdAt:
+          description: The time when the node pool was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        id:
+          description: The node pool's ID.
+          example: clm890zhe000208jr39dd0ubs
+          type: string
+        isDefault:
+          description: Whether the node pool is the default node pool of the cluster.
+          example: true
+          type: boolean
+        maxNodeCount:
+          description: The maximum number of nodes that can be created in the node pool.
+          example: 1
+          type: integer
+        name:
+          description: The name of the node pool.
+          example: default
+          type: string
+        nodeInstanceType:
+          description: The type of node instance that is used for the node pool.
+          example: t3.medium
+          type: string
+        supportedAstroMachines:
+          description: The list of supported Astro machines for the node pool. Returned only for Hosted dedicated clusters.
+          example:
+          - A5
+          - A10
+          items:
+            type: string
+          type: array
+        updatedAt:
+          description: The time when the node pool was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+      required:
+      - cloudProvider
+      - clusterId
+      - createdAt
+      - id
+      - isDefault
+      - maxNodeCount
+      - name
+      - nodeInstanceType
+      - updatedAt
+      type: object
+    ClustersPaginated:
+      properties:
+        clusters:
+          description: The list of clusters in the current page.
+          items:
+            $ref: '#/components/schemas/Cluster'
+          type: array
+        limit:
+          description: The maximum number of clusters in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of clusters.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of clusters.
+          example: 100
+          type: integer
+      required:
+      - clusters
+      - limit
+      - offset
+      - totalCount
+      type: object
+    UpdateClusterRequest:
+      discriminator:
+        mapping:
+          DEDICATED: '#/components/schemas/UpdateDedicatedClusterRequest'
+          HYBRID: '#/components/schemas/UpdateHybridClusterRequest'
+        propertyName: clusterType
+      oneOf:
+      - $ref: '#/components/schemas/UpdateDedicatedClusterRequest'
+      - $ref: '#/components/schemas/UpdateHybridClusterRequest'
+      type: object
+    ClusterHealthStatus:
+      properties:
+        details:
+          description: List of details supporting health assessment.
+          items:
+            $ref: '#/components/schemas/ClusterHealthStatusDetail'
+          type: array
+        value:
+          description: Overall health state (HEALTHY or UNHEALTHY).
+          enum:
+          - HEALTHY
+          - UNHEALTHY
+          - UNKNOWN
+          example: HEALTHY
+          type: string
+      required:
+      - value
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

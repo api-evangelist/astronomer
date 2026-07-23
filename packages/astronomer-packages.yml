@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  github.com/astronomer, registry.terraform.io, pypi.org, Astronomer docs SDK/CLI pages
+packages:
+- language: hcl
+  registry: terraform
+  name: astronomer/astro
+  url: https://registry.terraform.io/providers/astronomer/astro/latest
+  repo: https://github.com/astronomer/terraform-provider-astro
+  install: |
+    terraform {
+      required_providers {
+        astro = {
+          source = "astronomer/astro"
+        }
+      }
+    }
+  official: true
+  description: >-
+    Official Astro Terraform provider. Manages Workspaces, Deployments, Clusters,
+    hybrid cluster workspace authorizations, API tokens, Teams, team roles, and user
+    roles against the Astro Platform API. Requires Terraform >= 1.7.
+- language: python
+  registry: pypi
+  name: astro-sdk-python
+  url: https://pypi.org/project/astro-sdk-python/
+  repo: https://github.com/astronomer/astro-sdk
+  install: pip install astro-sdk-python
+  official: true
+  description: >-
+    Astro Python SDK for rapid, clean development of Extract-Load-Transform (ELT)
+    workflows in Apache Airflow using Python and SQL. This is a DAG-authoring SDK
+    (pipeline development), distinct from a client library for the Astro Platform
+    REST API.
+- language: go
+  registry: github
+  name: astro-cli
+  url: https://github.com/astronomer/astro-cli
+  repo: https://github.com/astronomer/astro-cli
+  install: brew install astro
+  official: true
+  description: >-
+    The Astro CLI (binary `astro`) — the primary command-line tool for building,
+    running, and deploying Astro projects and Airflow environments. Command surface
+    catalogued in cli/astronomer-cli.yml.
+notes: >-
+  Astronomer does not publish a dedicated first-party generic SDK (JS/Python/Java)
+  client for the Astro Platform REST API; the Terraform provider is the official
+  programmatic client for platform resources, and the API is otherwise consumed
+  directly over HTTP with bearer tokens. The Astro Python SDK targets DAG/ELT
+  authoring, not the platform API.

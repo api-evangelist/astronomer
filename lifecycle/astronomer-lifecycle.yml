@@ -1,0 +1,36 @@
+generated: '2026-07-18'
+method: searched
+source: >-
+  https://www.astronomer.io/docs/astro/api/v-1/versioning-and-support +
+  https://status.astronomer.io
+versioning:
+  scheme: major-in-uri-path + minor-via-header
+  current: v1
+  minor_pin_header: X-API-Version
+  default_minor: latest
+  docs: https://www.astronomer.io/docs/astro/api/v-1/versioning-and-support
+  notes: >-
+    Major version appears in the URI path (https://api.astronomer.io/v1/). Minor
+    versions can be pinned with the X-API-Version request header; requests without
+    it use the latest minor release. Breaking changes require a new major version
+    with a dedicated migration guide and deprecation timeline.
+  releases:
+  - version: v1
+    status: GA
+    released: '2026-01-28'
+  - version: v1beta1
+    status: deprecated
+    released: '2024-04'
+    end_of_support: '2027-01'
+deprecation:
+  policy_url: https://www.astronomer.io/docs/astro/api/v-1/versioning-and-support
+  migration_window: 12 months
+  notes: >-
+    v1beta1 is deprecated with a 12-month migration window to v1 before end of
+    support in January 2027. A migration guide is published at
+    https://www.astronomer.io/docs/astro/api/v-1/migrate-v1-api.
+status_page: https://status.astronomer.io
+deprecated_operations: []
+notes: >-
+  The downloaded OpenAPI (Astro Platform API v1.0) marks no individual operations
+  as deprecated; deprecation is managed at the API-version level (v1beta1 -> v1).

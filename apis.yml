@@ -1,8 +1,15 @@
 aid: astronomer
 name: Astronomer
-description: Astronomer is a company surfaced as a portfolio company of 500-global, bain-capital-ventures,
-  insight-partners, sierra-ventures and added to the API Evangelist network as a stub for enrichment.
-  This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Astronomer is the company behind Astro, a fully managed data operations platform
+  powered by Apache Airflow. Astro lets data teams author, orchestrate, run, and
+  observe data pipelines (DAGs) at scale across a managed control plane and data
+  plane. The Astro Platform API is a production-ready REST API for programmatic
+  control of Astro resources — Organizations, Workspaces, Deployments, Clusters,
+  Users, Teams, role-based access control, API tokens, deploys, and environment
+  objects — authenticated with bearer API tokens. Astronomer also ships the Astro
+  CLI, an official Terraform provider, the Astro Python SDK, a documentation MCP
+  server, and Astro Runtime, its distribution of Apache Airflow.
 url: https://raw.githubusercontent.com/api-evangelist/astronomer/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -13,17 +20,492 @@ x-backed-by:
 - sierra-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 tags:
 - Company
-apis: []
+- Data Orchestration
+- Apache Airflow
+- Data Pipelines
+- Data Engineering
+- Workflow Automation
+- MLOps
+- Managed Platform
+image: https://www.astronomer.io/img/logos/astronomer-logo.png
+apis:
+- aid: astronomer:astronomer-agenttoken-api
+  name: Astronomer AgentToken API
+  description: The AgentToken API from Astronomer — 2 operation(s) for agenttoken.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - AgentToken
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-agenttoken-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-allowedipaddressrange-api
+  name: Astronomer AllowedIpAddressRange API
+  description: >-
+    The AllowedIpAddressRange API from Astronomer — 4 operation(s) for allowedipaddressrange.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - AllowedIpAddressRange
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-allowedipaddressrange-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-apitoken-api
+  name: Astronomer ApiToken API
+  description: >-
+    The `apitoken` object represents a single API token within your Organization. API tokens are used
+    to authenticate automated tools and processes to your Organization. They have varying levels of access
+    to your resources based on their Organization, Workspace, and Deployment roles. See [Workspace API
+    tokens](workspace-api-tokens.md) and [Organization API tokens](organization-api-tokens.md).
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - ApiToken
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-apitoken-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-authorization-api
+  name: Astronomer Authorization API
+  description: The Authorization API from Astronomer — 1 operation(s) for authorization.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-authorization-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-cluster-api
+  name: Astronomer Cluster API
+  description: >-
+    A `cluster` object represents an Astro cluster, which is a Kubernetes cluster that hosts the infrastructure
+    required to run Deployments. Make requests to `cluster` endpoints to manage your standard and dedicated
+    clusters. See [Create a dedicated cluster](https://astronomer.io/docs/astro/create-dedicated-cluster).
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Cluster
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-cluster-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-deploy-api
+  name: Astronomer Deploy API
+  description: The Deploy API from Astronomer — 4 operation(s) for deploy.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Deploy
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-deploy-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-deployment-api
+  name: Astronomer Deployment API
+  description: >-
+    The `deployment` object represents an Astro Deployment, which is a hosted Airflow environment that
+    is powered by all core Airflow components, including schedulers and workers. Make requests to the
+    `deployment` object to create, update, or delete a Deployment or its computational resources. See
+    [Deployment settings](https://astronomer.io/docs/astro/deployment-settings).
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Deployment
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-deployment-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-environment-api
+  name: Astronomer Environment API
+  description: The Environment API from Astronomer — 3 operation(s) for environment.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Environment
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-environment-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-invite-api
+  name: Astronomer Invite API
+  description: The Invite API from Astronomer — 2 operation(s) for invite.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Invite
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-invite-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-options-api
+  name: Astronomer Options API
+  description: The Options API from Astronomer — 2 operation(s) for options.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Options
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-options-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-organization-api
+  name: Astronomer Organization API
+  description: >-
+    The `organization` object contains the metadata and configurations of an Astro Organization. It does
+    not include objects within the Organization, such as users and clusters. Make requests to `organization`
+    endpoints to view and update high level settings for your Organization, including settings related
+    to authentication and billing. To manage resources within an Organization, make requests to the endpoints
+    related to those resources, such as `users`. See [Billing](https://astronomer.io/docs/astro/manage-billing),
+    [Set up single sign-on](https://astronomer.io/docs/astro/configure-idp), and [Manage domains](https://astronomer.io/docs/astro/manage-domains).
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Organization
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-organization-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-role-api
+  name: Astronomer Role API
+  description: The Role API from Astronomer — 4 operation(s) for role.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Role
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-role-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-team-api
+  name: Astronomer Team API
+  description: >-
+    The `team` object represents an Astro Team, which is a group of users that share the same permissions
+    across your Organization and Workspaces. Make requests to `team` endpoints to create, update, and
+    delete Teams across an Organization. See [Configure Teams on Astro](https://astronomer.io/docs/astro/manage-teams).
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Team
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-team-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-user-api
+  name: Astronomer User API
+  description: >-
+    The `user` object represents a user account in your Astro Organization. Astro creates a new `user`
+    object whenever you invite a user by email or add a user to Astro through an identity provider. The
+    object contains all information about a user, including their personal information, roles, and login
+    attempts. It doesn't include attributes for actions that the user completes after they log in, such
+    as updating a Deployment. Make requests to `user` endpoints to manage permissions for existing users
+    both at the Organization and Workspace level. To create new users, make requests to `invite` endpoints
+    instead.
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-user-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
+- aid: astronomer:astronomer-workspace-api
+  name: Astronomer Workspace API
+  description: >-
+    The `workspace` object represents an Astro Workspace, which is a collection of Deployments that can
+    be accessed by a specific group of users. It contains metadata about a Workspace, but does not contain
+    objects within the Workspace such as users and Deployments. Make requests to `workspace` endpoints
+    to manage high level details about your Workspace. To manage resources within a Workspace, make requests
+    to the endpoints related to those resources, such as `users`, and use the `workspaceIds` parameter
+    to filter results by Workspace. See [Configure Workspaces](https://astronomer.io/docs/astro/manage-workspaces).
+  humanURL: https://www.astronomer.io/docs/astro/api/overview
+  baseURL: https://api.astronomer.io/v1
+  tags:
+  - Workspace
+  properties:
+  - type: OpenAPI
+    url: openapi/astronomer-workspace-api-openapi.yml
+  - type: APIReference
+    url: https://www.astronomer.io/docs/astro/api/v-1/overview
+  - type: GettingStarted
+    url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+  - type: Authentication
+    url: authentication/astronomer-authentication.yml
+  - type: ErrorCatalog
+    url: errors/astronomer-problem-types.yml
+  - type: Conventions
+    url: conventions/astronomer-conventions.yml
+  - type: DataModel
+    url: data-model/astronomer-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/astronomer-agentic-access.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/astronomer-trust-center.yml
 - type: Website
   url: https://astronomer.io
+- type: Documentation
+  url: https://www.astronomer.io/docs
+- type: DeveloperPortal
+  url: https://www.astronomer.io/docs/astro/api/overview
+- type: GettingStarted
+  url: https://www.astronomer.io/docs/astro/api/v-1/get-started
+- type: Blog
+  url: https://www.astronomer.io/blog
+- type: GitHubOrganization
+  url: https://github.com/astronomer
+- type: Pricing
+  url: https://www.astronomer.io/pricing
+- type: SignUp
+  url: https://www.astronomer.io/try-astro/
+- type: Login
+  url: https://cloud.astronomer.io
+- type: TermsOfService
+  url: https://www.astronomer.io/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.astronomer.io/privacy
+- type: StatusPage
+  url: https://status.astronomer.io
+- type: Compliance
+  url: https://trust.astronomer.io
+- type: Security
+  url: https://www.astronomer.io/vulnerability-disclosure/
+- type: MCPServer
+  url: mcp/astronomer-mcp.yml
+- type: LLMsTxt
+  url: llms/astronomer-llms.txt
+- type: Packages
+  url: packages/astronomer-packages.yml
+- type: SDKs
+  url: packages/astronomer-packages.yml
+- type: CLI
+  url: cli/astronomer-cli.yml
+- type: Lifecycle
+  url: lifecycle/astronomer-lifecycle.yml
+- type: Deprecation
+  url: https://www.astronomer.io/docs/astro/api/v-1/versioning-and-support
+- type: ChangeLog
+  url: changelog/astronomer-changelog.yml
+- type: Conformance
+  url: conformance/astronomer-conformance.yml
+- type: Authentication
+  url: authentication/astronomer-authentication.yml
+- type: DomainSecurity
+  url: security/astronomer-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/astronomer-vulnerability-disclosure.yml
+- type: WellKnown
+  url: well-known/astronomer-well-known.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

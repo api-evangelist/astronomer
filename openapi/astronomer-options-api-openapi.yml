@@ -1,0 +1,542 @@
+openapi: 3.0.3
+info:
+  contact: {}
+  description: Astro Platform API
+  title: Astro Platform AgentToken Options API
+  version: v1.0
+servers:
+- url: https://api.astronomer.io/v1
+security:
+- JWT: []
+tags:
+- name: Options
+paths:
+  /organizations/{organizationId}/cluster-options:
+    get:
+      description: Get all possible options for configuring a cluster.
+      operationId: GetClusterOptions
+      parameters:
+      - description: The ID of the Organization to get cluster options for.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The cluster's cloud provider.
+        in: query
+        name: provider
+        schema:
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          type: string
+      - description: The cluster type.
+        in: query
+        name: type
+        required: true
+        schema:
+          enum:
+          - DEDICATED
+          - HYBRID
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClusterOptions'
+                type: array
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get cluster options
+      tags:
+      - Options
+  /organizations/{organizationId}/deployment-options:
+    get:
+      description: Get the options available for configuring a Deployment.
+      operationId: GetDeploymentOptions
+      parameters:
+      - description: The ID of the Organization to retrieve Deployment options for.
+        in: path
+        name: organizationId
+        required: true
+        schema:
+          type: string
+      - description: The ID of a Deployment to retrieve options for.
+        in: query
+        name: deploymentId
+        schema:
+          type: string
+      - description: The runtime type of the deployment.
+        in: query
+        name: deploymentType
+        schema:
+          enum:
+          - HYBRID
+          - DEDICATED
+          - STANDARD
+          type: string
+      - description: The executor of the deployment.
+        in: query
+        name: executor
+        schema:
+          enum:
+          - CELERY
+          - KUBERNETES
+          - ASTRO
+          type: string
+      - description: The cloud provider of the cluster for the deployment.
+        in: query
+        name: cloudProvider
+        schema:
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentOptions'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+      - JWT: []
+      summary: Get Deployment options
+      tags:
+      - Options
+      x-permission:
+      - action: organization.deploymentConfigurations.get
+components:
+  schemas:
+    ClusterOptions:
+      properties:
+        databaseInstances:
+          description: The available database instances.
+          items:
+            $ref: '#/components/schemas/ProviderInstanceType'
+          type: array
+        defaultDatabaseInstance:
+          $ref: '#/components/schemas/ProviderInstanceType'
+        defaultNodeInstance:
+          $ref: '#/components/schemas/ProviderInstanceType'
+        defaultPodSubnetRange:
+          description: The default pod subnet range.
+          example: 172.21.0.0/19
+          type: string
+        defaultRegion:
+          $ref: '#/components/schemas/ProviderRegion'
+        defaultServicePeeringRange:
+          description: The default service peering range.
+          example: 172.23.0.0/20
+          type: string
+        defaultServiceSubnetRange:
+          description: The default service subnet range.
+          example: 172.22.0.0/22
+          type: string
+        defaultVpcSubnetRange:
+          description: The default VPC subnet range.
+          example: 172.20.0.0/19
+          type: string
+        nodeCountDefault:
+          description: The default number of nodes.
+          example: 20
+          type: integer
+        nodeCountMax:
+          description: The maximum number of nodes.
+          example: 100
+          type: integer
+        nodeCountMin:
+          description: The minimum number of nodes.
+          example: 2
+          type: integer
+        nodeInstances:
+          description: The available node instances.
+          items:
+            $ref: '#/components/schemas/ProviderInstanceType'
+          type: array
+        provider:
+          description: The cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AZURE
+          type: string
+        regions:
+          description: The available regions.
+          items:
+            $ref: '#/components/schemas/ProviderRegion'
+          type: array
+      required:
+      - databaseInstances
+      - defaultDatabaseInstance
+      - defaultNodeInstance
+      - defaultRegion
+      - defaultVpcSubnetRange
+      - nodeCountDefault
+      - nodeCountMax
+      - nodeCountMin
+      - nodeInstances
+      - provider
+      - regions
+      type: object
+    MachineSpec:
+      properties:
+        concurrency:
+          description: The maximum number of tasks that a given machine instance can run at once.
+          example: 10
+          type: number
+        cpu:
+          description: The CPU quantity. Units are in number of CPU cores.
+          example: '1'
+          type: string
+        ephemeralStorage:
+          description: The ephemeral storage quantity. Units in Gibibytes or `Gi`.
+          example: 10Gi
+          type: string
+        memory:
+          description: The memory quantity. Units in Gibibytes or `Gi`.
+          example: 2Gi
+          type: string
+      required:
+      - cpu
+      - memory
+      type: object
+    ResourceQuotaOptions:
+      properties:
+        defaultPodSize:
+          $ref: '#/components/schemas/ResourceOption'
+        resourceQuota:
+          $ref: '#/components/schemas/ResourceOption'
+      required:
+      - defaultPodSize
+      - resourceQuota
+      type: object
+    Range:
+      properties:
+        ceiling:
+          description: The maximum value.
+          example: 10
+          type: number
+        default:
+          description: The default value.
+          example: 5
+          type: number
+        floor:
+          description: The minimum value.
+          example: 1
+          type: number
+      required:
+      - ceiling
+      - default
+      - floor
+      type: object
+    WorkloadIdentityOption:
+      properties:
+        label:
+          description: The workload identity label.
+          example: workload-label
+          type: string
+        role:
+          description: The workload identity role.
+          example: workload-role
+          type: string
+      required:
+      - label
+      - role
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    WorkerMachine:
+      properties:
+        concurrency:
+          $ref: '#/components/schemas/Range'
+        name:
+          description: The machine's name.
+          enum:
+          - A5
+          - A10
+          - A20
+          - A40
+          - A60
+          - A120
+          - A160
+          type: string
+        spec:
+          $ref: '#/components/schemas/MachineSpec'
+      required:
+      - concurrency
+      - name
+      - spec
+      type: object
+    DeploymentOptions:
+      properties:
+        executors:
+          description: The available executors.
+          items:
+            type: string
+          type: array
+        resourceQuotas:
+          $ref: '#/components/schemas/ResourceQuotaOptions'
+        runtimeReleases:
+          description: The available Astro Runtime versions.
+          items:
+            $ref: '#/components/schemas/RuntimeRelease'
+          type: array
+        schedulerMachines:
+          description: The available scheduler sizes.
+          items:
+            $ref: '#/components/schemas/SchedulerMachine'
+          type: array
+        workerMachines:
+          description: The available worker machine types.
+          items:
+            $ref: '#/components/schemas/WorkerMachine'
+          type: array
+        workerQueues:
+          $ref: '#/components/schemas/WorkerQueueOptions'
+        workloadIdentityOptions:
+          description: The available workload identity options.
+          items:
+            $ref: '#/components/schemas/WorkloadIdentityOption'
+          type: array
+      required:
+      - executors
+      - resourceQuotas
+      - runtimeReleases
+      - schedulerMachines
+      - workerMachines
+      - workerQueues
+      type: object
+    ResourceOption:
+      properties:
+        cpu:
+          $ref: '#/components/schemas/ResourceRange'
+        memory:
+          $ref: '#/components/schemas/ResourceRange'
+      required:
+      - cpu
+      - memory
+      type: object
+    RuntimeRelease:
+      properties:
+        airflowDatabaseMigration:
+          description: Whether the release requires an Airflow database migration.
+          example: false
+          type: boolean
+        airflowVersion:
+          description: The Airflow version that the Runtime image is based on.
+          example: 2.7.1
+          type: string
+        channel:
+          description: The release channel.
+          example: stable
+          type: string
+        releaseDate:
+          description: The time when the version is released in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        stellarDatabaseMigration:
+          description: Whether the release requires a Stellar database migration.
+          example: false
+          type: boolean
+        version:
+          description: The Astro Runtime version.
+          example: 9.1.0
+          type: string
+      required:
+      - airflowDatabaseMigration
+      - airflowVersion
+      - channel
+      - releaseDate
+      - stellarDatabaseMigration
+      - version
+      type: object
+    SchedulerMachine:
+      properties:
+        name:
+          description: The machine's name.
+          enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - EXTRA_LARGE
+          type: string
+        spec:
+          $ref: '#/components/schemas/MachineSpec'
+      required:
+      - name
+      - spec
+      type: object
+    ProviderInstanceType:
+      properties:
+        cpu:
+          description: The number of CPUs. Units are in number of CPU cores.
+          example: 4
+          type: integer
+        memory:
+          description: The amount of memory. Units in Gibibytes or `Gi`.
+          example: 16Gi
+          type: string
+        name:
+          description: The name of the instance type.
+          example: e2-standard-4
+          type: string
+      required:
+      - cpu
+      - memory
+      - name
+      type: object
+    ResourceRange:
+      properties:
+        ceiling:
+          description: The maximum value.
+          example: '10'
+          type: string
+        default:
+          description: The default value.
+          example: '5'
+          type: string
+        floor:
+          description: The minimum value.
+          example: '1'
+          type: string
+      required:
+      - ceiling
+      - default
+      - floor
+      type: object
+    WorkerQueueOptions:
+      properties:
+        maxWorkers:
+          $ref: '#/components/schemas/Range'
+        minWorkers:
+          $ref: '#/components/schemas/Range'
+        workerConcurrency:
+          $ref: '#/components/schemas/Range'
+      required:
+      - maxWorkers
+      - minWorkers
+      - workerConcurrency
+      type: object
+    ProviderRegion:
+      properties:
+        bannedInstances:
+          description: The banned instances in the region.
+          example:
+          - t3.medium
+          items:
+            type: string
+          type: array
+        limited:
+          description: Whether the region is limited.
+          example: true
+          type: boolean
+        location:
+          description: The multi-region location code for DR compatibility.
+          example: US
+          type: string
+        name:
+          description: The name of the region.
+          example: us-east-1
+          type: string
+      required:
+      - name
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+  securitySchemes:
+    JWT:
+      scheme: bearer
+      type: http

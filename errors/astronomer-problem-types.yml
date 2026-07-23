@@ -1,0 +1,50 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/astronomer-astro-openapi-original.yml
+format: custom-json
+envelope:
+  media_type: application/json
+  schema: Error
+  fields:
+    message: Human-readable description of the error (required).
+    requestId: Server-generated request identifier for support/tracing (required).
+    statusCode: Integer HTTP status code, 400-599 (required).
+    fieldErrors: >-
+      Array of FieldValidationError; present only on 400 responses caused by
+      request binding/validation. Each entry names the failed constraint.
+  note: >-
+    The Astro Platform API returns errors as a plain application/json object (not
+    RFC 9457 application/problem+json). Always echoes a requestId for support.
+problems:
+- status: 400
+  title: Bad Request
+  meaning: Request was malformed or failed validation; check fieldErrors for the offending constraints.
+  operations_affected: 67
+- status: 401
+  title: Unauthorized
+  meaning: Missing, invalid, or expired bearer API token.
+  operations_affected: 73
+- status: 403
+  title: Forbidden
+  meaning: The token is valid but lacks permission (role/scope) for the resource or action.
+  operations_affected: 72
+- status: 404
+  title: Not Found
+  meaning: The Organization, Workspace, Deployment, Cluster, or other resource does not exist or is not visible to the token.
+  operations_affected: 59
+- status: 405
+  title: Method Not Allowed
+  meaning: HTTP method not supported on this endpoint.
+  operations_affected: 6
+- status: 409
+  title: Conflict
+  meaning: Request conflicts with current resource state (e.g. duplicate name, concurrent modification).
+  operations_affected: 5
+- status: 412
+  title: Precondition Failed
+  meaning: A conditional request precondition (e.g. version/ETag) was not met.
+  operations_affected: 2
+- status: 500
+  title: Internal Server Error
+  meaning: Unexpected server-side error; retry with backoff and reference the requestId if it persists.
+  operations_affected: 73
