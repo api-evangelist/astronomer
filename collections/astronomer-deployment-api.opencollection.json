@@ -1,0 +1,346 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Deployment API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to list Deployments for."
+              },
+              {
+                "name": "deploymentIds",
+                "value": "",
+                "type": "query",
+                "description": "A list of IDs for Deployments to show. The API returns details only for the specified Deployments."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "A list of names for Deployments to filter by. The API returns details only for the specified Deployments."
+              },
+              {
+                "name": "workspaceIds",
+                "value": "",
+                "type": "query",
+                "description": "A list of IDs for Workspaces to filter on. The API returns details for all Deployments belonging only to the specified Workspaces."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before returning values."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Deployments in an Organization."
+        },
+        {
+          "info": {
+            "name": "Create a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization in which to create the Deployment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a Deployment in the Organization. An Astro Deployment is an Airflow environment that is powered by all core Airflow components."
+        },
+        {
+          "info": {
+            "name": "Get a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Deployment belongs."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve details about a Deployment."
+        },
+        {
+          "info": {
+            "name": "Update a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Deployment belongs."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a Deployment in the Organization."
+        },
+        {
+          "info": {
+            "name": "Delete a Deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Deployment belongs."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a Deployment from an Organization."
+        },
+        {
+          "info": {
+            "name": "Configure a hibernation override for a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/hibernation-override",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The Organization ID"
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Configure a hibernation override for a deployment"
+        },
+        {
+          "info": {
+            "name": "Delete a hibernation override for a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/hibernation-override",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The Organization ID"
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a hibernation override for a deployment"
+        },
+        {
+          "info": {
+            "name": "Get Deployment logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/logs",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Deployment belongs."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Deployment to get logs for."
+              },
+              {
+                "name": "sources",
+                "value": "",
+                "type": "query",
+                "description": "Log sources to retrieve."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of log entries per page."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination."
+              },
+              {
+                "name": "range",
+                "value": "",
+                "type": "query",
+                "description": "Range of the log search in seconds."
+              },
+              {
+                "name": "maxNumResults",
+                "value": "",
+                "type": "query",
+                "description": "Maximum total number of results across all pages."
+              },
+              {
+                "name": "searchId",
+                "value": "",
+                "type": "query",
+                "description": "Search ID for paginated results."
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Text to filter logs by."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range (RFC3339).  Must  be  used  with  endDate."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End of time range (RFC3339).    Must  be  used  with  startDate."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get logs for an Astro Deployment. You must specify at least one log source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

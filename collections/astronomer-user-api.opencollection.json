@@ -1,0 +1,221 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken User API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List users in an Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/users",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to list users for."
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Workspace to filter the list of users for. When specified, the API returns only users belonging to the specified Workspace."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Deployment to filter the list of users for. When specified, the API returns only users belonging to the specified Deployment."
+              },
+              {
+                "name": "dagId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the DAG to filter the list of users for. When specified, the API returns only users belonging to the specified DAG."
+              },
+              {
+                "name": "dagTags",
+                "value": "",
+                "type": "query",
+                "description": "The Tags of the DAG to filter the list of users for. When specified, the API returns users belonging to the specified DAG tags."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List users in an Organization or a specific Workspace within an Organization."
+        },
+        {
+          "info": {
+            "name": "Get user information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/users/:userId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the user belongs."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The user's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve user information about a specific user account."
+        },
+        {
+          "info": {
+            "name": "Update a user's roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/users/:userId/roles",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the user belongs."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The user's ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Organization and Workspace roles for a user."
+        },
+        {
+          "info": {
+            "name": "List teams for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/users/:userId/teams",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "The user's ID."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List the teams a user belongs to within an Organization."
+        },
+        {
+          "info": {
+            "name": "Get current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/users/self",
+            "params": [
+              {
+                "name": "createIfNotExist",
+                "value": "",
+                "type": "query",
+                "description": "Create the user if they don't already exist."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the authenticated user's profile and roles."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

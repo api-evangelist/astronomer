@@ -1,0 +1,3115 @@
+{
+  "item": [
+    {
+      "id": "d7befd8d-2634-4e1c-88d7-2410d65d9602",
+      "name": "Deploy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65019625-42cc-4521-866c-a9ab1e824ccd",
+          "name": "List deploys for a deployment",
+          "request": {
+            "name": "List deploys for a deployment",
+            "description": {
+              "content": "List deploys for a deployment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "deploys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before returning values."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4c62e278-6eb6-4971-bfc9-f108b4cc5f19",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deploys\": [\n    {\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n      \"id\": \"clvetru2w000201mowqwua63n\",\n      \"imageRepository\": \"https://my-image-repository\",\n      \"imageTag\": \"my-image-tag\",\n      \"isDagDeployEnabled\": true,\n      \"status\": \"DEPLOYED\",\n      \"type\": \"IMAGE_AND_DAG\",\n      \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n      \"astroRuntimeVersion\": \"9.1.0\",\n      \"bundleMountPath\": \"string\",\n      \"bundleUploadUrl\": \"string\",\n      \"bundles\": [\n        {\n          \"bundleType\": \"string\",\n          \"deployId\": \"string\",\n          \"mountPath\": \"string\",\n          \"currentVersion\": \"string\",\n          \"desiredVersion\": \"string\"\n        },\n        {\n          \"bundleType\": \"string\",\n          \"deployId\": \"string\",\n          \"mountPath\": \"string\",\n          \"currentVersion\": \"string\",\n          \"desiredVersion\": \"string\"\n        }\n      ],\n      \"createdBySubject\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      },\n      \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n      \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n      \"description\": \"My deploy description\",\n      \"git\": {\n        \"commitSha\": \"abc123def456\",\n        \"provider\": \"GITHUB\",\n        \"account\": \"astronomer\",\n        \"authorName\": \"Astronomer Bot\",\n        \"authorUrl\": \"https://github.com/astronomer-bot\",\n        \"authorUsername\": \"astronomer-bot\",\n        \"beforeCommitSha\": \"def456abc123\",\n        \"branch\": \"main\",\n        \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n        \"path\": \"dags/\",\n        \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n        \"repo\": \"astro-cli\"\n      },\n      \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"updatedBySubject\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      }\n    },\n    {\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n      \"id\": \"clvetru2w000201mowqwua63n\",\n      \"imageRepository\": \"https://my-image-repository\",\n      \"imageTag\": \"my-image-tag\",\n      \"isDagDeployEnabled\": true,\n      \"status\": \"DEPLOYED\",\n      \"type\": \"IMAGE_AND_DAG\",\n      \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n      \"astroRuntimeVersion\": \"9.1.0\",\n      \"bundleMountPath\": \"string\",\n      \"bundleUploadUrl\": \"string\",\n      \"bundles\": [\n        {\n          \"bundleType\": \"string\",\n          \"deployId\": \"string\",\n          \"mountPath\": \"string\",\n          \"currentVersion\": \"string\",\n          \"desiredVersion\": \"string\"\n        },\n        {\n          \"bundleType\": \"string\",\n          \"deployId\": \"string\",\n          \"mountPath\": \"string\",\n          \"currentVersion\": \"string\",\n          \"desiredVersion\": \"string\"\n        }\n      ],\n      \"createdBySubject\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      },\n      \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n      \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n      \"description\": \"My deploy description\",\n      \"git\": {\n        \"commitSha\": \"abc123def456\",\n        \"provider\": \"GITHUB\",\n        \"account\": \"astronomer\",\n        \"authorName\": \"Astronomer Bot\",\n        \"authorUrl\": \"https://github.com/astronomer-bot\",\n        \"authorUsername\": \"astronomer-bot\",\n        \"beforeCommitSha\": \"def456abc123\",\n        \"branch\": \"main\",\n        \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n        \"path\": \"dags/\",\n        \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n        \"repo\": \"astro-cli\"\n      },\n      \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"updatedBySubject\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      }\n    }\n  ],\n  \"limit\": 1344,\n  \"offset\": 2406,\n  \"totalCount\": 9814\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4268c0c-3437-47ed-8029-0a49746049c9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 540,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0e2eb78-bed4-422c-9d98-f061b9cb20b0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "741c70e2-9a55-4146-bf94-21fca075315a",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8384ad21-4619-4bad-88c0-cbe42b33797d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e38ac7be-0595-43df-8992-dcbc0dc6ecc5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6fd126b-7b9a-49fa-8c2d-a919067a180a",
+          "name": "Create a Deploy",
+          "request": {
+            "name": "Create a Deploy",
+            "description": {
+              "content": "Create a new Deploy. A Deploy represents an intent to deploy new DAG code to an Astro Deployment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "deploys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization in which to create the Deployment."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"<string>\",\n  \"description\": \"<string>\",\n  \"git\": {\n    \"commitSha\": \"<string>\",\n    \"provider\": \"<string>\",\n    \"account\": \"<string>\",\n    \"authorName\": \"<string>\",\n    \"authorUrl\": \"<string>\",\n    \"authorUsername\": \"<string>\",\n    \"beforeCommitSha\": \"<string>\",\n    \"branch\": \"<string>\",\n    \"commitUrl\": \"<string>\",\n    \"path\": \"<string>\",\n    \"remoteUrl\": \"<string>\",\n    \"repo\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91784e33-0731-4c2a-844d-d37e0e075d06",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"IMAGE_AND_DAG\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"dbt\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n  \"id\": \"clvetru2w000201mowqwua63n\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isDagDeployEnabled\": true,\n  \"status\": \"DEPLOYED\",\n  \"type\": \"IMAGE_AND_DAG\",\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"bundleMountPath\": \"string\",\n  \"bundleUploadUrl\": \"string\",\n  \"bundles\": [\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    },\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    }\n  ],\n  \"createdBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  },\n  \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0469b632-016f-48cc-aca9-39ab7df9b7d4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"IMAGE_AND_DAG\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"dbt\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "479e6a1c-d353-4785-b074-279b1366d448",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"IMAGE_AND_DAG\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"dbt\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "324a4c7c-7e0d-4e35-a0c9-7d00df0c7dd3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"IMAGE_AND_DAG\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"dbt\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50e69c77-829b-485f-9e4f-410d7130a1ae",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"IMAGE_AND_DAG\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"dbt\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cda97a3-e10c-4a28-b53c-6396d6e2e1e7",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"IMAGE_AND_DAG\",\n  \"bundleMountPath\": \"<string>\",\n  \"bundleType\": \"dbt\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1b62c2f-9ab1-4621-875d-0a0ef05a0219",
+          "name": "Get a deploy for a deployment",
+          "request": {
+            "name": "Get a deploy for a deployment",
+            "description": {
+              "content": "Get a deploy for a deployment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "deploys",
+                ":deployId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization in which to create the Deployment."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deployId",
+                  "description": "(Required) The Deploy's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "20f4b906-1d96-4710-a490-b02e8c26c0f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n  \"id\": \"clvetru2w000201mowqwua63n\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isDagDeployEnabled\": true,\n  \"status\": \"DEPLOYED\",\n  \"type\": \"IMAGE_AND_DAG\",\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"bundleMountPath\": \"string\",\n  \"bundleUploadUrl\": \"string\",\n  \"bundles\": [\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    },\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    }\n  ],\n  \"createdBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  },\n  \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "937dbc52-2703-43a8-8e46-d5751005b7f4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a26bc614-fc98-4911-8a83-d21cf3d6539a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9acb46e3-da71-47be-bb85-52b3297af0bf",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18f6c0aa-8625-4e73-b01b-526bdab0cea3",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dd8872e-1701-4107-9af9-0bc7d7dcfccb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22c72556-2a50-46a3-a182-4e9d348a4b41",
+          "name": "Update a Deploy",
+          "request": {
+            "name": "Update a Deploy",
+            "description": {
+              "content": "Update an existing Deploy. A Deploy represents an intent to deploy new DAG code to an Astro Deployment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "deploys",
+                ":deployId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization in which to create the Deployment."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deployId",
+                  "description": "(Required) The Deploy's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "afa39ad3-fee2-442b-b0b1-8d1908c7dbc0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"My deploy description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n  \"id\": \"clvetru2w000201mowqwua63n\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isDagDeployEnabled\": true,\n  \"status\": \"DEPLOYED\",\n  \"type\": \"IMAGE_AND_DAG\",\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"bundleMountPath\": \"string\",\n  \"bundleUploadUrl\": \"string\",\n  \"bundles\": [\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    },\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    }\n  ],\n  \"createdBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  },\n  \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b79d26b-8bee-469f-9105-165dc750c104",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"My deploy description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57bc4849-fd86-4007-a33d-f676e8c24bc6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"My deploy description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33d17e7c-dbf8-4546-8f61-b578abe2d321",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"My deploy description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d00339c-68d9-4a3b-9410-c3e3183e3973",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"My deploy description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6c940bd-1d70-4420-94f2-ebf7297d45ad",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"My deploy description\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10a2b12d-cb7e-4aa1-af89-9e8e6600176b",
+          "name": "Finalize a deploy",
+          "request": {
+            "name": "Finalize a deploy",
+            "description": {
+              "content": "Finalize a deploy that you initialized using the `deploys` endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "deploys",
+                ":deployId",
+                "finalize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deployId",
+                  "description": "(Required) The deploy's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bundleTarballVersion\": \"<string>\",\n  \"dagTarballVersion\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fb99aa20-d118-49a4-93b1-d883e15e82fd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "finalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundleTarballVersion\": \"<string>\",\n  \"dagTarballVersion\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n  \"id\": \"clvetru2w000201mowqwua63n\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isDagDeployEnabled\": true,\n  \"status\": \"DEPLOYED\",\n  \"type\": \"IMAGE_AND_DAG\",\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"bundleMountPath\": \"string\",\n  \"bundleUploadUrl\": \"string\",\n  \"bundles\": [\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    },\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    }\n  ],\n  \"createdBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  },\n  \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e356515-2d01-4c8c-b2b8-1e4548308ac9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "finalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundleTarballVersion\": \"<string>\",\n  \"dagTarballVersion\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea4d1ec-ed14-41c4-a9e9-a73906f4348c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "finalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundleTarballVersion\": \"<string>\",\n  \"dagTarballVersion\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35263e26-cc33-4c84-84b0-f2b19c39c5f2",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "finalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundleTarballVersion\": \"<string>\",\n  \"dagTarballVersion\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d3c8c9a-a5f2-4090-bcd7-d069ee99c8e0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "finalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bundleTarballVersion\": \"<string>\",\n  \"dagTarballVersion\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0875610-37a5-4573-912b-54883db1a37c",
+          "name": "Deploy rollback of a deployment",
+          "request": {
+            "name": "Deploy rollback of a deployment",
+            "description": {
+              "content": "Deploy rollback of a deployment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "deploys",
+                ":deployId",
+                "rollback"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization in which to create the Deployment."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deployId",
+                  "description": "(Required) The Deploy's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "45e292fe-a960-4ef9-a388-11274c2f2450",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"deploymentId\": \"clmh57jtm000008lb58fe2wmv\",\n  \"id\": \"clvetru2w000201mowqwua63n\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isDagDeployEnabled\": true,\n  \"status\": \"DEPLOYED\",\n  \"type\": \"IMAGE_AND_DAG\",\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"bundleMountPath\": \"string\",\n  \"bundleUploadUrl\": \"string\",\n  \"bundles\": [\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    },\n    {\n      \"bundleType\": \"string\",\n      \"deployId\": \"string\",\n      \"mountPath\": \"string\",\n      \"currentVersion\": \"string\",\n      \"desiredVersion\": \"string\"\n    }\n  ],\n  \"createdBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"dagsUploadUrl\": \"https://astroproddagdeploy.windows.core.net/clmh59gt0000308lbgswe5fvh/clmh57jtm000008lb58fe2wmv\",\n  \"description\": \"My deploy description\",\n  \"git\": {\n    \"commitSha\": \"abc123def456\",\n    \"provider\": \"GITHUB\",\n    \"account\": \"astronomer\",\n    \"authorName\": \"Astronomer Bot\",\n    \"authorUrl\": \"https://github.com/astronomer-bot\",\n    \"authorUsername\": \"astronomer-bot\",\n    \"beforeCommitSha\": \"def456abc123\",\n    \"branch\": \"main\",\n    \"commitUrl\": \"https://github.com/astronomer/astro-cli/commit/abc123def456\",\n    \"path\": \"dags/\",\n    \"remoteUrl\": \"git@gitlab.com:team/project.git\",\n    \"repo\": \"astro-cli\"\n  },\n  \"rollbackFromId\": \"clvcz1lrq000101oitxtp276e\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBySubject\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd822567-64b9-4fbb-94fd-9ca417dc3565",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "247cc643-2a04-465d-b6ba-ae2eebe615ff",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5de9702f-f2f0-4881-9951-8e6038dfe517",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de0b8040-bbf9-4a5b-9d06-cf7f9440ef8b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "703a0b41-12d2-4ea6-9a59-9f0cad33478c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "deploys",
+                    ":deployId",
+                    "rollback"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deployId",
+                      "description": "(Required) The Deploy's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 525,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astronomer.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f4a5fa91-3a40-4a4d-af99-d867a009892b",
+    "name": "Astro Platform AgentToken Deploy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Astro Platform API",
+      "type": "text/plain"
+    }
+  }
+}

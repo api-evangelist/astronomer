@@ -1,0 +1,2329 @@
+{
+  "item": [
+    {
+      "id": "5aad035b-a851-4fc2-9b50-16cac307bad7",
+      "name": "User",
+      "description": {
+        "content": "The `user` object represents a user account in your Astro Organization. Astro creates a new `user` object whenever you invite a user by email or add a user to Astro through an identity provider. The object contains all information about a user, including their personal information, roles, and login attempts. It doesn't include attributes for actions that the user completes after they log in, such as updating a Deployment. Make requests to `user` endpoints to manage permissions for existing users both at the Organization and Workspace level. To create new users, make requests to `invite` endpoints instead.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "88731904-c2f8-47ca-bf52-a85779ba1827",
+          "name": "List users in an Organization",
+          "request": {
+            "name": "List users in an Organization",
+            "description": {
+              "content": "List users in an Organization or a specific Workspace within an Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspaceId",
+                  "value": "<string>",
+                  "description": "The ID of the Workspace to filter the list of users for. When specified, the API returns only users belonging to the specified Workspace."
+                },
+                {
+                  "disabled": false,
+                  "key": "deploymentId",
+                  "value": "<string>",
+                  "description": "The ID of the Deployment to filter the list of users for. When specified, the API returns only users belonging to the specified Deployment."
+                },
+                {
+                  "disabled": false,
+                  "key": "dagId",
+                  "value": "<string>",
+                  "description": "The ID of the DAG to filter the list of users for. When specified, the API returns only users belonging to the specified DAG."
+                },
+                {
+                  "disabled": false,
+                  "key": "dagTags",
+                  "value": "<string>",
+                  "description": "The Tags of the DAG to filter the list of users for. When specified, the API returns users belonging to the specified DAG tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "dagTags",
+                  "value": "<string>",
+                  "description": "The Tags of the DAG to filter the list of users for. When specified, the API returns users belonging to the specified DAG tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Limit for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to list users for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d4d8ee04-8f9f-4c35-9ef4-a817828030c9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 10,\n  \"offset\": 0,\n  \"totalCount\": 100,\n  \"users\": [\n    {\n      \"avatarUrl\": \"https://avatar.url\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"fullName\": \"Jane Doe\",\n      \"id\": \"clm9sq6s0000008kz7uvl7yz7\",\n      \"status\": \"ACTIVE\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"username\": \"user1@company.com\",\n      \"dagRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        }\n      ],\n      \"deploymentRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        }\n      ],\n      \"organizationRole\": \"ORGANIZATION_MEMBER\",\n      \"workspaceRoles\": [\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        },\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        }\n      ]\n    },\n    {\n      \"avatarUrl\": \"https://avatar.url\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"fullName\": \"Jane Doe\",\n      \"id\": \"clm9sq6s0000008kz7uvl7yz7\",\n      \"status\": \"ACTIVE\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"username\": \"user1@company.com\",\n      \"dagRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        }\n      ],\n      \"deploymentRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        }\n      ],\n      \"organizationRole\": \"ORGANIZATION_MEMBER\",\n      \"workspaceRoles\": [\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        },\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75b80ddd-5b33-496b-97ff-cb4c35fb5e16",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 541,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cf76be5-b081-4c18-84a9-0ef11747ee1b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca31cbf3-6266-4e7f-8bda-533435e1b2e6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de1560c8-f204-428c-a3b0-a11fb85cfc6b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspaceId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dagTags",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list users for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ee48f95-197e-4f63-a090-e9735bdbf7c2",
+          "name": "Get user information",
+          "request": {
+            "name": "Get user information",
+            "description": {
+              "content": "Retrieve user information about a specific user account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the user belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The user's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3983b609-3e78-4b1d-a5c6-0366e57ca23a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avatarUrl\": \"https://avatar.url\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"fullName\": \"Jane Doe\",\n  \"id\": \"clm9sq6s0000008kz7uvl7yz7\",\n  \"status\": \"ACTIVE\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"username\": \"user1@company.com\",\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c2174ca-c52a-4d80-8198-ac81e223ddcf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bc28238-0611-4a72-934b-94e1e4bfd976",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dc4f424-01a1-45a9-9b6b-07136f54a67e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4e1d1b0-5a26-487d-bff0-9e1eab28563d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76bea093-cfc5-47c7-90df-f84174c4b79c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "acbf8c01-ef3e-4691-b3e2-21c5cf310de2",
+          "name": "Update a user's roles",
+          "request": {
+            "name": "Update a user's roles",
+            "description": {
+              "content": "Update Organization and Workspace roles for a user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "users",
+                ":userId",
+                "roles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the user belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The user's ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"<string>\",\n      \"role\": \"<string>\",\n      \"dagId\": \"<string>\",\n      \"dagTag\": \"<string>\"\n    },\n    {\n      \"deploymentId\": \"<string>\",\n      \"role\": \"<string>\",\n      \"dagId\": \"<string>\",\n      \"dagTag\": \"<string>\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"<string>\",\n      \"role\": \"<string>\"\n    },\n    {\n      \"deploymentId\": \"<string>\",\n      \"role\": \"<string>\"\n    }\n  ],\n  \"organizationRole\": \"<string>\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"<string>\",\n      \"workspaceId\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"workspaceId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "558434c8-3c1e-402a-9b6a-6bd7b54383d0",
+              "name": "The response body containing the user's roles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98e4cd52-2ece-4f56-b58d-fb18315b90c9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f46b9861-7135-44d7-aa02-dd02e8a5e811",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0adc4f0-4705-4efa-9911-9039fb90e3f4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f273f85-208a-4b2a-97a1-a07a50d85059",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af8787ce-fb0d-4980-9edb-0d60897908ee",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "roles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the user belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dagRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DAG_VIEWER\",\n      \"dagId\": \"my_dag\",\n      \"dagTag\": \"team-a\"\n    }\n  ],\n  \"deploymentRoles\": [\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    },\n    {\n      \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n      \"role\": \"DEPLOYMENT_ADMIN\"\n    }\n  ],\n  \"organizationRole\": \"ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER\",\n  \"workspaceRoles\": [\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    },\n    {\n      \"role\": \"WORKSPACE_MEMBER\",\n      \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e67e98a7-0cb2-49a0-a771-529d35787af6",
+          "name": "List teams for a user",
+          "request": {
+            "name": "List teams for a user",
+            "description": {
+              "content": "List the teams a user belongs to within an Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "users",
+                ":userId",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Limit for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) The user's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae517e88-6bfd-4a9d-9376-7f7f8ccd1eb8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 10,\n  \"offset\": 0,\n  \"teams\": [\n    {\n      \"id\": \"clma5ftgk000008mhgev00k7d\",\n      \"isIdpManaged\": false,\n      \"name\": \"My Team\",\n      \"organizationRole\": \"ORGANIZATION_MEMBER\",\n      \"dagRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        }\n      ],\n      \"deploymentRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        }\n      ],\n      \"description\": \"My Team description\",\n      \"rolesCount\": 1,\n      \"workspaceRoles\": [\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        },\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        }\n      ]\n    },\n    {\n      \"id\": \"clma5ftgk000008mhgev00k7d\",\n      \"isIdpManaged\": false,\n      \"name\": \"My Team\",\n      \"organizationRole\": \"ORGANIZATION_MEMBER\",\n      \"dagRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DAG_VIEWER\",\n          \"dagId\": \"my_dag\",\n          \"dagTag\": \"team-a\"\n        }\n      ],\n      \"deploymentRoles\": [\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        },\n        {\n          \"deploymentId\": \"clm8t5u4q000008jq4qoc3031\",\n          \"role\": \"DEPLOYMENT_ADMIN\"\n        }\n      ],\n      \"description\": \"My Team description\",\n      \"rolesCount\": 1,\n      \"workspaceRoles\": [\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        },\n        {\n          \"role\": \"WORKSPACE_MEMBER\",\n          \"workspaceId\": \"clm8t5u4q000008jq4qoc3036\"\n        }\n      ]\n    }\n  ],\n  \"totalCount\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c99f07c1-615b-4ce6-b2cc-9cf0b4062af7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "960caf08-0951-49d4-b4c7-62eef0e46ab8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e99bf6a9-de49-4a2a-a233-51accc55692c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b33c4c77-5e1d-41f5-ae71-9559df31491f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04338670-140c-48fa-b529-97a1f9c0176c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "users",
+                    ":userId",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) The user's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "318508c1-6d3c-4dc2-b84a-fd46499e966b",
+          "name": "Get current user",
+          "request": {
+            "name": "Get current user",
+            "description": {
+              "content": "Get the authenticated user's profile and roles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "self"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "createIfNotExist",
+                  "value": "<boolean>",
+                  "description": "Create the user if they don't already exist."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6990dc83-eeb8-4e80-b5bb-bb1f7394df18",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createIfNotExist",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"avatarUrl\": \"string\",\n  \"createdAt\": \"1958-03-26T21:59:11.565Z\",\n  \"fullName\": \"string\",\n  \"id\": \"string\",\n  \"status\": \"ACTIVE\",\n  \"updatedAt\": \"1947-08-08T19:01:09.102Z\",\n  \"username\": \"string\",\n  \"featureFlags\": [\n    {\n      \"key\": \"string\",\n      \"value\": true\n    },\n    {\n      \"key\": \"string\",\n      \"value\": false\n    }\n  ],\n  \"invites\": [\n    {\n      \"expiresAt\": \"2026-02-24T23:31:50.686Z\",\n      \"inviteId\": \"string\",\n      \"organizationId\": \"string\"\n    },\n    {\n      \"expiresAt\": \"1948-03-29T08:31:20.097Z\",\n      \"inviteId\": \"string\",\n      \"organizationId\": \"string\"\n    }\n  ],\n  \"isIdpManaged\": false,\n  \"organizationId\": \"string\",\n  \"roles\": [\n    {\n      \"role\": \"string\",\n      \"scope\": {\n        \"entityId\": \"string\",\n        \"type\": \"string\",\n        \"dagTag\": \"string\",\n        \"deploymentId\": \"string\"\n      }\n    },\n    {\n      \"role\": \"string\",\n      \"scope\": {\n        \"entityId\": \"string\",\n        \"type\": \"string\",\n        \"dagTag\": \"string\",\n        \"deploymentId\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac99f4ed-f18e-49ab-8968-18c8daf5bce7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createIfNotExist",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7eeeb11-7d99-4518-85e8-5712a2f33228",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createIfNotExist",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a11d179-2c64-4623-b096-e5b737d50f69",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "self"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "createIfNotExist",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astronomer.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c0ba90ac-8509-4ef7-85d2-dbbe263eebd2",
+    "name": "Astro Platform AgentToken User API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Astro Platform API",
+      "type": "text/plain"
+    }
+  }
+}

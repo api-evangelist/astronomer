@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken AllowedIpAddressRange API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AllowedIpAddressRange",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List allowed IP address ranges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/allowed-ip-address-ranges",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization that you want to retrieve the list of IP addresses for."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before returning values."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List allowed IP address ranges."
+        },
+        {
+          "info": {
+            "name": "Create an allowed IP address range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/allowed-ip-address-ranges",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to create the allowed IP address range."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an allowed IP address range that constrains which IP addresses can be used to interact with your Astro Organization using APIs."
+        },
+        {
+          "info": {
+            "name": "Delete an allowed IP address range",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/allowed-ip-address-ranges/:allowedIpAddressRangeId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to delete the allowed IP address range."
+              },
+              {
+                "name": "allowedIpAddressRangeId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the allowed IP address range that you want to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an allowed IP address range."
+        },
+        {
+          "info": {
+            "name": "Bulk create allowed IP address ranges",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/allowed-ip-address-ranges/bulk-create",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to create the allowed IP address ranges."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create up to 1000 allowed IP address ranges for the organization in one request. The whole batch is created atomically — if any item fails validation or conflicts with an existing range, no rows are inserted. This endpoint is NOT idempotent: a retry after an unacknowledged 2xx response may return 409. Clients should call ListAllowedIpAddressRanges to verify state before retrying."
+        },
+        {
+          "info": {
+            "name": "Bulk delete allowed IP address ranges",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/allowed-ip-address-ranges/bulk-delete",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to delete the allowed IP address ranges."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete up to 1000 allowed IP address ranges for the organization in one request. The whole batch is deleted atomically. Unknown or duplicate IDs are accepted and ignored; matching rows for this organization are deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

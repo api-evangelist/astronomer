@@ -1,0 +1,2446 @@
+{
+  "item": [
+    {
+      "id": "94a0aa48-78df-4a90-bbd2-abd62fab6890",
+      "name": "Cluster",
+      "description": {
+        "content": "A `cluster` object represents an Astro cluster, which is a Kubernetes cluster that hosts the infrastructure required to run Deployments. Make requests to `cluster` endpoints to manage your standard and dedicated clusters. See [Create a dedicated cluster](https://astronomer.io/docs/astro/create-dedicated-cluster).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ad1a5531-84ef-45dd-9c04-568f8ac054a7",
+          "name": "List clusters",
+          "request": {
+            "name": "List clusters",
+            "description": {
+              "content": "List clusters in an Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "A list of names for Clusters to filter by. The API returns details only for the specified Clusters."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "A list of names for Clusters to filter by. The API returns details only for the specified Clusters."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "The cloud provider to list clusters for. Clusters from other providers will be filtered out of the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before returning values."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The Organization's unique ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a47f95ac-baac-4ee2-9648-4e624bf52f13",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization's unique ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"clusters\": [\n    {\n      \"cloudProvider\": \"AWS\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"dbInstanceType\": \"db.t3.medium\",\n      \"drRegion\": \"us-east-1\",\n      \"id\": \"clm7k8tgw000008jz97i37y81\",\n      \"isDrEnabled\": false,\n      \"name\": \"my cluster\",\n      \"organizationId\": \"clm88r8hi000008jwhzxu5crg\",\n      \"region\": \"us-east-1\",\n      \"status\": \"CREATED\",\n      \"type\": \"DEDICATED\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"vpcSubnetRange\": \"172.20.0.0/22\",\n      \"drPodSubnetRange\": \"172.21.0.0/19\",\n      \"drSecondaryVpcCidr\": \"string\",\n      \"drServicePeeringRange\": \"172.23.0.0/20\",\n      \"drServiceSubnetRange\": \"172.22.0.0/22\",\n      \"drVpcSubnetRange\": \"string\",\n      \"enableReplicationTimeControl\": true,\n      \"failoverInProgress\": false,\n      \"healthStatus\": {\n        \"value\": \"HEALTHY\",\n        \"details\": [\n          {\n            \"code\": \"string\",\n            \"description\": \"string\",\n            \"severity\": \"string\",\n            \"component\": \"string\"\n          },\n          {\n            \"code\": \"string\",\n            \"description\": \"string\",\n            \"severity\": \"string\",\n            \"component\": \"string\"\n          }\n        ]\n      },\n      \"isFailedOver\": false,\n      \"isLimited\": false,\n      \"isPrivateNetworkEgressEnabled\": true,\n      \"metadata\": {\n        \"externalIPs\": [\n          \"35.100.100.1\"\n        ],\n        \"kubeDnsIp\": \"10.100.100.0\",\n        \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\"\n      },\n      \"nodePools\": [\n        {\n          \"cloudProvider\": \"AWS\",\n          \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n          \"createdAt\": \"2022-11-22T04:37:12Z\",\n          \"id\": \"clm890zhe000208jr39dd0ubs\",\n          \"isDefault\": true,\n          \"maxNodeCount\": 1,\n          \"name\": \"default\",\n          \"nodeInstanceType\": \"t3.medium\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"supportedAstroMachines\": [\n            \"A5\",\n            \"A10\"\n          ]\n        },\n        {\n          \"cloudProvider\": \"AWS\",\n          \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n          \"createdAt\": \"2022-11-22T04:37:12Z\",\n          \"id\": \"clm890zhe000208jr39dd0ubs\",\n          \"isDefault\": true,\n          \"maxNodeCount\": 1,\n          \"name\": \"default\",\n          \"nodeInstanceType\": \"t3.medium\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"supportedAstroMachines\": [\n            \"A5\",\n            \"A10\"\n          ]\n        }\n      ],\n      \"podSubnetRange\": \"172.21.0.0/19\",\n      \"providerAccount\": \"provider-account\",\n      \"secondaryVpcCidr\": \"string\",\n      \"servicePeeringRange\": \"172.23.0.0/20\",\n      \"serviceSubnetRange\": \"172.22.0.0/22\",\n      \"tags\": [\n        {\n          \"key\": \"key1\",\n          \"value\": \"value1\"\n        },\n        {\n          \"key\": \"key1\",\n          \"value\": \"value1\"\n        }\n      ],\n      \"tenantId\": \"your-tenant-id\",\n      \"workspaceIds\": [\n        \"clm88rddl000108jwgeka2div\"\n      ]\n    },\n    {\n      \"cloudProvider\": \"AWS\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"dbInstanceType\": \"db.t3.medium\",\n      \"drRegion\": \"us-east-1\",\n      \"id\": \"clm7k8tgw000008jz97i37y81\",\n      \"isDrEnabled\": false,\n      \"name\": \"my cluster\",\n      \"organizationId\": \"clm88r8hi000008jwhzxu5crg\",\n      \"region\": \"us-east-1\",\n      \"status\": \"CREATED\",\n      \"type\": \"DEDICATED\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"vpcSubnetRange\": \"172.20.0.0/22\",\n      \"drPodSubnetRange\": \"172.21.0.0/19\",\n      \"drSecondaryVpcCidr\": \"string\",\n      \"drServicePeeringRange\": \"172.23.0.0/20\",\n      \"drServiceSubnetRange\": \"172.22.0.0/22\",\n      \"drVpcSubnetRange\": \"string\",\n      \"enableReplicationTimeControl\": false,\n      \"failoverInProgress\": true,\n      \"healthStatus\": {\n        \"value\": \"HEALTHY\",\n        \"details\": [\n          {\n            \"code\": \"string\",\n            \"description\": \"string\",\n            \"severity\": \"string\",\n            \"component\": \"string\"\n          },\n          {\n            \"code\": \"string\",\n            \"description\": \"string\",\n            \"severity\": \"string\",\n            \"component\": \"string\"\n          }\n        ]\n      },\n      \"isFailedOver\": false,\n      \"isLimited\": false,\n      \"isPrivateNetworkEgressEnabled\": false,\n      \"metadata\": {\n        \"externalIPs\": [\n          \"35.100.100.1\"\n        ],\n        \"kubeDnsIp\": \"10.100.100.0\",\n        \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\"\n      },\n      \"nodePools\": [\n        {\n          \"cloudProvider\": \"AWS\",\n          \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n          \"createdAt\": \"2022-11-22T04:37:12Z\",\n          \"id\": \"clm890zhe000208jr39dd0ubs\",\n          \"isDefault\": true,\n          \"maxNodeCount\": 1,\n          \"name\": \"default\",\n          \"nodeInstanceType\": \"t3.medium\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"supportedAstroMachines\": [\n            \"A5\",\n            \"A10\"\n          ]\n        },\n        {\n          \"cloudProvider\": \"AWS\",\n          \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n          \"createdAt\": \"2022-11-22T04:37:12Z\",\n          \"id\": \"clm890zhe000208jr39dd0ubs\",\n          \"isDefault\": true,\n          \"maxNodeCount\": 1,\n          \"name\": \"default\",\n          \"nodeInstanceType\": \"t3.medium\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"supportedAstroMachines\": [\n            \"A5\",\n            \"A10\"\n          ]\n        }\n      ],\n      \"podSubnetRange\": \"172.21.0.0/19\",\n      \"providerAccount\": \"provider-account\",\n      \"secondaryVpcCidr\": \"string\",\n      \"servicePeeringRange\": \"172.23.0.0/20\",\n      \"serviceSubnetRange\": \"172.22.0.0/22\",\n      \"tags\": [\n        {\n          \"key\": \"key1\",\n          \"value\": \"value1\"\n        },\n        {\n          \"key\": \"key1\",\n          \"value\": \"value1\"\n        }\n      ],\n      \"tenantId\": \"your-tenant-id\",\n      \"workspaceIds\": [\n        \"clm88rddl000108jwgeka2div\"\n      ]\n    }\n  ],\n  \"limit\": 10,\n  \"offset\": 0,\n  \"totalCount\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "633ccc29-b74d-45d6-a43f-f652f3078352",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization's unique ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 413,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c5df4ae-e88b-4adc-aa8d-a4948cc71e32",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization's unique ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c91e6909-0615-4589-8fdd-230c5557a9f1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization's unique ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d123825-154d-4842-b6a0-8434754062df",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization's unique ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "405f9e36-3cfd-4dd7-8c1b-a8a45e6ebe75",
+          "name": "Create a cluster",
+          "request": {
+            "name": "Create a cluster",
+            "description": {
+              "content": "Create a cluster in the Organization. An Astro cluster is a Kubernetes cluster that hosts the infrastructure required to run Deployments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "clusters"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to create the cluster in."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cloudProvider\": \"<string>\",\n  \"name\": \"<string>\",\n  \"region\": \"<string>\",\n  \"type\": \"<string>\",\n  \"vpcSubnetRange\": \"<string>\",\n  \"dbInstanceType\": \"<string>\",\n  \"drRegion\": \"<string>\",\n  \"drSecondaryVpcCidr\": \"<string>\",\n  \"drVpcSubnetRange\": \"<string>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"nodeInstanceType\": \"<string>\",\n      \"isDefault\": \"<boolean>\"\n    },\n    {\n      \"maxNodeCount\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"nodeInstanceType\": \"<string>\",\n      \"isDefault\": \"<boolean>\"\n    }\n  ],\n  \"providerAccount\": \"<string>\",\n  \"secondaryVpcCidr\": \"<string>\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c16791f-9a84-42b7-b322-54ff7ea45af1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cloudProvider\": \"AWS\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"dbInstanceType\": \"db.t3.medium\",\n  \"drRegion\": \"us-east-1\",\n  \"id\": \"clm7k8tgw000008jz97i37y81\",\n  \"isDrEnabled\": true,\n  \"name\": \"my cluster\",\n  \"organizationId\": \"clm88r8hi000008jwhzxu5crg\",\n  \"region\": \"us-east-1\",\n  \"status\": \"CREATED\",\n  \"type\": \"DEDICATED\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drSecondaryVpcCidr\": \"string\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"string\",\n  \"enableReplicationTimeControl\": true,\n  \"failoverInProgress\": false,\n  \"healthStatus\": {\n    \"value\": \"HEALTHY\",\n    \"details\": [\n      {\n        \"code\": \"string\",\n        \"description\": \"string\",\n        \"severity\": \"string\",\n        \"component\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"description\": \"string\",\n        \"severity\": \"string\",\n        \"component\": \"string\"\n      }\n    ]\n  },\n  \"isFailedOver\": false,\n  \"isLimited\": false,\n  \"isPrivateNetworkEgressEnabled\": false,\n  \"metadata\": {\n    \"externalIPs\": [\n      \"35.100.100.1\"\n    ],\n    \"kubeDnsIp\": \"10.100.100.0\",\n    \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\"\n  },\n  \"nodePools\": [\n    {\n      \"cloudProvider\": \"AWS\",\n      \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"id\": \"clm890zhe000208jr39dd0ubs\",\n      \"isDefault\": true,\n      \"maxNodeCount\": 1,\n      \"name\": \"default\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"supportedAstroMachines\": [\n        \"A5\",\n        \"A10\"\n      ]\n    },\n    {\n      \"cloudProvider\": \"AWS\",\n      \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"id\": \"clm890zhe000208jr39dd0ubs\",\n      \"isDefault\": true,\n      \"maxNodeCount\": 1,\n      \"name\": \"default\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"supportedAstroMachines\": [\n        \"A5\",\n        \"A10\"\n      ]\n    }\n  ],\n  \"podSubnetRange\": \"172.21.0.0/19\",\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"string\",\n  \"servicePeeringRange\": \"172.23.0.0/20\",\n  \"serviceSubnetRange\": \"172.22.0.0/22\",\n  \"tags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"tenantId\": \"your-tenant-id\",\n  \"workspaceIds\": [\n    \"clm88rddl000108jwgeka2div\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb627c0f-3db5-4afe-9abe-21e13b232cc7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f946be1-d9c3-4d92-a703-952cb6d479ae",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd33270b-e706-405e-a774-25fbba19dea3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "07555048-fd01-4656-8c54-3213ff42330d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d88c6227-9cf5-42b2-8d00-e67b266f021a",
+              "name": "Precondition Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26fe074e-590b-4173-82fa-43e51f8d027b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to create the cluster in."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cloudProvider\": \"AZURE\",\n  \"name\": \"My cluster\",\n  \"region\": \"us-east-1\",\n  \"type\": \"DEDICATED\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drRegion\": \"us-west-2\",\n  \"drSecondaryVpcCidr\": \"100.64.0.0/19\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"isDefault\": true\n    }\n  ],\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"100.64.0.0/16\",\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55d6c844-6db2-4e0c-a192-d2c1608ae147",
+          "name": "Delete a cluster",
+          "request": {
+            "name": "Delete a cluster",
+            "description": {
+              "content": "Delete a cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "clusters",
+                ":clusterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the cluster belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) The cluster's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "557990b4-a9cb-4653-b75f-e0da2b387ad6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "857b833a-9129-4cf6-b18d-2ce820676303",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b494de8-db7f-4d6b-99c7-915528b4b380",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75647069-21dd-4459-a215-8a0c4afbea06",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54a8c463-7ae1-4143-a5de-db211eff510c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fd4e8a3-1f00-45d7-8d96-dc03c1e7f069",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27a4800e-e707-4a81-b40e-03e71c5bd050",
+          "name": "Get a cluster",
+          "request": {
+            "name": "Get a cluster",
+            "description": {
+              "content": "Retrieve details about a cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "clusters",
+                ":clusterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the cluster belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) The cluster's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa3bc3d1-eb1e-4993-ab8e-8bddc9017e59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cloudProvider\": \"AWS\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"dbInstanceType\": \"db.t3.medium\",\n  \"drRegion\": \"us-east-1\",\n  \"id\": \"clm7k8tgw000008jz97i37y81\",\n  \"isDrEnabled\": true,\n  \"name\": \"my cluster\",\n  \"organizationId\": \"clm88r8hi000008jwhzxu5crg\",\n  \"region\": \"us-east-1\",\n  \"status\": \"CREATED\",\n  \"type\": \"DEDICATED\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drSecondaryVpcCidr\": \"string\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"string\",\n  \"enableReplicationTimeControl\": true,\n  \"failoverInProgress\": false,\n  \"healthStatus\": {\n    \"value\": \"HEALTHY\",\n    \"details\": [\n      {\n        \"code\": \"string\",\n        \"description\": \"string\",\n        \"severity\": \"string\",\n        \"component\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"description\": \"string\",\n        \"severity\": \"string\",\n        \"component\": \"string\"\n      }\n    ]\n  },\n  \"isFailedOver\": false,\n  \"isLimited\": false,\n  \"isPrivateNetworkEgressEnabled\": false,\n  \"metadata\": {\n    \"externalIPs\": [\n      \"35.100.100.1\"\n    ],\n    \"kubeDnsIp\": \"10.100.100.0\",\n    \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\"\n  },\n  \"nodePools\": [\n    {\n      \"cloudProvider\": \"AWS\",\n      \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"id\": \"clm890zhe000208jr39dd0ubs\",\n      \"isDefault\": true,\n      \"maxNodeCount\": 1,\n      \"name\": \"default\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"supportedAstroMachines\": [\n        \"A5\",\n        \"A10\"\n      ]\n    },\n    {\n      \"cloudProvider\": \"AWS\",\n      \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"id\": \"clm890zhe000208jr39dd0ubs\",\n      \"isDefault\": true,\n      \"maxNodeCount\": 1,\n      \"name\": \"default\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"supportedAstroMachines\": [\n        \"A5\",\n        \"A10\"\n      ]\n    }\n  ],\n  \"podSubnetRange\": \"172.21.0.0/19\",\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"string\",\n  \"servicePeeringRange\": \"172.23.0.0/20\",\n  \"serviceSubnetRange\": \"172.22.0.0/22\",\n  \"tags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"tenantId\": \"your-tenant-id\",\n  \"workspaceIds\": [\n    \"clm88rddl000108jwgeka2div\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0fdadb17-b37e-4ece-a3ac-c83f1823c3cf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca301a1b-1ffa-4a7e-889a-b228ff479db7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3eb73432-8776-4e7a-b415-d1706fd23d03",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2af1bf8-660e-4c0a-8c80-2c0a793684fb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de43bacb-ae52-402d-a2c5-0be83e89d52d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9eff7749-e9ab-4911-ad26-a12c1004552e",
+          "name": "Update a cluster",
+          "request": {
+            "name": "Update a cluster",
+            "description": {
+              "content": "Update a cluster in the Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "clusters",
+                ":clusterId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the cluster belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "clusterId",
+                  "description": "(Required) The cluster's ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"clusterType\": \"<string>\",\n  \"dbInstanceType\": \"<string>\",\n  \"drPodSubnetRange\": \"<string>\",\n  \"drRegion\": \"<string>\",\n  \"drServicePeeringRange\": \"<string>\",\n  \"drServiceSubnetRange\": \"<string>\",\n  \"drVpcSubnetRange\": \"<string>\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"nodeInstanceType\": \"<string>\",\n      \"id\": \"<string>\",\n      \"isDefault\": \"<boolean>\"\n    },\n    {\n      \"maxNodeCount\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"nodeInstanceType\": \"<string>\",\n      \"id\": \"<string>\",\n      \"isDefault\": \"<boolean>\"\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1bdedfbb-d1bb-4a42-bd8a-2cdd1e8e7bf9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cloudProvider\": \"AWS\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"dbInstanceType\": \"db.t3.medium\",\n  \"drRegion\": \"us-east-1\",\n  \"id\": \"clm7k8tgw000008jz97i37y81\",\n  \"isDrEnabled\": true,\n  \"name\": \"my cluster\",\n  \"organizationId\": \"clm88r8hi000008jwhzxu5crg\",\n  \"region\": \"us-east-1\",\n  \"status\": \"CREATED\",\n  \"type\": \"DEDICATED\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"vpcSubnetRange\": \"172.20.0.0/22\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drSecondaryVpcCidr\": \"string\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"string\",\n  \"enableReplicationTimeControl\": true,\n  \"failoverInProgress\": false,\n  \"healthStatus\": {\n    \"value\": \"HEALTHY\",\n    \"details\": [\n      {\n        \"code\": \"string\",\n        \"description\": \"string\",\n        \"severity\": \"string\",\n        \"component\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"description\": \"string\",\n        \"severity\": \"string\",\n        \"component\": \"string\"\n      }\n    ]\n  },\n  \"isFailedOver\": false,\n  \"isLimited\": false,\n  \"isPrivateNetworkEgressEnabled\": false,\n  \"metadata\": {\n    \"externalIPs\": [\n      \"35.100.100.1\"\n    ],\n    \"kubeDnsIp\": \"10.100.100.0\",\n    \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\"\n  },\n  \"nodePools\": [\n    {\n      \"cloudProvider\": \"AWS\",\n      \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"id\": \"clm890zhe000208jr39dd0ubs\",\n      \"isDefault\": true,\n      \"maxNodeCount\": 1,\n      \"name\": \"default\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"supportedAstroMachines\": [\n        \"A5\",\n        \"A10\"\n      ]\n    },\n    {\n      \"cloudProvider\": \"AWS\",\n      \"clusterId\": \"clm891jb6000308jrc3vjdtde\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"id\": \"clm890zhe000208jr39dd0ubs\",\n      \"isDefault\": true,\n      \"maxNodeCount\": 1,\n      \"name\": \"default\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"supportedAstroMachines\": [\n        \"A5\",\n        \"A10\"\n      ]\n    }\n  ],\n  \"podSubnetRange\": \"172.21.0.0/19\",\n  \"providerAccount\": \"provider-account\",\n  \"secondaryVpcCidr\": \"string\",\n  \"servicePeeringRange\": \"172.23.0.0/20\",\n  \"serviceSubnetRange\": \"172.22.0.0/22\",\n  \"tags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"tenantId\": \"your-tenant-id\",\n  \"workspaceIds\": [\n    \"clm88rddl000108jwgeka2div\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfe22318-f631-433e-9f14-aff978a78852",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bdf108c-e90a-49cb-9408-7ff19b47ae67",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1fb3d90-b626-4c0b-95a6-5ef6ee115661",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8b0303e-2f9f-4e2b-98cc-2a5357c808bc",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2e2a9db-01bd-4695-8da7-e475b0cd3627",
+              "name": "Precondition Failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Precondition Failed",
+              "code": 412,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b18a11e9-1e6b-4148-9365-0e2ee9f69b61",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "clusters",
+                    ":clusterId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the cluster belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "clusterId",
+                      "description": "(Required) The cluster's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"k8sTags\": [\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    },\n    {\n      \"key\": \"key1\",\n      \"value\": \"value1\"\n    }\n  ],\n  \"name\": \"My cluster\",\n  \"clusterType\": \"DEDICATED\",\n  \"dbInstanceType\": \"Small General Purpose\",\n  \"drPodSubnetRange\": \"172.21.0.0/19\",\n  \"drRegion\": \"us-west-2\",\n  \"drServicePeeringRange\": \"172.23.0.0/20\",\n  \"drServiceSubnetRange\": \"172.22.0.0/22\",\n  \"drVpcSubnetRange\": \"172.20.0.0/22\",\n  \"enableDr\": \"<boolean>\",\n  \"enableReplicationTimeControl\": \"<boolean>\",\n  \"isFailedOver\": \"<boolean>\",\n  \"isPrivateNetworkEgressEnabled\": \"<boolean>\",\n  \"nodePools\": [\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    },\n    {\n      \"maxNodeCount\": 10,\n      \"name\": \"my-nodepool\",\n      \"nodeInstanceType\": \"t3.medium\",\n      \"id\": \"clm8bvk8b000008l9deowc5lx\",\n      \"isDefault\": true\n    }\n  ],\n  \"workspaceIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 521,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astronomer.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "19d3897e-b557-4f4c-a8cf-fa6d44238fa6",
+    "name": "Astro Platform AgentToken Cluster API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Astro Platform API",
+      "type": "text/plain"
+    }
+  }
+}

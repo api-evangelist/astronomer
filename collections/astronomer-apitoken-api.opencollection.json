@@ -1,0 +1,281 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken ApiToken API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ApiToken",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to list tokens for."
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Workspace to list API tokens for."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Deployment to list API tokens for."
+              },
+              {
+                "name": "dagId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the DAG to list API tokens for."
+              },
+              {
+                "name": "dagTags",
+                "value": "",
+                "type": "query",
+                "description": "The tags of the DAG to list API tokens for."
+              },
+              {
+                "name": "includeOnlyOrganizationTokens",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show only Organization API tokens."
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "query",
+                "description": "The kind of the API token to list API tokens for."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List information about all API tokens from an Organization. Filters on Workspace when Workspace ID is provided. When `includeOnlyOrganizationTokens` is `true`, only Organization API tokens are returned."
+        },
+        {
+          "info": {
+            "name": "Create an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to create the token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an API token. An API token is an alphanumeric token that grants programmatic access to Astro for automated workflows. An API token can be scoped to an Organization or a Workspace."
+        },
+        {
+          "info": {
+            "name": "Get an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens/:tokenId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to retrieve token information."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the token that you want to retrieve data for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve information about a specific API token."
+        },
+        {
+          "info": {
+            "name": "Update an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens/:tokenId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to update an API token."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The API token you want to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the name and description of an API token."
+        },
+        {
+          "info": {
+            "name": "Delete an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens/:tokenId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to delete the token."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The API token ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an API token. When you delete an API token, make sure that no existing automation workflows are using it. After it's deleted, an API token cannot be recovered."
+        },
+        {
+          "info": {
+            "name": "Update API token roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens/:tokenId/roles",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to update an API token."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The API token you want to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Workspace and Organization roles for an API token."
+        },
+        {
+          "info": {
+            "name": "Rotate API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/tokens/:tokenId/rotate",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to rotate an API token."
+              },
+              {
+                "name": "tokenId",
+                "value": "",
+                "type": "path",
+                "description": "The token to rotate"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Rotate an API token. Creates a new API token and invalidates the one you specify. Any workflows using the previous value stop working."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

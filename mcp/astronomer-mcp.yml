@@ -4,11 +4,10 @@ status: published
 source: https://www.astronomer.io/docs/_mcp/server
 server:
   name: fern-docs-mcp-server
-  version: '1.0.0'
-  description: >-
-    Official documentation MCP server for https://www.astronomer.io/docs (Fern-hosted).
-    Provides AI-powered search over the Astronomer documentation. Referenced from
-    the Astronomer docs llms.txt for AI client integration.
+  version: 1.0.0
+  description: Official documentation MCP server for https://www.astronomer.io/docs (Fern-hosted). Provides
+    AI-powered search over the Astronomer documentation. Referenced from the Astronomer docs llms.txt
+    for AI client integration.
   transport: streamable-http
   url: https://www.astronomer.io/docs/_mcp/server
 install:
@@ -17,15 +16,21 @@ install:
   generic: POST JSON-RPC 2.0 messages to this URL
 tools:
 - name: searchDocs
-  description: >-
-    Search the documentation at https://www.astronomer.io/docs. Returns relevant
-    doc passages with source URLs.
+  description: Search the documentation at https://www.astronomer.io/docs. Returns relevant doc passages
+    with source URLs.
   read_only: true
   input:
     query: The search query to run against the docs
 raw: mcp/astronomer-mcp-server-raw.json
-notes: >-
-  This is a documentation-search MCP server, not a full CRUD server over the Astro
-  Platform API. A candidate CRUD tool set could be derived from the 75 Astro Platform
-  API operations in openapi/astronomer-astro-openapi-original.yml, but only the
-  documentation server is officially published.
+notes: This is a documentation-search MCP server, not a full CRUD server over the Astro Platform API.
+  A candidate CRUD tool set could be derived from the 75 Astro Platform API operations in openapi/astronomer-astro-openapi-original.yml,
+  but only the documentation server is officially published.
+deployment:
+  mode: none
+  endpoint: https://www.astronomer.io/docs
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census

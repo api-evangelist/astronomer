@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Options API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Options",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get cluster options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/cluster-options",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to get cluster options for."
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "The cluster's cloud provider."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The cluster type."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all possible options for configuring a cluster."
+        },
+        {
+          "info": {
+            "name": "Get Deployment options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployment-options",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to retrieve Deployment options for."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of a Deployment to retrieve options for."
+              },
+              {
+                "name": "deploymentType",
+                "value": "",
+                "type": "query",
+                "description": "The runtime type of the deployment."
+              },
+              {
+                "name": "executor",
+                "value": "",
+                "type": "query",
+                "description": "The executor of the deployment."
+              },
+              {
+                "name": "cloudProvider",
+                "value": "",
+                "type": "query",
+                "description": "The cloud provider of the cluster for the deployment."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the options available for configuring a Deployment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

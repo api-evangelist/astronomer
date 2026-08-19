@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Authorization API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List authorization permission groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/authorization/permission-groups",
+            "params": [
+              {
+                "name": "scopeType",
+                "value": "",
+                "type": "query",
+                "description": "Filter the returned permissions based on the scope they apply to. Note that currently, the only available permissions are in the `DEPLOYMENT` and `DAG` scopes."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List the available permissions you can grant to a custom role."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

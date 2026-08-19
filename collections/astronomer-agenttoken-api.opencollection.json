@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "AgentToken",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Agent API Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/agent-tokens",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the organization that owns the deployment you want to list tokens for."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deployment that owns the Agent API tokens you want to list."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before returning values."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Agent API Tokens."
+        },
+        {
+          "info": {
+            "name": "Create an Agent API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/agent-tokens",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the organization that owns the deployment where you want to create the Agent API token."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deployment where you want to create the Agent API token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an Agent API token for remote workers."
+        },
+        {
+          "info": {
+            "name": "Get an Agent API Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/agent-tokens/:agentTokenId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization that owns the deployment where you want to retrieve Agent API token information."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deployment where you want to retrieve Agent API token information."
+              },
+              {
+                "name": "agentTokenId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Agent API token that you want to retrieve data for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get an Agent API Token."
+        },
+        {
+          "info": {
+            "name": "Delete an Agent API Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/agent-tokens/:agentTokenId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the organization that owns the deployment where you want to delete the Agent API Token."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the deployment that owns the Agent API token that you want to delete."
+              },
+              {
+                "name": "agentTokenId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Agent API token you want to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an Agent API Token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

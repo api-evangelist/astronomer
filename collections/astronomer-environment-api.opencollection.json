@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Environment API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List environment objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/environment-objects",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the environment object belongs."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before returning values."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "The Workspace ID to filter for. The API returns details for all environment objects belonging only to this specified Workspace."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "query",
+                "description": "The Deployment ID to filter for. The API returns details for all environment objects belonging only to this specified Deployment."
+              },
+              {
+                "name": "objectType",
+                "value": "",
+                "type": "query",
+                "description": "The environment object type to filter for. The API returns details for all environment objects belonging only to this specified object type."
+              },
+              {
+                "name": "objectKey",
+                "value": "",
+                "type": "query",
+                "description": "The environment object key to filter for. The API returns details for all environment objects belonging only to the specified object key."
+              },
+              {
+                "name": "showSecrets",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns the actual values of fields of type secret in the API response."
+              },
+              {
+                "name": "resolveLinked",
+                "value": "",
+                "type": "query",
+                "description": "Resolve and return the environment objects linked to the specified Deployment or Workspace in the API response."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List environment objects in a Workspace or Deployment."
+        },
+        {
+          "info": {
+            "name": "Create a new environment object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/environment-objects",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization in which to create the environment object."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an environment object for a Deployment or Workspace. An environment object represents a connection, environment variable, Airflow variable, or metrics export resource that is managed by the Astro Environment Manager."
+        },
+        {
+          "info": {
+            "name": "Get environment object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/environment-objects/:environmentObjectId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the environment object belongs."
+              },
+              {
+                "name": "environmentObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The environment object's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve details about an environment object."
+        },
+        {
+          "info": {
+            "name": "Update an environment object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/environment-objects/:environmentObjectId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the environment object belongs."
+              },
+              {
+                "name": "environmentObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The environment object's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing Deployment level or Workspace level environment object."
+        },
+        {
+          "info": {
+            "name": "Delete an environment object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/environment-objects/:environmentObjectId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the environment object belongs."
+              },
+              {
+                "name": "environmentObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The environment object's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an environment object from a Deployment or Workspace."
+        },
+        {
+          "info": {
+            "name": "Exclude linking an environment object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/environment-objects/:environmentObjectId/exclude-linking",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the environment object belongs."
+              },
+              {
+                "name": "environmentObjectId",
+                "value": "",
+                "type": "path",
+                "description": "The environment object's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Exclude a specific Deployment from linking to an environment object created at the Workspace level."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

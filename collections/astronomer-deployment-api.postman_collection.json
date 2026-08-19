@@ -1,0 +1,3494 @@
+{
+  "item": [
+    {
+      "id": "3321a073-12c5-428b-b605-eecc3cbec5b7",
+      "name": "Deployment",
+      "description": {
+        "content": "The `deployment` object represents an Astro Deployment, which is a hosted Airflow environment that is powered by all core Airflow components, including schedulers and workers. Make requests to the `deployment` object to create, update, or delete a Deployment or its computational resources. See [Deployment settings](https://astronomer.io/docs/astro/deployment-settings).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "634e8a84-808d-4cfc-aca6-c3521dd2ca6f",
+          "name": "List Deployments",
+          "request": {
+            "name": "List Deployments",
+            "description": {
+              "content": "List Deployments in an Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "deploymentIds",
+                  "value": "<string>",
+                  "description": "A list of IDs for Deployments to show. The API returns details only for the specified Deployments."
+                },
+                {
+                  "disabled": false,
+                  "key": "deploymentIds",
+                  "value": "<string>",
+                  "description": "A list of IDs for Deployments to show. The API returns details only for the specified Deployments."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "A list of names for Deployments to filter by. The API returns details only for the specified Deployments."
+                },
+                {
+                  "disabled": false,
+                  "key": "names",
+                  "value": "<string>",
+                  "description": "A list of names for Deployments to filter by. The API returns details only for the specified Deployments."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspaceIds",
+                  "value": "<string>",
+                  "description": "A list of IDs for Workspaces to filter on. The API returns details for all Deployments belonging only to the specified Workspaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspaceIds",
+                  "value": "<string>",
+                  "description": "A list of IDs for Workspaces to filter on. The API returns details for all Deployments belonging only to the specified Workspaces."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "The number of results to skip before returning values."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+                },
+                {
+                  "disabled": false,
+                  "key": "sorts",
+                  "value": "<string>",
+                  "description": "A list of field names to sort by, and whether to show results as ascending or descending. Formatted as `<fieldName>:asc` or `<fieldName>:desc`."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to list Deployments for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b4017df8-1665-422d-ad71-4eac99795a79",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list Deployments for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deployments\": [\n    {\n      \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n      \"apiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed/api/v1\",\n      \"astroRuntimeVersion\": \"9.1.0\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"createdBy\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      },\n      \"id\": \"clmh57jtm000008lb58fe2wmv\",\n      \"imageRepository\": \"https://my-image-repository\",\n      \"imageTag\": \"my-image-tag\",\n      \"isCicdEnforced\": true,\n      \"isDagDeployEnabled\": true,\n      \"name\": \"My deployment\",\n      \"namespace\": \"weightless-diameter-8927\",\n      \"organizationId\": \"clmh59gt0000308lbgswe5fvh\",\n      \"runtimeVersion\": \"9.1.0\",\n      \"schedulerCpu\": \"1\",\n      \"schedulerMemory\": \"1Gi\",\n      \"schedulerReplicas\": 1,\n      \"status\": \"HEALTHY\",\n      \"uiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed?orgId=org_bvqayGttQauxdxB2\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"updatedBy\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      },\n      \"webServerAirflowApiUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv/api/v1\",\n      \"webServerCpu\": \"0.5\",\n      \"webServerIngressHostname\": \"clmh597sg000208lb2kjhcn8q.astronomer.run/d8fe2wmv\",\n      \"webServerMemory\": \"0.5Gi\",\n      \"webServerUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv?orgId=org_edxLzpFcLrgEfpD5\",\n      \"workspaceId\": \"clmh58o7d000108lb74ktc9o64\",\n      \"cloudProvider\": \"AZURE\",\n      \"clusterId\": \"clmh597sg000208lb2kjhcn8q\",\n      \"clusterName\": \"my cluster\",\n      \"contactEmails\": [\n        \"user1@company.com\"\n      ],\n      \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n      \"defaultTaskPodCpu\": \"0.5\",\n      \"defaultTaskPodMemory\": \"1Gi\",\n      \"description\": \"My deployment description\",\n      \"desiredDagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n      \"drExternalIPs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"drOidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n      \"effectiveDRWorkloadIdentity\": \"string\",\n      \"effectiveWorkloadIdentity\": \"string\",\n      \"environmentVariables\": [\n        {\n          \"isSecret\": true,\n          \"key\": \"my-var\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"value\": \"my-var-value\"\n        },\n        {\n          \"isSecret\": true,\n          \"key\": \"my-var\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"value\": \"my-var-value\"\n        }\n      ],\n      \"executor\": \"CELERY\",\n      \"externalIPs\": [\n        \"0.0.0.0\"\n      ],\n      \"imageVersion\": \"deploy-2023-09-14T19-04\",\n      \"isDevelopmentMode\": false,\n      \"isHighAvailability\": true,\n      \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n      \"region\": \"us-east-1\",\n      \"remoteExecution\": {\n        \"allowedIpAddressRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"remoteApiUrl\": \"string\",\n        \"taskLogBucket\": \"string\",\n        \"taskLogUrlPattern\": \"string\"\n      },\n      \"resourceQuotaCpu\": \"160\",\n      \"resourceQuotaMemory\": \"320Gi\",\n      \"scalingSpec\": {\n        \"hibernationSpec\": {\n          \"override\": {\n            \"isActive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isHibernating\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"overrideUntil\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"schedules\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"scalingStatus\": {\n        \"hibernationStatus\": {\n          \"isHibernating\": false,\n          \"nextEventAt\": \"string\",\n          \"nextEventType\": \"HIBERNATE\",\n          \"reason\": \"string\"\n        }\n      },\n      \"schedulerAu\": 5,\n      \"schedulerSize\": \"MEDIUM\",\n      \"statusReason\": \"Successfully Deployed\",\n      \"taskPodNodePoolId\": \"clmh5mash000008mia6lnbs0f\",\n      \"type\": \"DEDICATED\",\n      \"webServerReplicas\": 1,\n      \"workerQueues\": [\n        {\n          \"id\": \"clmh9vsuf000908midngba9mw\",\n          \"isDefault\": true,\n          \"maxWorkerCount\": 10,\n          \"minWorkerCount\": 1,\n          \"name\": \"default\",\n          \"podCpu\": \"1\",\n          \"podMemory\": \"2Gi\",\n          \"workerConcurrency\": 20,\n          \"astroMachine\": \"A5\",\n          \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n          \"podEphemeralStorage\": \"10Gi\"\n        },\n        {\n          \"id\": \"clmh9vsuf000908midngba9mw\",\n          \"isDefault\": true,\n          \"maxWorkerCount\": 10,\n          \"minWorkerCount\": 1,\n          \"name\": \"default\",\n          \"podCpu\": \"1\",\n          \"podMemory\": \"2Gi\",\n          \"workerConcurrency\": 20,\n          \"astroMachine\": \"A5\",\n          \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n          \"podEphemeralStorage\": \"10Gi\"\n        }\n      ],\n      \"workspaceName\": \"my-workspace\"\n    },\n    {\n      \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n      \"apiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed/api/v1\",\n      \"astroRuntimeVersion\": \"9.1.0\",\n      \"createdAt\": \"2022-11-22T04:37:12Z\",\n      \"createdBy\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      },\n      \"id\": \"clmh57jtm000008lb58fe2wmv\",\n      \"imageRepository\": \"https://my-image-repository\",\n      \"imageTag\": \"my-image-tag\",\n      \"isCicdEnforced\": true,\n      \"isDagDeployEnabled\": true,\n      \"name\": \"My deployment\",\n      \"namespace\": \"weightless-diameter-8927\",\n      \"organizationId\": \"clmh59gt0000308lbgswe5fvh\",\n      \"runtimeVersion\": \"9.1.0\",\n      \"schedulerCpu\": \"1\",\n      \"schedulerMemory\": \"1Gi\",\n      \"schedulerReplicas\": 1,\n      \"status\": \"HEALTHY\",\n      \"uiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed?orgId=org_bvqayGttQauxdxB2\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"updatedBy\": {\n        \"id\": \"clm8qv74h000008mlf08scq7k\",\n        \"apiTokenName\": \"my-token\",\n        \"avatarUrl\": \"https://avatar.url\",\n        \"fullName\": \"Jane Doe\",\n        \"subjectType\": \"USER\",\n        \"username\": \"user1@company.com\"\n      },\n      \"webServerAirflowApiUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv/api/v1\",\n      \"webServerCpu\": \"0.5\",\n      \"webServerIngressHostname\": \"clmh597sg000208lb2kjhcn8q.astronomer.run/d8fe2wmv\",\n      \"webServerMemory\": \"0.5Gi\",\n      \"webServerUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv?orgId=org_edxLzpFcLrgEfpD5\",\n      \"workspaceId\": \"clmh58o7d000108lb74ktc9o64\",\n      \"cloudProvider\": \"AZURE\",\n      \"clusterId\": \"clmh597sg000208lb2kjhcn8q\",\n      \"clusterName\": \"my cluster\",\n      \"contactEmails\": [\n        \"user1@company.com\"\n      ],\n      \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n      \"defaultTaskPodCpu\": \"0.5\",\n      \"defaultTaskPodMemory\": \"1Gi\",\n      \"description\": \"My deployment description\",\n      \"desiredDagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n      \"drExternalIPs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"drOidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n      \"effectiveDRWorkloadIdentity\": \"string\",\n      \"effectiveWorkloadIdentity\": \"string\",\n      \"environmentVariables\": [\n        {\n          \"isSecret\": true,\n          \"key\": \"my-var\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"value\": \"my-var-value\"\n        },\n        {\n          \"isSecret\": true,\n          \"key\": \"my-var\",\n          \"updatedAt\": \"2022-11-22T04:37:12Z\",\n          \"value\": \"my-var-value\"\n        }\n      ],\n      \"executor\": \"CELERY\",\n      \"externalIPs\": [\n        \"0.0.0.0\"\n      ],\n      \"imageVersion\": \"deploy-2023-09-14T19-04\",\n      \"isDevelopmentMode\": false,\n      \"isHighAvailability\": true,\n      \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n      \"region\": \"us-east-1\",\n      \"remoteExecution\": {\n        \"allowedIpAddressRanges\": [\n          \"string\",\n          \"string\"\n        ],\n        \"enabled\": true,\n        \"remoteApiUrl\": \"string\",\n        \"taskLogBucket\": \"string\",\n        \"taskLogUrlPattern\": \"string\"\n      },\n      \"resourceQuotaCpu\": \"160\",\n      \"resourceQuotaMemory\": \"320Gi\",\n      \"scalingSpec\": {\n        \"hibernationSpec\": {\n          \"override\": {\n            \"isActive\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"isHibernating\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"overrideUntil\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"schedules\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      },\n      \"scalingStatus\": {\n        \"hibernationStatus\": {\n          \"isHibernating\": true,\n          \"nextEventAt\": \"string\",\n          \"nextEventType\": \"HIBERNATE\",\n          \"reason\": \"string\"\n        }\n      },\n      \"schedulerAu\": 5,\n      \"schedulerSize\": \"MEDIUM\",\n      \"statusReason\": \"Successfully Deployed\",\n      \"taskPodNodePoolId\": \"clmh5mash000008mia6lnbs0f\",\n      \"type\": \"DEDICATED\",\n      \"webServerReplicas\": 1,\n      \"workerQueues\": [\n        {\n          \"id\": \"clmh9vsuf000908midngba9mw\",\n          \"isDefault\": true,\n          \"maxWorkerCount\": 10,\n          \"minWorkerCount\": 1,\n          \"name\": \"default\",\n          \"podCpu\": \"1\",\n          \"podMemory\": \"2Gi\",\n          \"workerConcurrency\": 20,\n          \"astroMachine\": \"A5\",\n          \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n          \"podEphemeralStorage\": \"10Gi\"\n        },\n        {\n          \"id\": \"clmh9vsuf000908midngba9mw\",\n          \"isDefault\": true,\n          \"maxWorkerCount\": 10,\n          \"minWorkerCount\": 1,\n          \"name\": \"default\",\n          \"podCpu\": \"1\",\n          \"podMemory\": \"2Gi\",\n          \"workerConcurrency\": 20,\n          \"astroMachine\": \"A5\",\n          \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n          \"podEphemeralStorage\": \"10Gi\"\n        }\n      ],\n      \"workspaceName\": \"my-workspace\"\n    }\n  ],\n  \"limit\": 10,\n  \"offset\": 0,\n  \"totalCount\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eef8b024-e465-4fb1-b286-fb79c6c0a6a5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list Deployments for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 575,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9cb1ec9-7b19-47a5-9663-c6479a47bb6d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list Deployments for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b8077ab-9c4f-4a5d-abdb-b318218b9977",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list Deployments for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35a9ddb9-4940-4789-b429-6f2a5df13076",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "deploymentIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "names",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspaceIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sorts",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to list Deployments for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "20b10b57-b92d-4e38-bc25-507b199a3b11",
+          "name": "Create a Deployment",
+          "request": {
+            "name": "Create a Deployment",
+            "description": {
+              "content": "Create a Deployment in the Organization. An Astro Deployment is an Airflow environment that is powered by all core Airflow components.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization in which to create the Deployment."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"astroRuntimeVersion\": \"<string>\",\n  \"clusterId\": \"<string>\",\n  \"contactEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"defaultTaskPodCpu\": \"<string>\",\n  \"defaultTaskPodMemory\": \"<string>\",\n  \"description\": \"<string>\",\n  \"drWorkloadIdentity\": \"<string>\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": \"<boolean>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"isSecret\": \"<boolean>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"executor\": \"<string>\",\n  \"isCicdEnforced\": \"<boolean>\",\n  \"isDagDeployEnabled\": \"<boolean>\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"isHighAvailability\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"<string>\",\n  \"resourceQuotaMemory\": \"<string>\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"schedulerSize\": \"<string>\",\n  \"type\": \"<string>\",\n  \"workerQueues\": [\n    {\n      \"astroMachine\": \"<string>\",\n      \"isDefault\": \"<boolean>\",\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"workerConcurrency\": \"<integer>\",\n      \"id\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6ec80d75-2a3d-4726-be01-3dae615d9424",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My deployment\",\n  \"workspaceId\": \"clmh8ol3x000008jo656y4285\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"clusterId\": \"clmh9g6zj000008mg77if5wa2\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"isHighAvailability\": true,\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workerQueues\": [\n    {\n      \"astroMachine\": \"<string>\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"apiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed/api/v1\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"createdBy\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"id\": \"clmh57jtm000008lb58fe2wmv\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"name\": \"My deployment\",\n  \"namespace\": \"weightless-diameter-8927\",\n  \"organizationId\": \"clmh59gt0000308lbgswe5fvh\",\n  \"runtimeVersion\": \"9.1.0\",\n  \"schedulerCpu\": \"1\",\n  \"schedulerMemory\": \"1Gi\",\n  \"schedulerReplicas\": 1,\n  \"status\": \"HEALTHY\",\n  \"uiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed?orgId=org_bvqayGttQauxdxB2\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBy\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"webServerAirflowApiUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv/api/v1\",\n  \"webServerCpu\": \"0.5\",\n  \"webServerIngressHostname\": \"clmh597sg000208lb2kjhcn8q.astronomer.run/d8fe2wmv\",\n  \"webServerMemory\": \"0.5Gi\",\n  \"webServerUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv?orgId=org_edxLzpFcLrgEfpD5\",\n  \"workspaceId\": \"clmh58o7d000108lb74ktc9o64\",\n  \"cloudProvider\": \"AZURE\",\n  \"clusterId\": \"clmh597sg000208lb2kjhcn8q\",\n  \"clusterName\": \"my cluster\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"desiredDagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"drExternalIPs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"drOidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n  \"effectiveDRWorkloadIdentity\": \"string\",\n  \"effectiveWorkloadIdentity\": \"string\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": true,\n      \"key\": \"my-var\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": true,\n      \"key\": \"my-var\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"externalIPs\": [\n    \"0.0.0.0\"\n  ],\n  \"imageVersion\": \"deploy-2023-09-14T19-04\",\n  \"isDevelopmentMode\": false,\n  \"isHighAvailability\": true,\n  \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n  \"region\": \"us-east-1\",\n  \"remoteExecution\": {\n    \"allowedIpAddressRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"enabled\": false,\n    \"remoteApiUrl\": \"string\",\n    \"taskLogBucket\": \"string\",\n    \"taskLogUrlPattern\": \"string\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isActive\": true,\n        \"isHibernating\": false,\n        \"overrideUntil\": \"1987-02-14T02:38:40.067Z\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": \"string\",\n          \"isEnabled\": true,\n          \"wakeAtCron\": \"string\",\n          \"description\": \"string\"\n        },\n        {\n          \"hibernateAtCron\": \"string\",\n          \"isEnabled\": false,\n          \"wakeAtCron\": \"string\",\n          \"description\": \"string\"\n        }\n      ]\n    }\n  },\n  \"scalingStatus\": {\n    \"hibernationStatus\": {\n      \"isHibernating\": true,\n      \"nextEventAt\": \"string\",\n      \"nextEventType\": \"WAKE\",\n      \"reason\": \"string\"\n    }\n  },\n  \"schedulerAu\": 5,\n  \"schedulerSize\": \"MEDIUM\",\n  \"statusReason\": \"Successfully Deployed\",\n  \"taskPodNodePoolId\": \"clmh5mash000008mia6lnbs0f\",\n  \"type\": \"DEDICATED\",\n  \"webServerReplicas\": 1,\n  \"workerQueues\": [\n    {\n      \"id\": \"clmh9vsuf000908midngba9mw\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": 10,\n      \"minWorkerCount\": 1,\n      \"name\": \"default\",\n      \"podCpu\": \"1\",\n      \"podMemory\": \"2Gi\",\n      \"workerConcurrency\": 20,\n      \"astroMachine\": \"A5\",\n      \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n      \"podEphemeralStorage\": \"10Gi\"\n    },\n    {\n      \"id\": \"clmh9vsuf000908midngba9mw\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": 10,\n      \"minWorkerCount\": 1,\n      \"name\": \"default\",\n      \"podCpu\": \"1\",\n      \"podMemory\": \"2Gi\",\n      \"workerConcurrency\": 20,\n      \"astroMachine\": \"A5\",\n      \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n      \"podEphemeralStorage\": \"10Gi\"\n    }\n  ],\n  \"workspaceName\": \"my-workspace\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e6bcb4b-a387-43a5-964e-ccbda1396099",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My deployment\",\n  \"workspaceId\": \"clmh8ol3x000008jo656y4285\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"clusterId\": \"clmh9g6zj000008mg77if5wa2\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"isHighAvailability\": true,\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workerQueues\": [\n    {\n      \"astroMachine\": \"<string>\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2926b84-b99b-4f19-83e6-a8eb289afd81",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My deployment\",\n  \"workspaceId\": \"clmh8ol3x000008jo656y4285\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"clusterId\": \"clmh9g6zj000008mg77if5wa2\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"isHighAvailability\": true,\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workerQueues\": [\n    {\n      \"astroMachine\": \"<string>\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6edaa65-6398-4b69-bca4-d8a5909f3c47",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My deployment\",\n  \"workspaceId\": \"clmh8ol3x000008jo656y4285\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"clusterId\": \"clmh9g6zj000008mg77if5wa2\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"isHighAvailability\": true,\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workerQueues\": [\n    {\n      \"astroMachine\": \"<string>\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df71921a-72a4-4340-86a8-6db57f46d4f1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization in which to create the Deployment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My deployment\",\n  \"workspaceId\": \"clmh8ol3x000008jo656y4285\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"clusterId\": \"clmh9g6zj000008mg77if5wa2\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"isHighAvailability\": true,\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workerQueues\": [\n    {\n      \"astroMachine\": \"<string>\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b22d5c83-f8c1-49ea-b417-cf1346851bca",
+          "name": "Delete a Deployment",
+          "request": {
+            "name": "Delete a Deployment",
+            "description": {
+              "content": "Delete a Deployment from an Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "af3c4bc7-1bfd-4cc6-9ca6-3714682033f5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35b83871-9876-4a99-b6e9-08af6c94368b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03048413-6a76-42cc-b404-5d7e7a22a58c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "baa05552-7c3a-4db0-8734-c8da50faae08",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4252ecb-2971-4cd1-882e-d73de54b6f96",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6c0b61a-6732-4931-a601-27eadbf7f044",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b403d60-f699-4f19-8572-7f64121aac30",
+          "name": "Get a Deployment",
+          "request": {
+            "name": "Get a Deployment",
+            "description": {
+              "content": "Retrieve details about a Deployment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9b2e2c71-8d89-42c1-ae6e-eca49f7a22dc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"apiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed/api/v1\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"createdBy\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"id\": \"clmh57jtm000008lb58fe2wmv\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"name\": \"My deployment\",\n  \"namespace\": \"weightless-diameter-8927\",\n  \"organizationId\": \"clmh59gt0000308lbgswe5fvh\",\n  \"runtimeVersion\": \"9.1.0\",\n  \"schedulerCpu\": \"1\",\n  \"schedulerMemory\": \"1Gi\",\n  \"schedulerReplicas\": 1,\n  \"status\": \"HEALTHY\",\n  \"uiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed?orgId=org_bvqayGttQauxdxB2\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBy\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"webServerAirflowApiUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv/api/v1\",\n  \"webServerCpu\": \"0.5\",\n  \"webServerIngressHostname\": \"clmh597sg000208lb2kjhcn8q.astronomer.run/d8fe2wmv\",\n  \"webServerMemory\": \"0.5Gi\",\n  \"webServerUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv?orgId=org_edxLzpFcLrgEfpD5\",\n  \"workspaceId\": \"clmh58o7d000108lb74ktc9o64\",\n  \"cloudProvider\": \"AZURE\",\n  \"clusterId\": \"clmh597sg000208lb2kjhcn8q\",\n  \"clusterName\": \"my cluster\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"desiredDagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"drExternalIPs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"drOidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n  \"effectiveDRWorkloadIdentity\": \"string\",\n  \"effectiveWorkloadIdentity\": \"string\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": true,\n      \"key\": \"my-var\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": true,\n      \"key\": \"my-var\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"externalIPs\": [\n    \"0.0.0.0\"\n  ],\n  \"imageVersion\": \"deploy-2023-09-14T19-04\",\n  \"isDevelopmentMode\": false,\n  \"isHighAvailability\": true,\n  \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n  \"region\": \"us-east-1\",\n  \"remoteExecution\": {\n    \"allowedIpAddressRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"enabled\": false,\n    \"remoteApiUrl\": \"string\",\n    \"taskLogBucket\": \"string\",\n    \"taskLogUrlPattern\": \"string\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isActive\": true,\n        \"isHibernating\": false,\n        \"overrideUntil\": \"1987-02-14T02:38:40.067Z\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": \"string\",\n          \"isEnabled\": true,\n          \"wakeAtCron\": \"string\",\n          \"description\": \"string\"\n        },\n        {\n          \"hibernateAtCron\": \"string\",\n          \"isEnabled\": false,\n          \"wakeAtCron\": \"string\",\n          \"description\": \"string\"\n        }\n      ]\n    }\n  },\n  \"scalingStatus\": {\n    \"hibernationStatus\": {\n      \"isHibernating\": true,\n      \"nextEventAt\": \"string\",\n      \"nextEventType\": \"WAKE\",\n      \"reason\": \"string\"\n    }\n  },\n  \"schedulerAu\": 5,\n  \"schedulerSize\": \"MEDIUM\",\n  \"statusReason\": \"Successfully Deployed\",\n  \"taskPodNodePoolId\": \"clmh5mash000008mia6lnbs0f\",\n  \"type\": \"DEDICATED\",\n  \"webServerReplicas\": 1,\n  \"workerQueues\": [\n    {\n      \"id\": \"clmh9vsuf000908midngba9mw\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": 10,\n      \"minWorkerCount\": 1,\n      \"name\": \"default\",\n      \"podCpu\": \"1\",\n      \"podMemory\": \"2Gi\",\n      \"workerConcurrency\": 20,\n      \"astroMachine\": \"A5\",\n      \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n      \"podEphemeralStorage\": \"10Gi\"\n    },\n    {\n      \"id\": \"clmh9vsuf000908midngba9mw\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": 10,\n      \"minWorkerCount\": 1,\n      \"name\": \"default\",\n      \"podCpu\": \"1\",\n      \"podMemory\": \"2Gi\",\n      \"workerConcurrency\": 20,\n      \"astroMachine\": \"A5\",\n      \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n      \"podEphemeralStorage\": \"10Gi\"\n    }\n  ],\n  \"workspaceName\": \"my-workspace\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc3962df-67ab-4f5d-930e-5e3743852861",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "365b8e6f-4ca7-430e-a861-51cdd8bc56e1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd80ee43-402f-4b21-93df-fb6d5b7f8d04",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "48ac4dc4-1835-4492-93d6-6a5ff5cdd0e4",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64a51d68-ff10-4d3f-b456-d73db1c5ee1e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72bef44b-e69d-48fd-adf3-35691deb8785",
+          "name": "Update a Deployment",
+          "request": {
+            "name": "Update a Deployment",
+            "description": {
+              "content": "Update a Deployment in the Organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment's ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": \"<boolean>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"isSecret\": \"<boolean>\",\n      \"key\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"executor\": \"<string>\",\n  \"isCicdEnforced\": \"<boolean>\",\n  \"isDagDeployEnabled\": \"<boolean>\",\n  \"isHighAvailability\": \"<boolean>\",\n  \"name\": \"<string>\",\n  \"schedulerSize\": \"<string>\",\n  \"type\": \"<string>\",\n  \"workspaceId\": \"<string>\",\n  \"contactEmails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"defaultTaskPodCpu\": \"<string>\",\n  \"defaultTaskPodMemory\": \"<string>\",\n  \"description\": \"<string>\",\n  \"drWorkloadIdentity\": \"<string>\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"<string>\",\n  \"resourceQuotaMemory\": \"<string>\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": \"<boolean>\",\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"<string>\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7b97d98d-e393-4d1c-818d-2b65649194fd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isHighAvailability\": true,\n  \"name\": \"My deployment\",\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workspaceId\": \"clmh7vdf4000008lhhlnk9t6o\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"airflowVersion\": \"2.7.2, if airflow version is not found, it will return NA\",\n  \"apiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed/api/v1\",\n  \"astroRuntimeVersion\": \"9.1.0\",\n  \"createdAt\": \"2022-11-22T04:37:12Z\",\n  \"createdBy\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"id\": \"clmh57jtm000008lb58fe2wmv\",\n  \"imageRepository\": \"https://my-image-repository\",\n  \"imageTag\": \"my-image-tag\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"name\": \"My deployment\",\n  \"namespace\": \"weightless-diameter-8927\",\n  \"organizationId\": \"clmh59gt0000308lbgswe5fvh\",\n  \"runtimeVersion\": \"9.1.0\",\n  \"schedulerCpu\": \"1\",\n  \"schedulerMemory\": \"1Gi\",\n  \"schedulerReplicas\": 1,\n  \"status\": \"HEALTHY\",\n  \"uiUrl\": \"https://clypw7uah05jb01nwtpojz0j2.astronomer.run/d4yjo9ed?orgId=org_bvqayGttQauxdxB2\",\n  \"updatedAt\": \"2022-11-22T04:37:12Z\",\n  \"updatedBy\": {\n    \"id\": \"clm8qv74h000008mlf08scq7k\",\n    \"apiTokenName\": \"my-token\",\n    \"avatarUrl\": \"https://avatar.url\",\n    \"fullName\": \"Jane Doe\",\n    \"subjectType\": \"USER\",\n    \"username\": \"user1@company.com\"\n  },\n  \"webServerAirflowApiUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv/api/v1\",\n  \"webServerCpu\": \"0.5\",\n  \"webServerIngressHostname\": \"clmh597sg000208lb2kjhcn8q.astronomer.run/d8fe2wmv\",\n  \"webServerMemory\": \"0.5Gi\",\n  \"webServerUrl\": \"myorganization.astronomer-dev.run/d8fe2wmv?orgId=org_edxLzpFcLrgEfpD5\",\n  \"workspaceId\": \"clmh58o7d000108lb74ktc9o64\",\n  \"cloudProvider\": \"AZURE\",\n  \"clusterId\": \"clmh597sg000208lb2kjhcn8q\",\n  \"clusterName\": \"my cluster\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"dagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"desiredDagTarballVersion\": \"2024-01-12T18:32:20.5898930Z\",\n  \"drExternalIPs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"drOidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n  \"effectiveDRWorkloadIdentity\": \"string\",\n  \"effectiveWorkloadIdentity\": \"string\",\n  \"environmentVariables\": [\n    {\n      \"isSecret\": true,\n      \"key\": \"my-var\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": true,\n      \"key\": \"my-var\",\n      \"updatedAt\": \"2022-11-22T04:37:12Z\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"externalIPs\": [\n    \"0.0.0.0\"\n  ],\n  \"imageVersion\": \"deploy-2023-09-14T19-04\",\n  \"isDevelopmentMode\": false,\n  \"isHighAvailability\": true,\n  \"oidcIssuerUrl\": \"https://westus2.oic.prod-aks.azure.com/b84efac8-cfee-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/\",\n  \"region\": \"us-east-1\",\n  \"remoteExecution\": {\n    \"allowedIpAddressRanges\": [\n      \"string\",\n      \"string\"\n    ],\n    \"enabled\": false,\n    \"remoteApiUrl\": \"string\",\n    \"taskLogBucket\": \"string\",\n    \"taskLogUrlPattern\": \"string\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isActive\": true,\n        \"isHibernating\": false,\n        \"overrideUntil\": \"1987-02-14T02:38:40.067Z\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": \"string\",\n          \"isEnabled\": true,\n          \"wakeAtCron\": \"string\",\n          \"description\": \"string\"\n        },\n        {\n          \"hibernateAtCron\": \"string\",\n          \"isEnabled\": false,\n          \"wakeAtCron\": \"string\",\n          \"description\": \"string\"\n        }\n      ]\n    }\n  },\n  \"scalingStatus\": {\n    \"hibernationStatus\": {\n      \"isHibernating\": true,\n      \"nextEventAt\": \"string\",\n      \"nextEventType\": \"WAKE\",\n      \"reason\": \"string\"\n    }\n  },\n  \"schedulerAu\": 5,\n  \"schedulerSize\": \"MEDIUM\",\n  \"statusReason\": \"Successfully Deployed\",\n  \"taskPodNodePoolId\": \"clmh5mash000008mia6lnbs0f\",\n  \"type\": \"DEDICATED\",\n  \"webServerReplicas\": 1,\n  \"workerQueues\": [\n    {\n      \"id\": \"clmh9vsuf000908midngba9mw\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": 10,\n      \"minWorkerCount\": 1,\n      \"name\": \"default\",\n      \"podCpu\": \"1\",\n      \"podMemory\": \"2Gi\",\n      \"workerConcurrency\": 20,\n      \"astroMachine\": \"A5\",\n      \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n      \"podEphemeralStorage\": \"10Gi\"\n    },\n    {\n      \"id\": \"clmh9vsuf000908midngba9mw\",\n      \"isDefault\": true,\n      \"maxWorkerCount\": 10,\n      \"minWorkerCount\": 1,\n      \"name\": \"default\",\n      \"podCpu\": \"1\",\n      \"podMemory\": \"2Gi\",\n      \"workerConcurrency\": 20,\n      \"astroMachine\": \"A5\",\n      \"nodePoolId\": \"clmh9yjcn000a08mi8dsgbno9\",\n      \"podEphemeralStorage\": \"10Gi\"\n    }\n  ],\n  \"workspaceName\": \"my-workspace\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2b75b4a-fa71-4c39-83c4-76fcc7553689",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isHighAvailability\": true,\n  \"name\": \"My deployment\",\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workspaceId\": \"clmh7vdf4000008lhhlnk9t6o\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e63d000-d2bf-481d-82d4-8d1729795aca",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isHighAvailability\": true,\n  \"name\": \"My deployment\",\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workspaceId\": \"clmh7vdf4000008lhhlnk9t6o\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d99b3dd-9afd-4734-b633-8b10907e1631",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isHighAvailability\": true,\n  \"name\": \"My deployment\",\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workspaceId\": \"clmh7vdf4000008lhhlnk9t6o\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38e33a8f-8c11-4797-8476-766064830977",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isHighAvailability\": true,\n  \"name\": \"My deployment\",\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workspaceId\": \"clmh7vdf4000008lhhlnk9t6o\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af8e1ed7-b1d5-4d44-a169-2d2e3cd92712",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment's ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"environmentVariables\": [\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    },\n    {\n      \"isSecret\": false,\n      \"key\": \"my-var\",\n      \"value\": \"my-var-value\"\n    }\n  ],\n  \"executor\": \"CELERY\",\n  \"isCicdEnforced\": true,\n  \"isDagDeployEnabled\": true,\n  \"isHighAvailability\": true,\n  \"name\": \"My deployment\",\n  \"schedulerSize\": \"MEDIUM\",\n  \"type\": \"DEDICATED\",\n  \"workspaceId\": \"clmh7vdf4000008lhhlnk9t6o\",\n  \"contactEmails\": [\n    \"user1@company.com\"\n  ],\n  \"defaultTaskPodCpu\": \"0.5\",\n  \"defaultTaskPodMemory\": \"1Gi\",\n  \"description\": \"My deployment description\",\n  \"drWorkloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\",\n  \"isDevelopmentMode\": \"<boolean>\",\n  \"remoteExecution\": {\n    \"enabled\": \"<boolean>\",\n    \"allowedIpAddressRanges\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"taskLogBucket\": \"<string>\",\n    \"taskLogUrlPattern\": \"<string>\"\n  },\n  \"resourceQuotaCpu\": \"160\",\n  \"resourceQuotaMemory\": \"320Gi\",\n  \"scalingSpec\": {\n    \"hibernationSpec\": {\n      \"override\": {\n        \"isHibernating\": \"<boolean>\",\n        \"overrideUntil\": \"<string>\"\n      },\n      \"schedules\": [\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"hibernateAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"isEnabled\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"wakeAtCron\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"description\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"workerQueues\": [\n    {\n      \"isDefault\": true,\n      \"maxWorkerCount\": \"<integer>\",\n      \"minWorkerCount\": \"<integer>\",\n      \"name\": \"My worker queue\",\n      \"workerConcurrency\": \"<integer>\",\n      \"astroMachine\": \"<string>\",\n      \"id\": \"clmha1mzc000b08mi96n182au\",\n      \"nodePoolId\": \"<string>\",\n      \"podEphemeralStorage\": \"<string>\"\n    }\n  ],\n  \"workloadIdentity\": \"arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2620f98-ccf2-45b9-963e-e4908455745f",
+          "name": "Delete a hibernation override for a deployment",
+          "request": {
+            "name": "Delete a hibernation override for a deployment",
+            "description": {},
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "hibernation-override"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The Organization ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1ba7d07-d35d-4e85-8d58-afff3b54e5b2",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "hibernation-override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "074e7d98-f705-4ffd-aabc-6384cd441862",
+              "name": "a common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "hibernation-override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a87b2f4-3e93-49f0-b125-335a60de2811",
+              "name": "a common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "hibernation-override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eab04cce-b1f3-4cda-b492-24e9eddeeca8",
+          "name": "Configure a hibernation override for a deployment",
+          "request": {
+            "name": "Configure a hibernation override for a deployment",
+            "description": {},
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "hibernation-override"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The Organization ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The Deployment ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isHibernating\": \"<boolean>\",\n  \"overrideUntil\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cd336fbe-bbf7-4b6e-a538-4ee500bfcc00",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "hibernation-override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isHibernating\": \"<boolean>\",\n  \"overrideUntil\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"isActive\": false,\n  \"isHibernating\": false,\n  \"overrideUntil\": \"2018-07-09T22:09:38.482Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26a354de-4266-448b-8c6c-e1b7fc5378f3",
+              "name": "a common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "hibernation-override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isHibernating\": \"<boolean>\",\n  \"overrideUntil\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be39dab3-530a-4887-9ac5-5ab20a73f01b",
+              "name": "a common error response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "hibernation-override"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The Organization ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The Deployment ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isHibernating\": \"<boolean>\",\n  \"overrideUntil\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c98b7d9e-4ee0-4ebc-b159-971f148c1061",
+          "name": "Get Deployment logs",
+          "request": {
+            "name": "Get Deployment logs",
+            "description": {
+              "content": "Get logs for an Astro Deployment. You must specify at least one log source.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "organizations",
+                ":organizationId",
+                "deployments",
+                ":deploymentId",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sources",
+                  "value": "<string>",
+                  "description": "(Required) Log sources to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "sources",
+                  "value": "<string>",
+                  "description": "(Required) Log sources to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "500",
+                  "description": "Maximum number of log entries per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "range",
+                  "value": "3600",
+                  "description": "Range of the log search in seconds."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxNumResults",
+                  "value": "10000",
+                  "description": "Maximum total number of results across all pages."
+                },
+                {
+                  "disabled": false,
+                  "key": "searchId",
+                  "value": "<string>",
+                  "description": "Search ID for paginated results."
+                },
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Text to filter logs by."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<dateTime>",
+                  "description": "Start of time range (RFC3339).  Must  be  used  with  endDate."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<dateTime>",
+                  "description": "End of time range (RFC3339).    Must  be  used  with  startDate."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organizationId",
+                  "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deploymentId",
+                  "description": "(Required) The ID of the Deployment to get logs for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d7a99650-1bad-47ad-97b5-fd3d89cf119a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "range",
+                      "value": "3600"
+                    },
+                    {
+                      "key": "maxNumResults",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "searchId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The ID of the Deployment to get logs for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"limit\": 6637,\n  \"maxNumResults\": 1806,\n  \"offset\": 9158,\n  \"resultCount\": 5244,\n  \"results\": [\n    {\n      \"raw\": \"string\",\n      \"source\": \"dag-processor\",\n      \"timestamp\": 7739.079552482496\n    },\n    {\n      \"raw\": \"string\",\n      \"source\": \"webserver\",\n      \"timestamp\": 5597.206394669377\n    }\n  ],\n  \"searchId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a556636d-db4e-48b7-8ebb-fe528d917d30",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "range",
+                      "value": "3600"
+                    },
+                    {
+                      "key": "maxNumResults",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "searchId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The ID of the Deployment to get logs for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e01dc650-c034-4672-9c70-baf5c7f34cda",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "range",
+                      "value": "3600"
+                    },
+                    {
+                      "key": "maxNumResults",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "searchId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The ID of the Deployment to get logs for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cfa764d-cb3f-481c-966e-22218891b7f3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "range",
+                      "value": "3600"
+                    },
+                    {
+                      "key": "maxNumResults",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "searchId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The ID of the Deployment to get logs for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1ccd0cc-3c32-4c02-8be0-3dfa2b83c7ce",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "organizations",
+                    ":organizationId",
+                    "deployments",
+                    ":deploymentId",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "500"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "range",
+                      "value": "3600"
+                    },
+                    {
+                      "key": "maxNumResults",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "searchId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organizationId",
+                      "description": "(Required) The ID of the Organization to which the Deployment belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deploymentId",
+                      "description": "(Required) The ID of the Deployment to get logs for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"requestId\": \"string\",\n  \"statusCode\": 459,\n  \"fieldErrors\": [\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"field\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.astronomer.io/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "23de0f4e-0397-4bd0-8f5c-02baa8823f08",
+    "name": "Astro Platform AgentToken Deployment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Astro Platform API",
+      "type": "text/plain"
+    }
+  }
+}

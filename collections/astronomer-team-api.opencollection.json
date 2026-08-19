@@ -1,0 +1,349 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Team API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Team",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the Organization to list Teams for."
+              },
+              {
+                "name": "names",
+                "value": "",
+                "type": "query",
+                "description": "A list of names for Teams to filter by. The API returns details only for the specified Teams."
+              },
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Workspace to filter the list of Teams for. When specified, the API returns only Teams with a role in the specified Workspace."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the Deployment to filter the list of Teams for. When specified, the API returns only Teams with a role in the specified Deployment."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all Teams in an Organization. Optionally filter by Workspace or Deployment membership."
+        },
+        {
+          "info": {
+            "name": "Create a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where the Team is created."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a Team in an Organization. A Team is a group of users that have the same set of permissions in an Organization or Workspace."
+        },
+        {
+          "info": {
+            "name": "Get a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Team belongs."
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Team to retrieve data for."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve details about a specific Team."
+        },
+        {
+          "info": {
+            "name": "Update a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Team belongs."
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Team to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a Team's details."
+        },
+        {
+          "info": {
+            "name": "Delete a Team",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to delete the Team from."
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Team to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a Team. Deleting a Team will remove all permissions associated with the Team. Users that previously belonged to the Team will no longer have these permissions."
+        },
+        {
+          "info": {
+            "name": "List Team members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId/members",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Team belongs."
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Team to retrieve member information for."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination"
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List the details about all users that belong to a specific Team."
+        },
+        {
+          "info": {
+            "name": "Add members to a team",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId/members",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "organization ID"
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "team ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add members to a team"
+        },
+        {
+          "info": {
+            "name": "Remove Team member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId/members/:memberId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the user belongs."
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Team to remove the user from."
+              },
+              {
+                "name": "memberId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user to remove."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove a user from a Team. The user loses all permissions associated with the Team."
+        },
+        {
+          "info": {
+            "name": "Update Team roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/teams/:teamId/roles",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Team belongs."
+              },
+              {
+                "name": "teamId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Team to update roles for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update Organization and Workspace roles for a Team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Role API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Role",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get role templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/role-templates",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The Organization's ID."
+              },
+              {
+                "name": "scopeTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter role templates based on the scope of permissions they include."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of available role templates in an Organization. A role template can be used as the basis for creating a new custom role."
+        },
+        {
+          "info": {
+            "name": "List roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/roles",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The Organization's ID."
+              },
+              {
+                "name": "includeDefaultRoles",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include default Astro roles in the returned list."
+              },
+              {
+                "name": "scopeTypes",
+                "value": "",
+                "type": "query",
+                "description": "Filter the list of roles based on the scope of each role."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit for pagination."
+              },
+              {
+                "name": "sorts",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria, each criterion should conform to format 'fieldName:asc' or 'fieldName:desc'."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List available user roles in an Organization."
+        },
+        {
+          "info": {
+            "name": "Create a custom role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/roles",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization where you want to create the custom role."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a custom role that you can assign to users, Teams, and API tokens."
+        },
+        {
+          "info": {
+            "name": "Update custom role",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/roles/:customRoleId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the role belongs."
+              },
+              {
+                "name": "customRoleId",
+                "value": "",
+                "type": "path",
+                "description": "The custom role's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the metadata or included permissions for a custom role."
+        },
+        {
+          "info": {
+            "name": "Delete a custom role",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/roles/:customRoleId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the role belongs."
+              },
+              {
+                "name": "customRoleId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the role to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a custom role."
+        },
+        {
+          "info": {
+            "name": "Get a custom role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/roles/:roleId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the role belongs."
+              },
+              {
+                "name": "roleId",
+                "value": "",
+                "type": "path",
+                "description": "The role's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get details about a custom role."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

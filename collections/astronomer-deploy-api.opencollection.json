@@ -1,0 +1,250 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Astro Platform AgentToken Deploy API",
+    "version": "v1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deploy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List deploys for a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/deploys",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Deployment belongs."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to skip before returning values."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List deploys for a deployment"
+        },
+        {
+          "info": {
+            "name": "Create a Deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/deploys",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization in which to create the Deployment."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new Deploy. A Deploy represents an intent to deploy new DAG code to an Astro Deployment."
+        },
+        {
+          "info": {
+            "name": "Get a deploy for a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/deploys/:deployId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization in which to create the Deployment."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              },
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The Deploy's ID."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a deploy for a deployment"
+        },
+        {
+          "info": {
+            "name": "Update a Deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/deploys/:deployId",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization in which to create the Deployment."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              },
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The Deploy's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing Deploy. A Deploy represents an intent to deploy new DAG code to an Astro Deployment."
+        },
+        {
+          "info": {
+            "name": "Finalize a deploy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/deploys/:deployId/finalize",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization to which the Deployment belongs."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              },
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The deploy's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Finalize a deploy that you initialized using the `deploys` endpoint."
+        },
+        {
+          "info": {
+            "name": "Deploy rollback of a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.astronomer.io/v1/organizations/:organizationId/deployments/:deploymentId/deploys/:deployId/rollback",
+            "params": [
+              {
+                "name": "organizationId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the Organization in which to create the Deployment."
+              },
+              {
+                "name": "deploymentId",
+                "value": "",
+                "type": "path",
+                "description": "The Deployment's ID."
+              },
+              {
+                "name": "deployId",
+                "value": "",
+                "type": "path",
+                "description": "The Deploy's ID."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deploy rollback of a deployment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
