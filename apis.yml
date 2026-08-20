@@ -39,6 +39,15 @@ tags:
 - Company
 - Data Orchestration
 - Apache Airflow
+- Data Pipeline
+- Data Engineering
+- Workflow-Automation
+- MLOps
+- Managed Platform
+tags_raw:
+- Company
+- Data Orchestration
+- Apache Airflow
 - Data Pipelines
 - Data Engineering
 - Workflow Automation
@@ -105,6 +114,8 @@ apis:
   humanURL: https://www.astronomer.io/docs/astro/api/overview
   baseURL: https://api.astronomer.io/v1
   tags:
+  - API Token
+  tags_raw:
   - ApiToken
   properties:
   - type: OpenAPI
@@ -256,6 +267,8 @@ apis:
   humanURL: https://www.astronomer.io/docs/astro/api/overview
   baseURL: https://api.astronomer.io/v1
   tags:
+  - invite
+  tags_raw:
   - Invite
   properties:
   - type: OpenAPI
