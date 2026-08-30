@@ -126,7 +126,7 @@ apis:
   humanURL: https://www.astronomer.io/docs/astro/api/overview
   baseURL: https://api.astronomer.io/v1
   tags:
-  - API Token
+  - ApiToken
   tags_raw:
   - ApiToken
   properties:
