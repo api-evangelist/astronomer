@@ -1,15 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact: {}
   description: Astro Platform API
-  title: Astro Platform AgentToken Cluster API
+  title: Astro Platform Cluster API
   version: v1.0
 servers:
 - url: https://api.astronomer.io/v1
 security:
 - JWT: []
 tags:
-- description: A `cluster` object represents an Astro cluster, which is a Kubernetes cluster that hosts the infrastructure required to run Deployments. Make requests to `cluster` endpoints to manage your standard and dedicated clusters. See [Create a dedicated cluster](https://astronomer.io/docs/astro/create-dedicated-cluster).
+- description: A `cluster` object represents an Astro cluster, which is a Kubernetes cluster that hosts the infrastructure required to run Deployments. Make requests to `cluster` endpoints to manage your standard and dedicated clusters. See Create a dedicated cluster.
   name: Cluster
 paths:
   /organizations/{organizationId}/clusters:
@@ -367,24 +367,6 @@ paths:
       - action: organization.clusters.update
 components:
   schemas:
-    ClusterMetadata:
-      properties:
-        externalIPs:
-          description: External IPs of the cluster.
-          example:
-          - 35.100.100.1
-          items:
-            type: string
-          type: array
-        kubeDnsIp:
-          description: The IP address of the kube-dns service.
-          example: 10.100.100.0
-          type: string
-        oidcIssuerUrl:
-          description: OIDC issuer URL for the cluster
-          example: https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/
-          type: string
-      type: object
     ClusterK8sTag:
       properties:
         key:
@@ -395,155 +377,6 @@ components:
           description: The tag's value.
           example: value1
           type: string
-      type: object
-    CreateNodePoolRequest:
-      properties:
-        isDefault:
-          description: Whether the node pool is the default node pool of the cluster.
-          example: true
-          type: boolean
-        maxNodeCount:
-          description: The maximum number of nodes that can be created in the node pool.
-          example: 10
-          type: integer
-        name:
-          description: The name of the node pool.
-          example: my-nodepool
-          type: string
-        nodeInstanceType:
-          description: The type of node instance that is used for the node pool.
-          example: t3.medium
-          type: string
-      required:
-      - maxNodeCount
-      - name
-      - nodeInstanceType
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    CreateAzureClusterRequest:
-      properties:
-        cloudProvider:
-          description: The cluster's cloud provider.
-          enum:
-          - AWS
-          - AZURE
-          - GCP
-          example: AZURE
-          type: string
-        dbInstanceType:
-          description: The type of database instance that is used for the cluster. Required for Hybrid clusters.
-          example: Small General Purpose
-          type: string
-        drRegion:
-          description: The secondary region for Disaster Recovery.
-          example: us-west-2
-          type: string
-        drVpcSubnetRange:
-          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
-          example: 172.20.0.0/22
-          type: string
-        enableReplicationTimeControl:
-          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
-          type: boolean
-        k8sTags:
-          description: The Kubernetes tags in the cluster.
-          items:
-            $ref: '#/components/schemas/ClusterK8sTag'
-          type: array
-        name:
-          description: The cluster's name.
-          example: My cluster
-          type: string
-        nodePools:
-          description: The list of node pools to create in the cluster.
-          items:
-            $ref: '#/components/schemas/CreateNodePoolRequest'
-          type: array
-        providerAccount:
-          description: The provider account ID. Required for Hybrid clusters.
-          example: provider-account
-          type: string
-        region:
-          description: The cluster's region.
-          example: us-east-1
-          type: string
-        tenantId:
-          description: The tenant ID. For Azure clusters only.
-          example: 82ab587e-33f8-47a2-8909-b9269551d45c
-          type: string
-        type:
-          description: The cluster's type.
-          enum:
-          - DEDICATED
-          - HYBRID
-          example: DEDICATED
-          type: string
-        vpcSubnetRange:
-          description: The VPC subnet range.
-          example: 172.20.0.0/22
-          type: string
-        workspaceIds:
-          description: The list of Workspaces that are authorized to the cluster.
-          items:
-            type: string
-          type: array
-      required:
-      - cloudProvider
-      - name
-      - region
-      - type
-      - vpcSubnetRange
-      type: object
-    UpdateNodePoolRequest:
-      properties:
-        id:
-          description: The node pool's ID.
-          example: clm8bvk8b000008l9deowc5lx
-          type: string
-        isDefault:
-          description: Whether the node pool is the default node pool of the cluster.
-          example: true
-          type: boolean
-        maxNodeCount:
-          description: The maximum number of nodes that can be created in the node pool.
-          example: 10
-          type: integer
-        name:
-          description: The name of the node pool.
-          example: my-nodepool
-          type: string
-        nodeInstanceType:
-          description: The type of node instance that is used for the node pool.
-          example: t3.medium
-          type: string
-      required:
-      - maxNodeCount
-      - name
-      - nodeInstanceType
-      type: object
-    CreateClusterRequest:
-      discriminator:
-        mapping:
-          AWS: '#/components/schemas/CreateAwsClusterRequest'
-          AZURE: '#/components/schemas/CreateAzureClusterRequest'
-          GCP: '#/components/schemas/CreateGcpClusterRequest'
-        propertyName: cloudProvider
-      oneOf:
-      - $ref: '#/components/schemas/CreateAwsClusterRequest'
-      - $ref: '#/components/schemas/CreateAzureClusterRequest'
-      - $ref: '#/components/schemas/CreateGcpClusterRequest'
       type: object
     CreateGcpClusterRequest:
       properties:
@@ -642,7 +475,101 @@ components:
       - type
       - vpcSubnetRange
       type: object
-    CreateAwsClusterRequest:
+    CreateClusterRequest:
+      discriminator:
+        mapping:
+          AWS: '#/components/schemas/CreateAwsClusterRequest'
+          AZURE: '#/components/schemas/CreateAzureClusterRequest'
+          GCP: '#/components/schemas/CreateGcpClusterRequest'
+        propertyName: cloudProvider
+      oneOf:
+      - $ref: '#/components/schemas/CreateAwsClusterRequest'
+      - $ref: '#/components/schemas/CreateAzureClusterRequest'
+      - $ref: '#/components/schemas/CreateGcpClusterRequest'
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    UpdateHybridClusterRequest:
+      properties:
+        clusterType:
+          description: The cluster's type.
+          enum:
+          - HYBRID
+          example: HYBRID
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster. If this value is not provided, the existing list of Workspaces remains. If this value is '[]' then all workspace cluster mappings are removed.
+          items:
+            type: string
+          type: array
+      required:
+      - clusterType
+      type: object
+    ClusterHealthStatus:
+      properties:
+        details:
+          description: List of details supporting health assessment.
+          items:
+            $ref: '#/components/schemas/ClusterHealthStatusDetail'
+          type: array
+        value:
+          description: Overall health state (HEALTHY or UNHEALTHY).
+          enum:
+          - HEALTHY
+          - UNHEALTHY
+          - UNKNOWN
+          example: HEALTHY
+          type: string
+      required:
+      - value
+      type: object
+    UpdateClusterRequest:
+      discriminator:
+        mapping:
+          DEDICATED: '#/components/schemas/UpdateDedicatedClusterRequest'
+          HYBRID: '#/components/schemas/UpdateHybridClusterRequest'
+        propertyName: clusterType
+      oneOf:
+      - $ref: '#/components/schemas/UpdateDedicatedClusterRequest'
+      - $ref: '#/components/schemas/UpdateHybridClusterRequest'
+      type: object
+    ClustersPaginated:
+      properties:
+        clusters:
+          description: The list of clusters in the current page.
+          items:
+            $ref: '#/components/schemas/Cluster'
+          type: array
+        limit:
+          description: The maximum number of clusters in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of clusters.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of clusters.
+          example: 100
+          type: integer
+      required:
+      - clusters
+      - limit
+      - offset
+      - totalCount
+      type: object
+    CreateAzureClusterRequest:
       properties:
         cloudProvider:
           description: The cluster's cloud provider.
@@ -660,19 +587,12 @@ components:
           description: The secondary region for Disaster Recovery.
           example: us-west-2
           type: string
-        drSecondaryVpcCidr:
-          description: The secondary CIDR for the DR region. Defaults to the primary secondary CIDR if not specified. For AWS clusters only.
-          example: 100.64.0.0/19
-          type: string
         drVpcSubnetRange:
           description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
           example: 172.20.0.0/22
           type: string
         enableReplicationTimeControl:
           description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
-          type: boolean
-        isPrivateNetworkEgressEnabled:
-          description: When true, enables Private Network Egress mode, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
           type: boolean
         k8sTags:
           description: The Kubernetes tags in the cluster.
@@ -696,9 +616,9 @@ components:
           description: The cluster's region.
           example: us-east-1
           type: string
-        secondaryVpcCidr:
-          description: The secondary VPC CIDR for pods. For AWS clusters only.
-          example: 100.64.0.0/16
+        tenantId:
+          description: The tenant ID. For Azure clusters only.
+          example: 82ab587e-33f8-47a2-8909-b9269551d45c
           type: string
         type:
           description: The cluster's type.
@@ -722,107 +642,6 @@ components:
       - region
       - type
       - vpcSubnetRange
-      type: object
-    ClusterHealthStatusDetail:
-      properties:
-        code:
-          description: The health status for a specific component.
-          type: string
-        component:
-          type: string
-        description:
-          description: A description of the component that was assessed.
-          type: string
-        severity:
-          description: The weight this component is given in overall cluster health assessment.
-          type: string
-      required:
-      - code
-      - description
-      - severity
-      type: object
-    UpdateHybridClusterRequest:
-      properties:
-        clusterType:
-          description: The cluster's type.
-          enum:
-          - HYBRID
-          example: HYBRID
-          type: string
-        workspaceIds:
-          description: The list of Workspaces that are authorized to the cluster. If this value is not provided, the existing list of Workspaces remains. If this value is '[]' then all workspace cluster mappings are removed.
-          items:
-            type: string
-          type: array
-      required:
-      - clusterType
-      type: object
-    UpdateDedicatedClusterRequest:
-      properties:
-        clusterType:
-          description: The cluster's type.
-          enum:
-          - DEDICATED
-          example: DEDICATED
-          type: string
-        dbInstanceType:
-          description: The cluster's database instance type. Required for Hybrid clusters.
-          example: Small General Purpose
-          type: string
-        drPodSubnetRange:
-          description: The disaster recovery subnet range for Pods. For GCP clusters only.
-          example: 172.21.0.0/19
-          type: string
-        drRegion:
-          description: The secondary region for Disaster Recovery.
-          example: us-west-2
-          type: string
-        drServicePeeringRange:
-          description: The disaster recovery service peering range. For GCP clusters only.
-          example: 172.23.0.0/20
-          type: string
-        drServiceSubnetRange:
-          description: The disaster recovery service subnet range. For GCP clusters only.
-          example: 172.22.0.0/22
-          type: string
-        drVpcSubnetRange:
-          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
-          example: 172.20.0.0/22
-          type: string
-        enableDr:
-          description: Set to false to disable Disaster Recovery. Enabling DR on existing clusters is only supported via the admin API.
-          type: boolean
-        enableReplicationTimeControl:
-          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
-          type: boolean
-        isFailedOver:
-          description: Whether to trigger a DR failover for the cluster.
-          type: boolean
-        isPrivateNetworkEgressEnabled:
-          description: When true, enables Private Network Egress mode, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
-          type: boolean
-        k8sTags:
-          description: A list of Kubernetes tags to add to the cluster.
-          items:
-            $ref: '#/components/schemas/ClusterK8sTag'
-          type: array
-        name:
-          description: The cluster's name.
-          example: My cluster
-          type: string
-        nodePools:
-          description: A list of node pools to add to the cluster. For Hybrid clusters only.
-          items:
-            $ref: '#/components/schemas/UpdateNodePoolRequest'
-          type: array
-        workspaceIds:
-          description: The list of Workspaces that are authorized to the cluster. If this value is not provided, the existing list of Workspaces remains. If this value is '[]' then all workspace cluster mappings are removed.
-          items:
-            type: string
-          type: array
-      required:
-      - k8sTags
-      - name
       type: object
     Cluster:
       properties:
@@ -989,6 +808,51 @@ components:
       - updatedAt
       - vpcSubnetRange
       type: object
+    ClusterHealthStatusDetail:
+      properties:
+        code:
+          description: The health status for a specific component.
+          type: string
+        component:
+          type: string
+        description:
+          description: A description of the component that was assessed.
+          type: string
+        severity:
+          description: The weight this component is given in overall cluster health assessment.
+          type: string
+      required:
+      - code
+      - description
+      - severity
+      type: object
+    UpdateNodePoolRequest:
+      properties:
+        id:
+          description: The node pool's ID.
+          example: clm8bvk8b000008l9deowc5lx
+          type: string
+        isDefault:
+          description: Whether the node pool is the default node pool of the cluster.
+          example: true
+          type: boolean
+        maxNodeCount:
+          description: The maximum number of nodes that can be created in the node pool.
+          example: 10
+          type: integer
+        name:
+          description: The name of the node pool.
+          example: my-nodepool
+          type: string
+        nodeInstanceType:
+          description: The type of node instance that is used for the node pool.
+          example: t3.medium
+          type: string
+      required:
+      - maxNodeCount
+      - name
+      - nodeInstanceType
+      type: object
     NodePool:
       properties:
         cloudProvider:
@@ -1052,58 +916,90 @@ components:
       - nodeInstanceType
       - updatedAt
       type: object
-    ClustersPaginated:
+    ClusterMetadata:
       properties:
-        clusters:
-          description: The list of clusters in the current page.
+        externalIPs:
+          description: External IPs of the cluster.
+          example:
+          - 35.100.100.1
           items:
-            $ref: '#/components/schemas/Cluster'
+            type: string
           type: array
-        limit:
-          description: The maximum number of clusters in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of clusters.
-          example: 0
-          type: integer
-        totalCount:
-          description: The total number of clusters.
-          example: 100
-          type: integer
-      required:
-      - clusters
-      - limit
-      - offset
-      - totalCount
-      type: object
-    UpdateClusterRequest:
-      discriminator:
-        mapping:
-          DEDICATED: '#/components/schemas/UpdateDedicatedClusterRequest'
-          HYBRID: '#/components/schemas/UpdateHybridClusterRequest'
-        propertyName: clusterType
-      oneOf:
-      - $ref: '#/components/schemas/UpdateDedicatedClusterRequest'
-      - $ref: '#/components/schemas/UpdateHybridClusterRequest'
-      type: object
-    ClusterHealthStatus:
-      properties:
-        details:
-          description: List of details supporting health assessment.
-          items:
-            $ref: '#/components/schemas/ClusterHealthStatusDetail'
-          type: array
-        value:
-          description: Overall health state (HEALTHY or UNHEALTHY).
-          enum:
-          - HEALTHY
-          - UNHEALTHY
-          - UNKNOWN
-          example: HEALTHY
+        kubeDnsIp:
+          description: The IP address of the kube-dns service.
+          example: 10.100.100.0
           type: string
+        oidcIssuerUrl:
+          description: OIDC issuer URL for the cluster
+          example: https://westus2.oic.prod-aks.azure.com/b84efac8-cfae-467a-b223-23b9aea1486d/3075f79e-abc2-4602-a691-28117197e83d/
+          type: string
+      type: object
+    UpdateDedicatedClusterRequest:
+      properties:
+        clusterType:
+          description: The cluster's type.
+          enum:
+          - DEDICATED
+          example: DEDICATED
+          type: string
+        dbInstanceType:
+          description: The cluster's database instance type. Required for Hybrid clusters.
+          example: Small General Purpose
+          type: string
+        drPodSubnetRange:
+          description: The disaster recovery subnet range for Pods. For GCP clusters only.
+          example: 172.21.0.0/19
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery.
+          example: us-west-2
+          type: string
+        drServicePeeringRange:
+          description: The disaster recovery service peering range. For GCP clusters only.
+          example: 172.23.0.0/20
+          type: string
+        drServiceSubnetRange:
+          description: The disaster recovery service subnet range. For GCP clusters only.
+          example: 172.22.0.0/22
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
+          example: 172.20.0.0/22
+          type: string
+        enableDr:
+          description: Set to false to disable Disaster Recovery. Enabling DR on existing clusters is only supported via the admin API.
+          type: boolean
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
+          type: boolean
+        isFailedOver:
+          description: Whether to trigger a DR failover for the cluster.
+          type: boolean
+        isPrivateNetworkEgressEnabled:
+          description: When true, enables Private Network Egress mode, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
+          type: boolean
+        k8sTags:
+          description: A list of Kubernetes tags to add to the cluster.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        name:
+          description: The cluster's name.
+          example: My cluster
+          type: string
+        nodePools:
+          description: A list of node pools to add to the cluster. For Hybrid clusters only.
+          items:
+            $ref: '#/components/schemas/UpdateNodePoolRequest'
+          type: array
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster. If this value is not provided, the existing list of Workspaces remains. If this value is '[]' then all workspace cluster mappings are removed.
+          items:
+            type: string
+          type: array
       required:
-      - value
+      - k8sTags
+      - name
       type: object
     Error:
       properties:
@@ -1126,6 +1022,110 @@ components:
       - message
       - requestId
       - statusCode
+      type: object
+    CreateNodePoolRequest:
+      properties:
+        isDefault:
+          description: Whether the node pool is the default node pool of the cluster.
+          example: true
+          type: boolean
+        maxNodeCount:
+          description: The maximum number of nodes that can be created in the node pool.
+          example: 10
+          type: integer
+        name:
+          description: The name of the node pool.
+          example: my-nodepool
+          type: string
+        nodeInstanceType:
+          description: The type of node instance that is used for the node pool.
+          example: t3.medium
+          type: string
+      required:
+      - maxNodeCount
+      - name
+      - nodeInstanceType
+      type: object
+    CreateAwsClusterRequest:
+      properties:
+        cloudProvider:
+          description: The cluster's cloud provider.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AZURE
+          type: string
+        dbInstanceType:
+          description: The type of database instance that is used for the cluster. Required for Hybrid clusters.
+          example: Small General Purpose
+          type: string
+        drRegion:
+          description: The secondary region for Disaster Recovery.
+          example: us-west-2
+          type: string
+        drSecondaryVpcCidr:
+          description: The secondary CIDR for the DR region. Defaults to the primary secondary CIDR if not specified. For AWS clusters only.
+          example: 100.64.0.0/19
+          type: string
+        drVpcSubnetRange:
+          description: The VPC subnet range for the DR region. Defaults to the primary VPC subnet range if not specified.
+          example: 172.20.0.0/22
+          type: string
+        enableReplicationTimeControl:
+          description: Whether Bucket Storage Replication Time Control should be enabled for DR on task logs.
+          type: boolean
+        isPrivateNetworkEgressEnabled:
+          description: When true, enables Private Network Egress mode, which disables public Internet connectivity from the cluster's Deployments and metrics exports. For AWS clusters only.
+          type: boolean
+        k8sTags:
+          description: The Kubernetes tags in the cluster.
+          items:
+            $ref: '#/components/schemas/ClusterK8sTag'
+          type: array
+        name:
+          description: The cluster's name.
+          example: My cluster
+          type: string
+        nodePools:
+          description: The list of node pools to create in the cluster.
+          items:
+            $ref: '#/components/schemas/CreateNodePoolRequest'
+          type: array
+        providerAccount:
+          description: The provider account ID. Required for Hybrid clusters.
+          example: provider-account
+          type: string
+        region:
+          description: The cluster's region.
+          example: us-east-1
+          type: string
+        secondaryVpcCidr:
+          description: The secondary VPC CIDR for pods. For AWS clusters only.
+          example: 100.64.0.0/16
+          type: string
+        type:
+          description: The cluster's type.
+          enum:
+          - DEDICATED
+          - HYBRID
+          example: DEDICATED
+          type: string
+        vpcSubnetRange:
+          description: The VPC subnet range.
+          example: 172.20.0.0/22
+          type: string
+        workspaceIds:
+          description: The list of Workspaces that are authorized to the cluster.
+          items:
+            type: string
+          type: array
+      required:
+      - cloudProvider
+      - name
+      - region
+      - type
+      - vpcSubnetRange
       type: object
   securitySchemes:
     JWT:

@@ -1,15 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact: {}
   description: Astro Platform API
-  title: Astro Platform AgentToken Deployment API
+  title: Astro Platform Deployment API
   version: v1.0
 servers:
 - url: https://api.astronomer.io/v1
 security:
 - JWT: []
 tags:
-- description: The `deployment` object represents an Astro Deployment, which is a hosted Airflow environment that is powered by all core Airflow components, including schedulers and workers. Make requests to the `deployment` object to create, update, or delete a Deployment or its computational resources. See [Deployment settings](https://astronomer.io/docs/astro/deployment-settings).
+- description: The `deployment` object represents an Astro Deployment, which is a hosted Airflow environment that is powered by all core Airflow components, including schedulers and workers. Make requests to the `deployment` object to create, update, or delete a Deployment or its computational resources. See Deployment settings.
   name: Deployment
 paths:
   /organizations/{organizationId}/deployments:
@@ -558,494 +558,15 @@ paths:
       - action: deployment.logs.get
 components:
   schemas:
-    HybridWorkerQueueRequest:
+    DeploymentHibernationSpec:
       properties:
-        id:
-          description: The worker queue's ID. If not provided, a new worker queue will be created.
-          example: clmha1mzc000b08mi96n182au
-          type: string
-        isDefault:
-          description: Whether the worker queue is the default worker queue on the Deployment.
-          example: true
-          type: boolean
-        maxWorkerCount:
-          description: The maximum number of workers that can run at once.
-          minimum: 1
-          type: integer
-        minWorkerCount:
-          description: The minimum number of workers running at once.
-          minimum: 0
-          type: integer
-        name:
-          description: The worker queue's name.
-          example: My worker queue
-          maxLength: 63
-          type: string
-        nodePoolId:
-          description: The node pool ID associated with the worker queue.
-          type: string
-        workerConcurrency:
-          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
-          minimum: 1
-          type: integer
-      required:
-      - isDefault
-      - maxWorkerCount
-      - minWorkerCount
-      - name
-      - nodePoolId
-      - workerConcurrency
-      type: object
-    DeploymentLogEntry:
-      properties:
-        raw:
-          description: The raw log entry content.
-          type: string
-        source:
-          description: The log entry source.
-          enum:
-          - scheduler
-          - webserver
-          - triggerer
-          - worker
-          - dag-processor
-          - apiserver
-          type: string
-        timestamp:
-          description: The log entry's timestamp.
-          type: number
-      required:
-      - raw
-      - source
-      - timestamp
-      type: object
-    UpdateWorkerQueueRequest:
-      properties:
-        astroMachine:
-          description: The Astro machine for each worker in the queue. Required for Astro Hosted deployments.
-          enum:
-          - A5
-          - A10
-          - A20
-          - A40
-          - A60
-          - A120
-          - A160
-          type: string
-        id:
-          description: The worker queue's ID. If not provided, a new worker queue will be created.
-          example: clmha1mzc000b08mi96n182au
-          type: string
-        isDefault:
-          description: Whether the worker queue is the default worker queue on the Deployment.
-          example: true
-          type: boolean
-        maxWorkerCount:
-          description: The maximum number of workers that can run at once.
-          minimum: 1
-          type: integer
-        minWorkerCount:
-          description: The minimum number of workers running at once.
-          minimum: 0
-          type: integer
-        name:
-          description: The worker queue's name.
-          example: My worker queue
-          maxLength: 63
-          type: string
-        nodePoolId:
-          description: The node pool ID associated with the worker queue. Required for Hybrid deployments.
-          type: string
-        podEphemeralStorage:
-          description: The ephemeral storage limit for each worker Pod. Must be a valid Kubernetes resource string, e.g. `10Gi`.
-          type: string
-        workerConcurrency:
-          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
-          minimum: 1
-          type: integer
-      required:
-      - isDefault
-      - maxWorkerCount
-      - minWorkerCount
-      - name
-      - workerConcurrency
-      type: object
-    DeploymentScalingSpecRequest:
-      properties:
-        hibernationSpec:
-          $ref: '#/components/schemas/DeploymentHibernationSpecRequest'
-      type: object
-    CreateStandardDeploymentRequest:
-      properties:
-        astroRuntimeVersion:
-          description: Deployment's Astro Runtime version.
-          example: 9.1.0
-          type: string
-        cloudProvider:
-          description: Cloud provider for STANDARD deployments on Astronomer shared infrastructure. One of AWS, AZURE, GCP. Must be provided together with region. If clusterId is also provided, clusterId takes precedence and this field is ignored.
-          enum:
-          - AWS
-          - AZURE
-          - GCP
-          example: GCP
-          type: string
-        clusterId:
-          description: The target cluster ID. Use for DEDICATED (Astronomer-hosted) or HYBRID (Bring-Your-Own-Cloud) deployments. If provided alongside cloudProvider and region, clusterId takes precedence and the other two are ignored. When all three are omitted, infrastructure is resolved from workspace defaults or auto-selected when the organization has exactly one cluster.
-          example: clmh93n2n000008ms3tv79voh
-          type: string
-        contactEmails:
-          description: A list of contact emails for the Deployment.
-          example:
-          - user1@company.com
+        override:
+          $ref: '#/components/schemas/DeploymentHibernationOverride'
+        schedules:
+          description: The list of schedules for deployment hibernation
           items:
-            type: string
+            $ref: '#/components/schemas/DeploymentHibernationSchedule'
           type: array
-        defaultTaskPodCpu:
-          description: The default CPU resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in number of CPU cores. Required if Remote Execution is disabled.
-          example: '0.5'
-          type: string
-        defaultTaskPodMemory:
-          description: The default memory resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `DefaultTaskPodCpu`. Required if Remote Execution is disabled.
-          example: 1Gi
-          type: string
-        description:
-          description: The Deployment's description.
-          example: My deployment description
-          maxLength: 1000
-          type: string
-        drWorkloadIdentity:
-          description: The Deployment's DR workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        environmentVariables:
-          description: List of environment variables to add to the Deployment.
-          items:
-            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
-          type: array
-        executor:
-          description: The Deployment's executor type.
-          enum:
-          - CELERY
-          - KUBERNETES
-          - ASTRO
-          example: CELERY
-          type: string
-        isCicdEnforced:
-          description: Whether the Deployment requires that all deploys are made through CI/CD.
-          example: true
-          type: boolean
-        isDagDeployEnabled:
-          description: Whether the Deployment has DAG deploys enabled.
-          example: true
-          type: boolean
-        isDevelopmentMode:
-          description: If true, deployment will be able to use development-only features, such as hibernation, but will not have guaranteed uptime SLAs
-          type: boolean
-        isHighAvailability:
-          description: Whether the Deployment is configured for high availability. If `true`, multiple scheduler pods will be online.
-          example: true
-          type: boolean
-        name:
-          description: The Deployment's name.
-          example: My deployment
-          maxLength: 500
-          type: string
-        region:
-          description: Region for STANDARD deployments on Astronomer shared infrastructure. Must be provided together with cloudProvider. If clusterId is also provided, clusterId takes precedence and this field is ignored.
-          example: us-east4
-          type: string
-        remoteExecution:
-          $ref: '#/components/schemas/DeploymentRemoteExecutionRequest'
-        resourceQuotaCpu:
-          description: The CPU quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current CPU usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in number of CPU cores. Required if Remote Execution is disabled.
-          example: '160'
-          type: string
-        resourceQuotaMemory:
-          description: The memory quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current memory usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `ResourceQuotaCpu`. Required if Remote Execution is disabled.
-          example: 320Gi
-          type: string
-        scalingSpec:
-          $ref: '#/components/schemas/DeploymentScalingSpecRequest'
-        schedulerSize:
-          description: The size of the scheduler Pod.
-          enum:
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - EXTRA_LARGE
-          example: MEDIUM
-          type: string
-        type:
-          description: The type of the Deployment.
-          enum:
-          - DEDICATED
-          - HYBRID
-          - STANDARD
-          example: DEDICATED
-          type: string
-        workerQueues:
-          description: A list of the Deployment's worker queues. Applies only when `Executor` is `CELERY` or if Remote Execution is disabled and executor is `ASTRO`. All these Deployments need at least 1 worker queue called `default`.
-          items:
-            $ref: '#/components/schemas/WorkerQueueRequest'
-          minItems: 1
-          type: array
-        workloadIdentity:
-          description: The Deployment's workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        workspaceId:
-          description: The ID of the Workspace to which the Deployment belongs.
-          example: clmh8ol3x000008jo656y4285
-          type: string
-      required:
-      - name
-      - workspaceId
-      type: object
-    DeploymentEnvironmentVariableRequest:
-      properties:
-        isSecret:
-          description: Whether the environment variable is a secret.
-          example: false
-          type: boolean
-        key:
-          description: The environment variable key, used to call the value in code.
-          example: my-var
-          type: string
-        value:
-          description: The environment variable value.
-          example: my-var-value
-          type: string
-      required:
-      - isSecret
-      - key
-      type: object
-    CreateDeploymentRequest:
-      discriminator:
-        mapping:
-          DEDICATED: '#/components/schemas/CreateDedicatedDeploymentRequest'
-          HYBRID: '#/components/schemas/CreateHybridDeploymentRequest'
-          STANDARD: '#/components/schemas/CreateStandardDeploymentRequest'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/CreateDedicatedDeploymentRequest'
-      - $ref: '#/components/schemas/CreateHybridDeploymentRequest'
-      - $ref: '#/components/schemas/CreateStandardDeploymentRequest'
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    DeploymentHibernationOverride:
-      properties:
-        isActive:
-          description: Whether the override is currently active or not
-          type: boolean
-        isHibernating:
-          description: Whether to go into hibernation or not via the override rule
-          type: boolean
-        overrideUntil:
-          description: Timestamp till the override on the hibernation schedule is in effect
-          format: date-time
-          type: string
-      type: object
-    UpdateDedicatedDeploymentRequest:
-      properties:
-        contactEmails:
-          description: A list of contact emails for the Deployment.
-          example:
-          - user1@company.com
-          items:
-            type: string
-          type: array
-        defaultTaskPodCpu:
-          description: The default CPU resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in number of CPU cores. Required if Remote Execution is disabled.
-          example: '0.5'
-          type: string
-        defaultTaskPodMemory:
-          description: The default memory resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `DefaultTaskPodCpu`. Required if Remote Execution is disabled.
-          example: 1Gi
-          type: string
-        description:
-          description: The Deployment's description.
-          example: My deployment description
-          maxLength: 1000
-          type: string
-        drWorkloadIdentity:
-          description: The Deployment's DR workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        environmentVariables:
-          description: List of environment variables to add to the Deployment.
-          items:
-            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
-          type: array
-        executor:
-          description: The Deployment's executor type.
-          enum:
-          - CELERY
-          - KUBERNETES
-          - ASTRO
-          example: CELERY
-          type: string
-        isCicdEnforced:
-          description: Whether the Deployment requires that all deploys are made through CI/CD.
-          example: true
-          type: boolean
-        isDagDeployEnabled:
-          description: Whether the Deployment has DAG deploys enabled.
-          example: true
-          type: boolean
-        isDevelopmentMode:
-          description: Whether the Deployment is for development only. If `false`, the Deployment can be considered production for the purposes of support case priority, but development-only features such as hibernation will not be available. You can't update this value to `true` for existing non-development Deployments.
-          type: boolean
-        isHighAvailability:
-          description: Whether the Deployment is configured for high availability. If `true`, multiple scheduler pods will be online.
-          example: true
-          type: boolean
-        name:
-          description: The Deployment's name.
-          example: My deployment
-          maxLength: 500
-          type: string
-        remoteExecution:
-          $ref: '#/components/schemas/DeploymentRemoteExecutionRequest'
-        resourceQuotaCpu:
-          description: The CPU quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current CPU usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in number of CPU cores. Required if Remote Execution is disabled.
-          example: '160'
-          type: string
-        resourceQuotaMemory:
-          description: The memory quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current memory usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `ResourceQuotaCpu`. Required if Remote Execution is disabled.
-          example: 320Gi
-          type: string
-        scalingSpec:
-          $ref: '#/components/schemas/DeploymentScalingSpecRequest'
-        schedulerSize:
-          description: The size of the scheduler Pod.
-          enum:
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - EXTRA_LARGE
-          example: MEDIUM
-          type: string
-        type:
-          description: The type of the Deployment.
-          enum:
-          - DEDICATED
-          - HYBRID
-          - STANDARD
-          example: DEDICATED
-          type: string
-        workerQueues:
-          description: A list of the Deployment's worker queues. Applies only when `Executor` is `CELERY` or if Remote Execution is disabled and executor is `ASTRO`. All these Deployments need at least 1 worker queue called `default`.
-          items:
-            $ref: '#/components/schemas/UpdateWorkerQueueRequest'
-          minItems: 1
-          type: array
-        workloadIdentity:
-          description: The Deployment's workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        workspaceId:
-          description: The ID of the Workspace to which the Deployment belongs.
-          example: clmh7vdf4000008lhhlnk9t6o
-          type: string
-      required:
-      - environmentVariables
-      - executor
-      - isCicdEnforced
-      - isDagDeployEnabled
-      - isHighAvailability
-      - name
-      - schedulerSize
-      - type
-      - workspaceId
-      type: object
-    DeploymentEnvironmentVariable:
-      properties:
-        isSecret:
-          description: Whether the environment variable is a secret.
-          example: true
-          type: boolean
-        key:
-          description: The environment variable key, used to call the value in code.
-          example: my-var
-          type: string
-        updatedAt:
-          description: The time when the environment variable was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        value:
-          description: The environment variable value.
-          example: my-var-value
-          type: string
-      required:
-      - isSecret
-      - key
-      - updatedAt
-      type: object
-    DeploymentLog:
-      properties:
-        limit:
-          description: The requested log entry limit.
-          minimum: 1
-          type: integer
-        maxNumResults:
-          description: The maximum number of results.
-          minimum: 0
-          type: integer
-        offset:
-          description: The offset of the current results page.
-          minimum: 0
-          type: integer
-        resultCount:
-          description: The number of results returned.
-          minimum: 0
-          type: integer
-        results:
-          description: The log entries.
-          items:
-            $ref: '#/components/schemas/DeploymentLogEntry'
-          type: array
-        searchId:
-          description: The search ID for pagination.
-          type: string
-      required:
-      - limit
-      - maxNumResults
-      - offset
-      - resultCount
-      - results
-      - searchId
       type: object
     Deployment:
       properties:
@@ -1344,471 +865,6 @@ components:
       - webServerUrl
       - workspaceId
       type: object
-    DeploymentHibernationSpec:
-      properties:
-        override:
-          $ref: '#/components/schemas/DeploymentHibernationOverride'
-        schedules:
-          description: The list of schedules for deployment hibernation
-          items:
-            $ref: '#/components/schemas/DeploymentHibernationSchedule'
-          type: array
-      type: object
-    DeploymentHibernationOverrideRequest:
-      properties:
-        isHibernating:
-          description: Whether to go into hibernation or not via the override rule
-          type: boolean
-        overrideUntil:
-          description: Timestamp till the override on the hibernation schedule is in effect
-          type: string
-      type: object
-    DeploymentRemoteExecution:
-      properties:
-        allowedIpAddressRanges:
-          items:
-            type: string
-          type: array
-        enabled:
-          type: boolean
-        remoteApiUrl:
-          type: string
-        taskLogBucket:
-          type: string
-        taskLogUrlPattern:
-          type: string
-      required:
-      - allowedIpAddressRanges
-      - enabled
-      - remoteApiUrl
-      type: object
-    DeploymentScalingSpec:
-      properties:
-        hibernationSpec:
-          $ref: '#/components/schemas/DeploymentHibernationSpec'
-      type: object
-    UpdateStandardDeploymentRequest:
-      properties:
-        contactEmails:
-          description: A list of contact emails for the Deployment.
-          example:
-          - user1@company.com
-          items:
-            type: string
-          type: array
-        defaultTaskPodCpu:
-          description: The default CPU resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in number of CPU cores. Required if Remote Execution is disabled.
-          example: '0.5'
-          type: string
-        defaultTaskPodMemory:
-          description: The default memory resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `DefaultTaskPodCpu`. Required if Remote Execution is disabled.
-          example: 1Gi
-          type: string
-        description:
-          description: The Deployment's description.
-          example: My deployment description
-          maxLength: 1000
-          type: string
-        drWorkloadIdentity:
-          description: The Deployment's DR workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        environmentVariables:
-          description: List of environment variables to add to the Deployment.
-          items:
-            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
-          type: array
-        executor:
-          description: The Deployment's executor type.
-          enum:
-          - CELERY
-          - KUBERNETES
-          - ASTRO
-          example: CELERY
-          type: string
-        isCicdEnforced:
-          description: Whether the Deployment requires that all deploys are made through CI/CD.
-          example: true
-          type: boolean
-        isDagDeployEnabled:
-          description: Whether the Deployment has DAG deploys enabled.
-          example: true
-          type: boolean
-        isDevelopmentMode:
-          description: Whether the Deployment is for development only. If `false`, the Deployment can be considered production for the purposes of support case priority, but development-only features such as hibernation will not be available. You can't update this value to `true` for existing non-development Deployments.
-          type: boolean
-        isHighAvailability:
-          description: Whether the Deployment is configured for high availability. If `true`, multiple scheduler pods will be online.
-          example: true
-          type: boolean
-        name:
-          description: The Deployment's name.
-          example: My deployment
-          maxLength: 500
-          type: string
-        remoteExecution:
-          $ref: '#/components/schemas/DeploymentRemoteExecutionRequest'
-        resourceQuotaCpu:
-          description: The CPU quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current CPU usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in number of CPU cores. Required if Remote Execution is disabled.
-          example: '160'
-          type: string
-        resourceQuotaMemory:
-          description: The memory quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current memory usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `ResourceQuotaCpu`. Required if Remote Execution is disabled.
-          example: 320Gi
-          type: string
-        scalingSpec:
-          $ref: '#/components/schemas/DeploymentScalingSpecRequest'
-        schedulerSize:
-          description: The size of the scheduler Pod.
-          enum:
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - EXTRA_LARGE
-          example: MEDIUM
-          type: string
-        type:
-          description: The type of the Deployment.
-          enum:
-          - DEDICATED
-          - HYBRID
-          - STANDARD
-          example: DEDICATED
-          type: string
-        workerQueues:
-          description: A list of the Deployment's worker queues. Applies only when `Executor` is `CELERY` or if Remote Execution is disabled and executor is `ASTRO`. All these Deployments need at least 1 worker queue called `default`.
-          items:
-            $ref: '#/components/schemas/UpdateWorkerQueueRequest'
-          minItems: 1
-          type: array
-        workloadIdentity:
-          description: The Deployment's workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        workspaceId:
-          description: The ID of the Workspace to which the Deployment belongs.
-          example: clmh7vdf4000008lhhlnk9t6o
-          type: string
-      required:
-      - environmentVariables
-      - executor
-      - isCicdEnforced
-      - isDagDeployEnabled
-      - isHighAvailability
-      - name
-      - schedulerSize
-      - type
-      - workspaceId
-      type: object
-    DeploymentHibernationStatus:
-      properties:
-        isHibernating:
-          description: If the deployment is currently in hibernating state or not
-          type: boolean
-        nextEventAt:
-          description: Timestamp of the next scheduled hibernation event for the deployment
-          type: string
-        nextEventType:
-          description: The type of the next scheduled event for the deployment. Either HIBERNATE or WAKE
-          enum:
-          - HIBERNATE
-          - WAKE
-          type: string
-        reason:
-          description: Reason for the current hibernation state of the deployment
-          type: string
-      required:
-      - isHibernating
-      type: object
-    WorkerQueueRequest:
-      properties:
-        astroMachine:
-          description: The Astro machine for each worker in the queue. For Astro Hosted only.
-          enum:
-          - A5
-          - A10
-          - A20
-          - A40
-          - A60
-          - A120
-          - A160
-          type: string
-        id:
-          description: The worker queue's ID. If not provided, a new worker queue will be created.
-          example: clmha1mzc000b08mi96n182au
-          type: string
-        isDefault:
-          description: Whether the worker queue is the default worker queue on the Deployment.
-          example: true
-          type: boolean
-        maxWorkerCount:
-          description: The maximum number of workers that can run at once.
-          minimum: 1
-          type: integer
-        minWorkerCount:
-          description: The minimum number of workers running at once.
-          minimum: 0
-          type: integer
-        name:
-          description: The worker queue's name.
-          example: My worker queue
-          maxLength: 63
-          type: string
-        podEphemeralStorage:
-          description: The ephemeral storage limit for each worker Pod. Must be a valid Kubernetes resource string, e.g. `10Gi`.
-          type: string
-        workerConcurrency:
-          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
-          minimum: 1
-          type: integer
-      required:
-      - astroMachine
-      - isDefault
-      - maxWorkerCount
-      - minWorkerCount
-      - name
-      - workerConcurrency
-      type: object
-    DeploymentHibernationSpecRequest:
-      properties:
-        override:
-          $ref: '#/components/schemas/DeploymentHibernationOverrideRequest'
-        schedules:
-          description: The list of schedules for deployment hibernation
-          items:
-            $ref: '#/components/schemas/DeploymentHibernationSchedule'
-          maxItems: 10
-          type: array
-      type: object
-    CreateDeploymentInstanceSpecRequest:
-      properties:
-        au:
-          description: The number of Astro unit allocated to the Deployment pod. Minimum `5`, Maximum `24`.
-          example: 5
-          maximum: 24
-          minimum: 5
-          type: integer
-        replicas:
-          description: The number of replicas the pod should have. Minimum `1`, Maximum `4`.
-          example: 1
-          maximum: 4
-          minimum: 1
-          type: integer
-      type: object
-    UpdateHybridDeploymentRequest:
-      properties:
-        contactEmails:
-          description: A list of contact emails for the Deployment.
-          example:
-          - user1@company.com
-          items:
-            type: string
-          type: array
-        description:
-          description: The Deployment's description.
-          example: My deployment description
-          maxLength: 1000
-          type: string
-        drWorkloadIdentity:
-          description: The Deployment's DR workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        environmentVariables:
-          description: List of environment variables to add to the Deployment.
-          items:
-            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
-          type: array
-        executor:
-          description: The Deployment's executor type.
-          enum:
-          - CELERY
-          - KUBERNETES
-          example: CELERY
-          type: string
-        isCicdEnforced:
-          description: Whether the Deployment requires that all deploys are made through CI/CD.
-          example: true
-          type: boolean
-        isDagDeployEnabled:
-          description: Whether the Deployment has DAG deploys enabled.
-          example: true
-          type: boolean
-        name:
-          description: The Deployment's name.
-          example: My deployment
-          maxLength: 500
-          type: string
-        scheduler:
-          $ref: '#/components/schemas/UpdateDeploymentInstanceSpecRequest'
-        taskPodNodePoolId:
-          description: The node pool ID for worker Pods. Applies only when `Executor` is `KUBERNETES`.
-          example: clmh87air000008mgfkgrg9fy
-          type: string
-        type:
-          description: The type of the Deployment.
-          enum:
-          - DEDICATED
-          - HYBRID
-          - STANDARD
-          example: DEDICATED
-          type: string
-        workerQueues:
-          description: The list of worker queues configured for the Deployment. Applies only when `Executor` is `CELERY`. All Deployments need at least 1 worker queue called `default`.
-          items:
-            $ref: '#/components/schemas/UpdateWorkerQueueRequest'
-          minItems: 1
-          type: array
-        workloadIdentity:
-          description: The Deployment's workload identity.
-          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
-          type: string
-        workspaceId:
-          description: The ID of the Workspace to which the Deployment belongs.
-          example: clmh7vdf4000008lhhlnk9t6o
-          type: string
-      required:
-      - environmentVariables
-      - executor
-      - isCicdEnforced
-      - isDagDeployEnabled
-      - name
-      - scheduler
-      - type
-      - workspaceId
-      type: object
-    DeploymentScalingStatus:
-      properties:
-        hibernationStatus:
-          $ref: '#/components/schemas/DeploymentHibernationStatus'
-      type: object
-    WorkerQueue:
-      properties:
-        astroMachine:
-          description: The Astro machine size for each worker node in the queue. For Astro Hosted only.
-          example: A5
-          type: string
-        id:
-          description: The worker queue's ID.
-          example: clmh9vsuf000908midngba9mw
-          type: string
-        isDefault:
-          description: Whether the worker queue is the default worker queue in the Deployment.
-          example: true
-          type: boolean
-        maxWorkerCount:
-          description: The maximum number of workers that can run at once.
-          example: 10
-          type: integer
-        minWorkerCount:
-          description: The minimum number of workers running at once.
-          example: 1
-          type: integer
-        name:
-          description: The worker queue's name.
-          example: default
-          type: string
-        nodePoolId:
-          description: The node pool ID associated with the worker queue.
-          example: clmh9yjcn000a08mi8dsgbno9
-          type: string
-        podCpu:
-          description: The maximum number of CPU units available for a worker node. Units are in number of CPU cores.
-          example: '1'
-          type: string
-        podEphemeralStorage:
-          description: The ephemeral storage limit for each worker Pod. Units are in Gibibytes or `Gi`.
-          example: 10Gi
-          type: string
-        podMemory:
-          description: The maximum amount of memory available for a worker node. Units are in Gibibytes or `Gi`.
-          example: 2Gi
-          type: string
-        workerConcurrency:
-          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
-          example: 20
-          type: integer
-      required:
-      - id
-      - isDefault
-      - maxWorkerCount
-      - minWorkerCount
-      - name
-      - podCpu
-      - podMemory
-      - workerConcurrency
-      type: object
-    DeploymentsPaginated:
-      properties:
-        deployments:
-          description: A list of Deployments in the current page.
-          items:
-            $ref: '#/components/schemas/Deployment'
-          type: array
-        limit:
-          description: The maximum number of Deployments in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of Deployments.
-          example: 0
-          type: integer
-        totalCount:
-          description: The total number of Deployments.
-          example: 100
-          type: integer
-      required:
-      - deployments
-      - limit
-      - offset
-      - totalCount
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    DeploymentHibernationSchedule:
-      properties:
-        description:
-          description: A brief description of the schedule
-          maxLength: 200
-          type: string
-        hibernateAtCron:
-          description: A 5-part cron expression defining the times at which the deployment should hibernate
-          type: string
-        isEnabled:
-          description: Toggle this schedule on or off. If set to false, this schedule will have no effect on hibernation.
-          type: boolean
-        wakeAtCron:
-          description: A 5-part cron expression definingh the times at which the deployment should wake from hibernation
-          type: string
-      required:
-      - hibernateAtCron
-      - isEnabled
-      - wakeAtCron
-      type: object
-    OverrideDeploymentHibernationBody:
-      properties:
-        isHibernating:
-          description: The type of override to perform. Set this value to 'true' to have the Deployment hibernate regardless of its hibernation schedule. Set the value to 'false' to have the Deployment wake up regardless of its hibernation schedule. Use 'OverrideUntil' to define the length of the override.
-          nullable: true
-          type: boolean
-        overrideUntil:
-          description: The end of the override time in UTC, formatted as 'YYYY-MM-DDTHH:MM:SSZ'. If this value isn't specified, the override persists until you end it through the Astro UI or another API call.
-          format: date-time
-          nullable: true
-          type: string
-      required:
-      - isHibernating
-      type: object
     CreateDedicatedDeploymentRequest:
       properties:
         astroRuntimeVersion:
@@ -1923,17 +979,569 @@ components:
       - name
       - workspaceId
       type: object
-    UpdateDeploymentRequest:
+    DeploymentRemoteExecution:
+      properties:
+        allowedIpAddressRanges:
+          items:
+            type: string
+          type: array
+        enabled:
+          type: boolean
+        remoteApiUrl:
+          type: string
+        taskLogBucket:
+          type: string
+        taskLogUrlPattern:
+          type: string
+      required:
+      - allowedIpAddressRanges
+      - enabled
+      - remoteApiUrl
+      type: object
+    DeploymentLog:
+      properties:
+        limit:
+          description: The requested log entry limit.
+          minimum: 1
+          type: integer
+        maxNumResults:
+          description: The maximum number of results.
+          minimum: 0
+          type: integer
+        offset:
+          description: The offset of the current results page.
+          minimum: 0
+          type: integer
+        resultCount:
+          description: The number of results returned.
+          minimum: 0
+          type: integer
+        results:
+          description: The log entries.
+          items:
+            $ref: '#/components/schemas/DeploymentLogEntry'
+          type: array
+        searchId:
+          description: The search ID for pagination.
+          type: string
+      required:
+      - limit
+      - maxNumResults
+      - offset
+      - resultCount
+      - results
+      - searchId
+      type: object
+    DeploymentRemoteExecutionRequest:
+      properties:
+        allowedIpAddressRanges:
+          items:
+            type: string
+          type: array
+        enabled:
+          type: boolean
+        taskLogBucket:
+          type: string
+        taskLogUrlPattern:
+          type: string
+      required:
+      - enabled
+      type: object
+    DeploymentsPaginated:
+      properties:
+        deployments:
+          description: A list of Deployments in the current page.
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type: array
+        limit:
+          description: The maximum number of Deployments in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of Deployments.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of Deployments.
+          example: 100
+          type: integer
+      required:
+      - deployments
+      - limit
+      - offset
+      - totalCount
+      type: object
+    UpdateDeploymentInstanceSpecRequest:
+      properties:
+        au:
+          description: The number of Astro unit allocated to the Deployment pod. Minimum `5`, Maximum `24`.
+          example: 5
+          maximum: 24
+          minimum: 5
+          type: integer
+        replicas:
+          description: The number of replicas the pod should have. Minimum `1`, Maximum `4`.
+          example: 1
+          maximum: 4
+          minimum: 1
+          type: integer
+      required:
+      - au
+      - replicas
+      type: object
+    OverrideDeploymentHibernationBody:
+      properties:
+        isHibernating:
+          description: The type of override to perform. Set this value to 'true' to have the Deployment hibernate regardless of its hibernation schedule. Set the value to 'false' to have the Deployment wake up regardless of its hibernation schedule. Use 'OverrideUntil' to define the length of the override.
+          type:
+          - boolean
+          - 'null'
+        overrideUntil:
+          description: The end of the override time in UTC, formatted as 'YYYY-MM-DDTHH:MM:SSZ'. If this value isn't specified, the override persists until you end it through the Astro UI or another API call.
+          format: date-time
+          type:
+          - string
+          - 'null'
+      required:
+      - isHibernating
+      type: object
+    CreateStandardDeploymentRequest:
+      properties:
+        astroRuntimeVersion:
+          description: Deployment's Astro Runtime version.
+          example: 9.1.0
+          type: string
+        cloudProvider:
+          description: Cloud provider for STANDARD deployments on Astronomer shared infrastructure. One of AWS, AZURE, GCP. Must be provided together with region. If clusterId is also provided, clusterId takes precedence and this field is ignored.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: GCP
+          type: string
+        clusterId:
+          description: The target cluster ID. Use for DEDICATED (Astronomer-hosted) or HYBRID (Bring-Your-Own-Cloud) deployments. If provided alongside cloudProvider and region, clusterId takes precedence and the other two are ignored. When all three are omitted, infrastructure is resolved from workspace defaults or auto-selected when the organization has exactly one cluster.
+          example: clmh93n2n000008ms3tv79voh
+          type: string
+        contactEmails:
+          description: A list of contact emails for the Deployment.
+          example:
+          - user1@company.com
+          items:
+            type: string
+          type: array
+        defaultTaskPodCpu:
+          description: The default CPU resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in number of CPU cores. Required if Remote Execution is disabled.
+          example: '0.5'
+          type: string
+        defaultTaskPodMemory:
+          description: The default memory resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `DefaultTaskPodCpu`. Required if Remote Execution is disabled.
+          example: 1Gi
+          type: string
+        description:
+          description: The Deployment's description.
+          example: My deployment description
+          maxLength: 1000
+          type: string
+        drWorkloadIdentity:
+          description: The Deployment's DR workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        environmentVariables:
+          description: List of environment variables to add to the Deployment.
+          items:
+            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
+          type: array
+        executor:
+          description: The Deployment's executor type.
+          enum:
+          - CELERY
+          - KUBERNETES
+          - ASTRO
+          example: CELERY
+          type: string
+        isCicdEnforced:
+          description: Whether the Deployment requires that all deploys are made through CI/CD.
+          example: true
+          type: boolean
+        isDagDeployEnabled:
+          description: Whether the Deployment has DAG deploys enabled.
+          example: true
+          type: boolean
+        isDevelopmentMode:
+          description: If true, deployment will be able to use development-only features, such as hibernation, but will not have guaranteed uptime SLAs
+          type: boolean
+        isHighAvailability:
+          description: Whether the Deployment is configured for high availability. If `true`, multiple scheduler pods will be online.
+          example: true
+          type: boolean
+        name:
+          description: The Deployment's name.
+          example: My deployment
+          maxLength: 500
+          type: string
+        region:
+          description: Region for STANDARD deployments on Astronomer shared infrastructure. Must be provided together with cloudProvider. If clusterId is also provided, clusterId takes precedence and this field is ignored.
+          example: us-east4
+          type: string
+        remoteExecution:
+          $ref: '#/components/schemas/DeploymentRemoteExecutionRequest'
+        resourceQuotaCpu:
+          description: The CPU quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current CPU usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in number of CPU cores. Required if Remote Execution is disabled.
+          example: '160'
+          type: string
+        resourceQuotaMemory:
+          description: The memory quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current memory usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `ResourceQuotaCpu`. Required if Remote Execution is disabled.
+          example: 320Gi
+          type: string
+        scalingSpec:
+          $ref: '#/components/schemas/DeploymentScalingSpecRequest'
+        schedulerSize:
+          description: The size of the scheduler Pod.
+          enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - EXTRA_LARGE
+          example: MEDIUM
+          type: string
+        type:
+          description: The type of the Deployment.
+          enum:
+          - DEDICATED
+          - HYBRID
+          - STANDARD
+          example: DEDICATED
+          type: string
+        workerQueues:
+          description: A list of the Deployment's worker queues. Applies only when `Executor` is `CELERY` or if Remote Execution is disabled and executor is `ASTRO`. All these Deployments need at least 1 worker queue called `default`.
+          items:
+            $ref: '#/components/schemas/WorkerQueueRequest'
+          minItems: 1
+          type: array
+        workloadIdentity:
+          description: The Deployment's workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        workspaceId:
+          description: The ID of the Workspace to which the Deployment belongs.
+          example: clmh8ol3x000008jo656y4285
+          type: string
+      required:
+      - name
+      - workspaceId
+      type: object
+    WorkerQueue:
+      properties:
+        astroMachine:
+          description: The Astro machine size for each worker node in the queue. For Astro Hosted only.
+          example: A5
+          type: string
+        id:
+          description: The worker queue's ID.
+          example: clmh9vsuf000908midngba9mw
+          type: string
+        isDefault:
+          description: Whether the worker queue is the default worker queue in the Deployment.
+          example: true
+          type: boolean
+        maxWorkerCount:
+          description: The maximum number of workers that can run at once.
+          example: 10
+          type: integer
+        minWorkerCount:
+          description: The minimum number of workers running at once.
+          example: 1
+          type: integer
+        name:
+          description: The worker queue's name.
+          example: default
+          type: string
+        nodePoolId:
+          description: The node pool ID associated with the worker queue.
+          example: clmh9yjcn000a08mi8dsgbno9
+          type: string
+        podCpu:
+          description: The maximum number of CPU units available for a worker node. Units are in number of CPU cores.
+          example: '1'
+          type: string
+        podEphemeralStorage:
+          description: The ephemeral storage limit for each worker Pod. Units are in Gibibytes or `Gi`.
+          example: 10Gi
+          type: string
+        podMemory:
+          description: The maximum amount of memory available for a worker node. Units are in Gibibytes or `Gi`.
+          example: 2Gi
+          type: string
+        workerConcurrency:
+          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
+          example: 20
+          type: integer
+      required:
+      - id
+      - isDefault
+      - maxWorkerCount
+      - minWorkerCount
+      - name
+      - podCpu
+      - podMemory
+      - workerConcurrency
+      type: object
+    CreateDeploymentRequest:
       discriminator:
         mapping:
-          DEDICATED: '#/components/schemas/UpdateDedicatedDeploymentRequest'
-          HYBRID: '#/components/schemas/UpdateHybridDeploymentRequest'
-          STANDARD: '#/components/schemas/UpdateStandardDeploymentRequest'
+          DEDICATED: '#/components/schemas/CreateDedicatedDeploymentRequest'
+          HYBRID: '#/components/schemas/CreateHybridDeploymentRequest'
+          STANDARD: '#/components/schemas/CreateStandardDeploymentRequest'
         propertyName: type
       oneOf:
-      - $ref: '#/components/schemas/UpdateDedicatedDeploymentRequest'
-      - $ref: '#/components/schemas/UpdateHybridDeploymentRequest'
-      - $ref: '#/components/schemas/UpdateStandardDeploymentRequest'
+      - $ref: '#/components/schemas/CreateDedicatedDeploymentRequest'
+      - $ref: '#/components/schemas/CreateHybridDeploymentRequest'
+      - $ref: '#/components/schemas/CreateStandardDeploymentRequest'
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    CreateDeploymentInstanceSpecRequest:
+      properties:
+        au:
+          description: The number of Astro unit allocated to the Deployment pod. Minimum `5`, Maximum `24`.
+          example: 5
+          maximum: 24
+          minimum: 5
+          type: integer
+        replicas:
+          description: The number of replicas the pod should have. Minimum `1`, Maximum `4`.
+          example: 1
+          maximum: 4
+          minimum: 1
+          type: integer
+      type: object
+    DeploymentHibernationSpecRequest:
+      properties:
+        override:
+          $ref: '#/components/schemas/DeploymentHibernationOverrideRequest'
+        schedules:
+          description: The list of schedules for deployment hibernation
+          items:
+            $ref: '#/components/schemas/DeploymentHibernationSchedule'
+          maxItems: 10
+          type: array
+      type: object
+    DeploymentEnvironmentVariableRequest:
+      properties:
+        isSecret:
+          description: Whether the environment variable is a secret.
+          example: false
+          type: boolean
+        key:
+          description: The environment variable key, used to call the value in code.
+          example: my-var
+          type: string
+        value:
+          description: The environment variable value.
+          example: my-var-value
+          type: string
+      required:
+      - isSecret
+      - key
+      type: object
+    DeploymentHibernationOverride:
+      properties:
+        isActive:
+          description: Whether the override is currently active or not
+          type: boolean
+        isHibernating:
+          description: Whether to go into hibernation or not via the override rule
+          type: boolean
+        overrideUntil:
+          description: Timestamp till the override on the hibernation schedule is in effect
+          format: date-time
+          type: string
+      type: object
+    DeploymentScalingSpecRequest:
+      properties:
+        hibernationSpec:
+          $ref: '#/components/schemas/DeploymentHibernationSpecRequest'
+      type: object
+    WorkerQueueRequest:
+      properties:
+        astroMachine:
+          description: The Astro machine for each worker in the queue. For Astro Hosted only.
+          enum:
+          - A5
+          - A10
+          - A20
+          - A40
+          - A60
+          - A120
+          - A160
+          type: string
+        id:
+          description: The worker queue's ID. If not provided, a new worker queue will be created.
+          example: clmha1mzc000b08mi96n182au
+          type: string
+        isDefault:
+          description: Whether the worker queue is the default worker queue on the Deployment.
+          example: true
+          type: boolean
+        maxWorkerCount:
+          description: The maximum number of workers that can run at once.
+          minimum: 1
+          type: integer
+        minWorkerCount:
+          description: The minimum number of workers running at once.
+          minimum: 0
+          type: integer
+        name:
+          description: The worker queue's name.
+          example: My worker queue
+          maxLength: 63
+          type: string
+        podEphemeralStorage:
+          description: The ephemeral storage limit for each worker Pod. Must be a valid Kubernetes resource string, e.g. `10Gi`.
+          type: string
+        workerConcurrency:
+          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
+          minimum: 1
+          type: integer
+      required:
+      - astroMachine
+      - isDefault
+      - maxWorkerCount
+      - minWorkerCount
+      - name
+      - workerConcurrency
+      type: object
+    DeploymentHibernationStatus:
+      properties:
+        isHibernating:
+          description: If the deployment is currently in hibernating state or not
+          type: boolean
+        nextEventAt:
+          description: Timestamp of the next scheduled hibernation event for the deployment
+          type: string
+        nextEventType:
+          description: The type of the next scheduled event for the deployment. Either HIBERNATE or WAKE
+          enum:
+          - HIBERNATE
+          - WAKE
+          type: string
+        reason:
+          description: Reason for the current hibernation state of the deployment
+          type: string
+      required:
+      - isHibernating
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    DeploymentHibernationSchedule:
+      properties:
+        description:
+          description: A brief description of the schedule
+          maxLength: 200
+          type: string
+        hibernateAtCron:
+          description: A 5-part cron expression defining the times at which the deployment should hibernate
+          type: string
+        isEnabled:
+          description: Toggle this schedule on or off. If set to false, this schedule will have no effect on hibernation.
+          type: boolean
+        wakeAtCron:
+          description: A 5-part cron expression definingh the times at which the deployment should wake from hibernation
+          type: string
+      required:
+      - hibernateAtCron
+      - isEnabled
+      - wakeAtCron
+      type: object
+    DeploymentHibernationOverrideRequest:
+      properties:
+        isHibernating:
+          description: Whether to go into hibernation or not via the override rule
+          type: boolean
+        overrideUntil:
+          description: Timestamp till the override on the hibernation schedule is in effect
+          type: string
+      type: object
+    HybridWorkerQueueRequest:
+      properties:
+        id:
+          description: The worker queue's ID. If not provided, a new worker queue will be created.
+          example: clmha1mzc000b08mi96n182au
+          type: string
+        isDefault:
+          description: Whether the worker queue is the default worker queue on the Deployment.
+          example: true
+          type: boolean
+        maxWorkerCount:
+          description: The maximum number of workers that can run at once.
+          minimum: 1
+          type: integer
+        minWorkerCount:
+          description: The minimum number of workers running at once.
+          minimum: 0
+          type: integer
+        name:
+          description: The worker queue's name.
+          example: My worker queue
+          maxLength: 63
+          type: string
+        nodePoolId:
+          description: The node pool ID associated with the worker queue.
+          type: string
+        workerConcurrency:
+          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
+          minimum: 1
+          type: integer
+      required:
+      - isDefault
+      - maxWorkerCount
+      - minWorkerCount
+      - name
+      - nodePoolId
+      - workerConcurrency
       type: object
     CreateHybridDeploymentRequest:
       properties:
@@ -2018,38 +1626,28 @@ components:
       - name
       - workspaceId
       type: object
-    UpdateDeploymentInstanceSpecRequest:
+    DeploymentLogEntry:
       properties:
-        au:
-          description: The number of Astro unit allocated to the Deployment pod. Minimum `5`, Maximum `24`.
-          example: 5
-          maximum: 24
-          minimum: 5
-          type: integer
-        replicas:
-          description: The number of replicas the pod should have. Minimum `1`, Maximum `4`.
-          example: 1
-          maximum: 4
-          minimum: 1
-          type: integer
-      required:
-      - au
-      - replicas
-      type: object
-    DeploymentRemoteExecutionRequest:
-      properties:
-        allowedIpAddressRanges:
-          items:
-            type: string
-          type: array
-        enabled:
-          type: boolean
-        taskLogBucket:
+        raw:
+          description: The raw log entry content.
           type: string
-        taskLogUrlPattern:
+        source:
+          description: The log entry source.
+          enum:
+          - scheduler
+          - webserver
+          - triggerer
+          - worker
+          - dag-processor
+          - apiserver
           type: string
+        timestamp:
+          description: The log entry's timestamp.
+          type: number
       required:
-      - enabled
+      - raw
+      - source
+      - timestamp
       type: object
     Error:
       properties:
@@ -2072,6 +1670,410 @@ components:
       - message
       - requestId
       - statusCode
+      type: object
+    UpdateHybridDeploymentRequest:
+      properties:
+        contactEmails:
+          description: A list of contact emails for the Deployment.
+          example:
+          - user1@company.com
+          items:
+            type: string
+          type: array
+        description:
+          description: The Deployment's description.
+          example: My deployment description
+          maxLength: 1000
+          type: string
+        drWorkloadIdentity:
+          description: The Deployment's DR workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        environmentVariables:
+          description: List of environment variables to add to the Deployment.
+          items:
+            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
+          type: array
+        executor:
+          description: The Deployment's executor type.
+          enum:
+          - CELERY
+          - KUBERNETES
+          example: CELERY
+          type: string
+        isCicdEnforced:
+          description: Whether the Deployment requires that all deploys are made through CI/CD.
+          example: true
+          type: boolean
+        isDagDeployEnabled:
+          description: Whether the Deployment has DAG deploys enabled.
+          example: true
+          type: boolean
+        name:
+          description: The Deployment's name.
+          example: My deployment
+          maxLength: 500
+          type: string
+        scheduler:
+          $ref: '#/components/schemas/UpdateDeploymentInstanceSpecRequest'
+        taskPodNodePoolId:
+          description: The node pool ID for worker Pods. Applies only when `Executor` is `KUBERNETES`.
+          example: clmh87air000008mgfkgrg9fy
+          type: string
+        type:
+          description: The type of the Deployment.
+          enum:
+          - DEDICATED
+          - HYBRID
+          - STANDARD
+          example: DEDICATED
+          type: string
+        workerQueues:
+          description: The list of worker queues configured for the Deployment. Applies only when `Executor` is `CELERY`. All Deployments need at least 1 worker queue called `default`.
+          items:
+            $ref: '#/components/schemas/UpdateWorkerQueueRequest'
+          minItems: 1
+          type: array
+        workloadIdentity:
+          description: The Deployment's workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        workspaceId:
+          description: The ID of the Workspace to which the Deployment belongs.
+          example: clmh7vdf4000008lhhlnk9t6o
+          type: string
+      required:
+      - environmentVariables
+      - executor
+      - isCicdEnforced
+      - isDagDeployEnabled
+      - name
+      - scheduler
+      - type
+      - workspaceId
+      type: object
+    UpdateWorkerQueueRequest:
+      properties:
+        astroMachine:
+          description: The Astro machine for each worker in the queue. Required for Astro Hosted deployments.
+          enum:
+          - A5
+          - A10
+          - A20
+          - A40
+          - A60
+          - A120
+          - A160
+          type: string
+        id:
+          description: The worker queue's ID. If not provided, a new worker queue will be created.
+          example: clmha1mzc000b08mi96n182au
+          type: string
+        isDefault:
+          description: Whether the worker queue is the default worker queue on the Deployment.
+          example: true
+          type: boolean
+        maxWorkerCount:
+          description: The maximum number of workers that can run at once.
+          minimum: 1
+          type: integer
+        minWorkerCount:
+          description: The minimum number of workers running at once.
+          minimum: 0
+          type: integer
+        name:
+          description: The worker queue's name.
+          example: My worker queue
+          maxLength: 63
+          type: string
+        nodePoolId:
+          description: The node pool ID associated with the worker queue. Required for Hybrid deployments.
+          type: string
+        podEphemeralStorage:
+          description: The ephemeral storage limit for each worker Pod. Must be a valid Kubernetes resource string, e.g. `10Gi`.
+          type: string
+        workerConcurrency:
+          description: The maximum number of concurrent tasks that a worker Pod can run at a time.
+          minimum: 1
+          type: integer
+      required:
+      - isDefault
+      - maxWorkerCount
+      - minWorkerCount
+      - name
+      - workerConcurrency
+      type: object
+    UpdateStandardDeploymentRequest:
+      properties:
+        contactEmails:
+          description: A list of contact emails for the Deployment.
+          example:
+          - user1@company.com
+          items:
+            type: string
+          type: array
+        defaultTaskPodCpu:
+          description: The default CPU resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in number of CPU cores. Required if Remote Execution is disabled.
+          example: '0.5'
+          type: string
+        defaultTaskPodMemory:
+          description: The default memory resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `DefaultTaskPodCpu`. Required if Remote Execution is disabled.
+          example: 1Gi
+          type: string
+        description:
+          description: The Deployment's description.
+          example: My deployment description
+          maxLength: 1000
+          type: string
+        drWorkloadIdentity:
+          description: The Deployment's DR workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        environmentVariables:
+          description: List of environment variables to add to the Deployment.
+          items:
+            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
+          type: array
+        executor:
+          description: The Deployment's executor type.
+          enum:
+          - CELERY
+          - KUBERNETES
+          - ASTRO
+          example: CELERY
+          type: string
+        isCicdEnforced:
+          description: Whether the Deployment requires that all deploys are made through CI/CD.
+          example: true
+          type: boolean
+        isDagDeployEnabled:
+          description: Whether the Deployment has DAG deploys enabled.
+          example: true
+          type: boolean
+        isDevelopmentMode:
+          description: Whether the Deployment is for development only. If `false`, the Deployment can be considered production for the purposes of support case priority, but development-only features such as hibernation will not be available. You can't update this value to `true` for existing non-development Deployments.
+          type: boolean
+        isHighAvailability:
+          description: Whether the Deployment is configured for high availability. If `true`, multiple scheduler pods will be online.
+          example: true
+          type: boolean
+        name:
+          description: The Deployment's name.
+          example: My deployment
+          maxLength: 500
+          type: string
+        remoteExecution:
+          $ref: '#/components/schemas/DeploymentRemoteExecutionRequest'
+        resourceQuotaCpu:
+          description: The CPU quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current CPU usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in number of CPU cores. Required if Remote Execution is disabled.
+          example: '160'
+          type: string
+        resourceQuotaMemory:
+          description: The memory quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current memory usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `ResourceQuotaCpu`. Required if Remote Execution is disabled.
+          example: 320Gi
+          type: string
+        scalingSpec:
+          $ref: '#/components/schemas/DeploymentScalingSpecRequest'
+        schedulerSize:
+          description: The size of the scheduler Pod.
+          enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - EXTRA_LARGE
+          example: MEDIUM
+          type: string
+        type:
+          description: The type of the Deployment.
+          enum:
+          - DEDICATED
+          - HYBRID
+          - STANDARD
+          example: DEDICATED
+          type: string
+        workerQueues:
+          description: A list of the Deployment's worker queues. Applies only when `Executor` is `CELERY` or if Remote Execution is disabled and executor is `ASTRO`. All these Deployments need at least 1 worker queue called `default`.
+          items:
+            $ref: '#/components/schemas/UpdateWorkerQueueRequest'
+          minItems: 1
+          type: array
+        workloadIdentity:
+          description: The Deployment's workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        workspaceId:
+          description: The ID of the Workspace to which the Deployment belongs.
+          example: clmh7vdf4000008lhhlnk9t6o
+          type: string
+      required:
+      - environmentVariables
+      - executor
+      - isCicdEnforced
+      - isDagDeployEnabled
+      - isHighAvailability
+      - name
+      - schedulerSize
+      - type
+      - workspaceId
+      type: object
+    DeploymentEnvironmentVariable:
+      properties:
+        isSecret:
+          description: Whether the environment variable is a secret.
+          example: true
+          type: boolean
+        key:
+          description: The environment variable key, used to call the value in code.
+          example: my-var
+          type: string
+        updatedAt:
+          description: The time when the environment variable was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        value:
+          description: The environment variable value.
+          example: my-var-value
+          type: string
+      required:
+      - isSecret
+      - key
+      - updatedAt
+      type: object
+    DeploymentScalingStatus:
+      properties:
+        hibernationStatus:
+          $ref: '#/components/schemas/DeploymentHibernationStatus'
+      type: object
+    UpdateDeploymentRequest:
+      discriminator:
+        mapping:
+          DEDICATED: '#/components/schemas/UpdateDedicatedDeploymentRequest'
+          HYBRID: '#/components/schemas/UpdateHybridDeploymentRequest'
+          STANDARD: '#/components/schemas/UpdateStandardDeploymentRequest'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/UpdateDedicatedDeploymentRequest'
+      - $ref: '#/components/schemas/UpdateHybridDeploymentRequest'
+      - $ref: '#/components/schemas/UpdateStandardDeploymentRequest'
+      type: object
+    DeploymentScalingSpec:
+      properties:
+        hibernationSpec:
+          $ref: '#/components/schemas/DeploymentHibernationSpec'
+      type: object
+    UpdateDedicatedDeploymentRequest:
+      properties:
+        contactEmails:
+          description: A list of contact emails for the Deployment.
+          example:
+          - user1@company.com
+          items:
+            type: string
+          type: array
+        defaultTaskPodCpu:
+          description: The default CPU resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in number of CPU cores. Required if Remote Execution is disabled.
+          example: '0.5'
+          type: string
+        defaultTaskPodMemory:
+          description: The default memory resource usage for a worker Pod when running the Kubernetes executor or KubernetesPodOperator. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `DefaultTaskPodCpu`. Required if Remote Execution is disabled.
+          example: 1Gi
+          type: string
+        description:
+          description: The Deployment's description.
+          example: My deployment description
+          maxLength: 1000
+          type: string
+        drWorkloadIdentity:
+          description: The Deployment's DR workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        environmentVariables:
+          description: List of environment variables to add to the Deployment.
+          items:
+            $ref: '#/components/schemas/DeploymentEnvironmentVariableRequest'
+          type: array
+        executor:
+          description: The Deployment's executor type.
+          enum:
+          - CELERY
+          - KUBERNETES
+          - ASTRO
+          example: CELERY
+          type: string
+        isCicdEnforced:
+          description: Whether the Deployment requires that all deploys are made through CI/CD.
+          example: true
+          type: boolean
+        isDagDeployEnabled:
+          description: Whether the Deployment has DAG deploys enabled.
+          example: true
+          type: boolean
+        isDevelopmentMode:
+          description: Whether the Deployment is for development only. If `false`, the Deployment can be considered production for the purposes of support case priority, but development-only features such as hibernation will not be available. You can't update this value to `true` for existing non-development Deployments.
+          type: boolean
+        isHighAvailability:
+          description: Whether the Deployment is configured for high availability. If `true`, multiple scheduler pods will be online.
+          example: true
+          type: boolean
+        name:
+          description: The Deployment's name.
+          example: My deployment
+          maxLength: 500
+          type: string
+        remoteExecution:
+          $ref: '#/components/schemas/DeploymentRemoteExecutionRequest'
+        resourceQuotaCpu:
+          description: The CPU quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current CPU usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in number of CPU cores. Required if Remote Execution is disabled.
+          example: '160'
+          type: string
+        resourceQuotaMemory:
+          description: The memory quota for worker Pods when running the Kubernetes executor or KubernetesPodOperator. If current memory usage across all workers exceeds the quota, no new worker Pods can be scheduled. Units are in `Gi` and must be explicitly included. This value must always be twice the value of `ResourceQuotaCpu`. Required if Remote Execution is disabled.
+          example: 320Gi
+          type: string
+        scalingSpec:
+          $ref: '#/components/schemas/DeploymentScalingSpecRequest'
+        schedulerSize:
+          description: The size of the scheduler Pod.
+          enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - EXTRA_LARGE
+          example: MEDIUM
+          type: string
+        type:
+          description: The type of the Deployment.
+          enum:
+          - DEDICATED
+          - HYBRID
+          - STANDARD
+          example: DEDICATED
+          type: string
+        workerQueues:
+          description: A list of the Deployment's worker queues. Applies only when `Executor` is `CELERY` or if Remote Execution is disabled and executor is `ASTRO`. All these Deployments need at least 1 worker queue called `default`.
+          items:
+            $ref: '#/components/schemas/UpdateWorkerQueueRequest'
+          minItems: 1
+          type: array
+        workloadIdentity:
+          description: The Deployment's workload identity.
+          example: arn:aws:iam::123456789:role/AirflowS3Logs-clmk2qqia000008mhff3ndjr0
+          type: string
+        workspaceId:
+          description: The ID of the Workspace to which the Deployment belongs.
+          example: clmh7vdf4000008lhhlnk9t6o
+          type: string
+      required:
+      - environmentVariables
+      - executor
+      - isCicdEnforced
+      - isDagDeployEnabled
+      - isHighAvailability
+      - name
+      - schedulerSize
+      - type
+      - workspaceId
       type: object
   securitySchemes:
     JWT:

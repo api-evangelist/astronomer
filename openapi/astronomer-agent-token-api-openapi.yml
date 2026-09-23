@@ -1,15 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact: {}
   description: Astro Platform API
-  title: Astro Platform AgentToken API
+  title: Astro Platform Agent Token API
   version: v1.0
 servers:
 - url: https://api.astronomer.io/v1
 security:
 - JWT: []
 tags:
-- name: AgentToken
+- name: Agent Token
 paths:
   /organizations/{organizationId}/deployments/{deploymentId}/agent-tokens:
     get:
@@ -106,7 +106,7 @@ paths:
       - JWT: []
       summary: List Agent API Tokens
       tags:
-      - AgentToken
+      - Agent Token
       x-permission:
       - action: deployment.agentTokens.get
     post:
@@ -174,7 +174,7 @@ paths:
       - JWT: []
       summary: Create an Agent API token
       tags:
-      - AgentToken
+      - Agent Token
       x-permission:
       - action: deployment.agentTokens.create
   /organizations/{organizationId}/deployments/{deploymentId}/agent-tokens/{agentTokenId}:
@@ -237,7 +237,7 @@ paths:
       - JWT: []
       summary: Delete an Agent API Token
       tags:
-      - AgentToken
+      - Agent Token
       x-permission:
       - action: deployment.agentTokens.delete
     get:
@@ -303,29 +303,80 @@ paths:
       - JWT: []
       summary: Get an Agent API Token
       tags:
-      - AgentToken
+      - Agent Token
       x-permission:
       - action: deployment.agentTokens.get
 components:
   schemas:
-    CreateAgentTokenRequest:
+    ApiTokensPaginated:
       properties:
-        description:
-          description: The description for the API token.
-          example: This is my API token
-          type: string
-        name:
-          description: The name of the API token.
-          example: My token
-          type: string
-        tokenExpiryPeriodInDays:
-          description: The expiry period of the API token in days. If not specified, the token will never expire.
-          example: 30
-          maximum: 3650
-          minimum: 1
+        limit:
+          description: The limit of values in this page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of values in this page.
+          example: 0
+          type: integer
+        tokens:
+          description: The list of API tokens in this page.
+          items:
+            $ref: '#/components/schemas/ApiToken'
+          type: array
+        totalCount:
+          description: The total number of API tokens.
+          example: 100
           type: integer
       required:
-      - name
+      - limit
+      - offset
+      - tokens
+      - totalCount
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
       type: object
     ApiTokenRole:
       properties:
@@ -356,18 +407,24 @@ components:
       - entityType
       - role
       type: object
-    FieldValidationError:
+    CreateAgentTokenRequest:
       properties:
-        code:
+        description:
+          description: The description for the API token.
+          example: This is my API token
           type: string
-        field:
+        name:
+          description: The name of the API token.
+          example: My token
           type: string
-        message:
-          type: string
+        tokenExpiryPeriodInDays:
+          description: The expiry period of the API token in days. If not specified, the token will never expire.
+          example: 30
+          maximum: 3650
+          minimum: 1
+          type: integer
       required:
-      - code
-      - field
-      - message
+      - name
       type: object
     ApiToken:
       properties:
@@ -459,63 +516,6 @@ components:
       - shortToken
       - startAt
       - updatedAt
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    ApiTokensPaginated:
-      properties:
-        limit:
-          description: The limit of values in this page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of values in this page.
-          example: 0
-          type: integer
-        tokens:
-          description: The list of API tokens in this page.
-          items:
-            $ref: '#/components/schemas/ApiToken'
-          type: array
-        totalCount:
-          description: The total number of API tokens.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - tokens
-      - totalCount
       type: object
     Error:
       properties:

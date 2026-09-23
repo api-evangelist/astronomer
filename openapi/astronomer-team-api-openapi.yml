@@ -1,15 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact: {}
   description: Astro Platform API
-  title: Astro Platform AgentToken Team API
+  title: Astro Platform Team API
   version: v1.0
 servers:
 - url: https://api.astronomer.io/v1
 security:
 - JWT: []
 tags:
-- description: The `team` object represents an Astro Team, which is a group of users that share the same permissions across your Organization and Workspaces. Make requests to `team` endpoints to create, update, and delete Teams across an Organization. See [Configure Teams on Astro](https://astronomer.io/docs/astro/manage-teams).
+- description: The `team` object represents an Astro Team, which is a group of users that share the same permissions across your Organization and Workspaces. Make requests to `team` endpoints to create, update, and delete Teams across an Organization. See Configure Teams on Astro.
   name: Team
 paths:
   /organizations/{organizationId}/teams:
@@ -454,7 +454,6 @@ paths:
       x-permission:
       - action: organization.teams.get
     post:
-      description: Add members to a team
       operationId: AddTeamMembers
       parameters:
       - description: organization ID
@@ -651,6 +650,132 @@ paths:
       - action: organization.teamRoles.access
 components:
   schemas:
+    CreateTeamRequest:
+      properties:
+        description:
+          description: The Team's description.
+          example: My Team description
+          type: string
+        memberIds:
+          description: The list of IDs for users to add to the Team.
+          example:
+          - clma67byh000008md1gr995ez
+          items:
+            type: string
+          type: array
+        name:
+          description: The Team's name.
+          example: My Team
+          type: string
+        organizationRole:
+          description: The Team's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
+      required:
+      - name
+      type: object
+    WorkspaceRole:
+      properties:
+        role:
+          description: The role of the subject in the Workspace.
+          enum:
+          - WORKSPACE_OWNER
+          - WORKSPACE_OPERATOR
+          - WORKSPACE_AUTHOR
+          - WORKSPACE_MEMBER
+          - WORKSPACE_ACCESSOR
+          example: WORKSPACE_MEMBER
+          type: string
+        workspaceId:
+          description: The Workspace ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+      required:
+      - role
+      - workspaceId
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    TeamMembersPaginated:
+      properties:
+        limit:
+          description: The maximum number of Team members in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of Team members.
+          example: 0
+          type: integer
+        teamMembers:
+          description: The list of Team members in the current page.
+          items:
+            $ref: '#/components/schemas/TeamMember'
+          type: array
+        totalCount:
+          description: The total number of Team members.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - teamMembers
+      - totalCount
+      type: object
+    UpdateTeamRequest:
+      properties:
+        description:
+          description: The Team's description.
+          example: My Team Description
+          type: string
+        name:
+          description: The Team's name.
+          example: My Team
+          type: string
+      required:
+      - name
+      type: object
+    TeamsPaginated:
+      properties:
+        limit:
+          description: The maximum number of Teams in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of Teams.
+          example: 0
+          type: integer
+        teams:
+          description: The list of Teams in the current page.
+          items:
+            $ref: '#/components/schemas/Team'
+          type: array
+        totalCount:
+          description: The total number of Teams.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - teams
+      - totalCount
+      type: object
     TeamMember:
       properties:
         avatarUrl:
@@ -677,6 +802,109 @@ components:
       required:
       - userId
       - username
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    SubjectRoles:
+      properties:
+        dagRoles:
+          description: A list of the subject's DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: A list of the subject's Deployment roles. Currently only for API tokens.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The subject's Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: A list of the subject's Workspace roles.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
+    AddTeamMembersRequest:
+      properties:
+        memberIds:
+          description: The list of IDs for users to add to the Team.
+          example:
+          - clma5y9hu000208k2aumf7pbd
+          items:
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - memberIds
+      type: object
+    DeploymentRole:
+      properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
       type: object
     Team:
       properties:
@@ -752,101 +980,6 @@ components:
       - organizationRole
       - updatedAt
       type: object
-    AddTeamMembersRequest:
-      properties:
-        memberIds:
-          description: The list of IDs for users to add to the Team.
-          example:
-          - clma5y9hu000208k2aumf7pbd
-          items:
-            type: string
-          minItems: 1
-          type: array
-      required:
-      - memberIds
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    CreateTeamRequest:
-      properties:
-        description:
-          description: The Team's description.
-          example: My Team description
-          type: string
-        memberIds:
-          description: The list of IDs for users to add to the Team.
-          example:
-          - clma67byh000008md1gr995ez
-          items:
-            type: string
-          type: array
-        name:
-          description: The Team's name.
-          example: My Team
-          type: string
-        organizationRole:
-          description: The Team's Organization role.
-          enum:
-          - ORGANIZATION_OWNER
-          - ORGANIZATION_OBSERVE_ADMIN
-          - ORGANIZATION_OBSERVE_MEMBER
-          - ORGANIZATION_BILLING_ADMIN
-          - ORGANIZATION_MEMBER
-          example: ORGANIZATION_MEMBER
-          type: string
-      required:
-      - name
-      type: object
-    DeploymentRole:
-      properties:
-        deploymentId:
-          description: The Deployment ID.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The name of the role for the subject in the Deployment.
-          example: DEPLOYMENT_ADMIN
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    TeamMembersPaginated:
-      properties:
-        limit:
-          description: The maximum number of Team members in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of Team members.
-          example: 0
-          type: integer
-        teamMembers:
-          description: The list of Team members in the current page.
-          items:
-            $ref: '#/components/schemas/TeamMember'
-          type: array
-        totalCount:
-          description: The total number of Team members.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - teamMembers
-      - totalCount
-      type: object
     UpdateTeamRolesRequest:
       properties:
         dagRoles:
@@ -871,118 +1004,6 @@ components:
       required:
       - organizationRole
       type: object
-    WorkspaceRole:
-      properties:
-        role:
-          description: The role of the subject in the Workspace.
-          enum:
-          - WORKSPACE_OWNER
-          - WORKSPACE_OPERATOR
-          - WORKSPACE_AUTHOR
-          - WORKSPACE_MEMBER
-          - WORKSPACE_ACCESSOR
-          example: WORKSPACE_MEMBER
-          type: string
-        workspaceId:
-          description: The Workspace ID.
-          example: clm8t5u4q000008jq4qoc3036
-          type: string
-      required:
-      - role
-      - workspaceId
-      type: object
-    TeamsPaginated:
-      properties:
-        limit:
-          description: The maximum number of Teams in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of Teams.
-          example: 0
-          type: integer
-        teams:
-          description: The list of Teams in the current page.
-          items:
-            $ref: '#/components/schemas/Team'
-          type: array
-        totalCount:
-          description: The total number of Teams.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - teams
-      - totalCount
-      type: object
-    SubjectRoles:
-      properties:
-        dagRoles:
-          description: A list of the subject's DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: A list of the subject's Deployment roles. Currently only for API tokens.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The subject's Organization role.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
-          type: string
-        workspaceRoles:
-          description: A list of the subject's Workspace roles.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
-      type: object
-    UpdateTeamRequest:
-      properties:
-        description:
-          description: The Team's description.
-          example: My Team Description
-          type: string
-        name:
-          description: The Team's name.
-          example: My Team
-          type: string
-      required:
-      - name
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
     DagRole:
       properties:
         dagId:
@@ -1004,28 +1025,6 @@ components:
       required:
       - deploymentId
       - role
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
       type: object
   securitySchemes:
     JWT:

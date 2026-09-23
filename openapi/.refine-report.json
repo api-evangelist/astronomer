@@ -1,21 +1,7 @@
 {
   "provider": "astronomer",
   "sources": [
-    "astronomer-agenttoken-api-openapi.yml",
-    "astronomer-allowedipaddressrange-api-openapi.yml",
-    "astronomer-apitoken-api-openapi.yml",
-    "astronomer-authorization-api-openapi.yml",
-    "astronomer-cluster-api-openapi.yml",
-    "astronomer-deploy-api-openapi.yml",
-    "astronomer-deployment-api-openapi.yml",
-    "astronomer-environment-api-openapi.yml",
-    "astronomer-invite-api-openapi.yml",
-    "astronomer-options-api-openapi.yml",
-    "astronomer-organization-api-openapi.yml",
-    "astronomer-role-api-openapi.yml",
-    "astronomer-team-api-openapi.yml",
-    "astronomer-user-api-openapi.yml",
-    "astronomer-workspace-api-openapi.yml"
+    "_original/astronomer-astro-openapi-original.yml"
   ],
   "outputs": [
     "astronomer-agenttoken-api-openapi.yml",
@@ -34,9 +20,40 @@
     "astronomer-user-api-openapi.yml",
     "astronomer-workspace-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "astronomer-astro-openapi-original.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "astronomer-astro-openapi-original.yml: declared missing tag: AgentToken",
+    "astronomer-astro-openapi-original.yml: declared missing tag: AllowedIpAddressRange",
+    "astronomer-astro-openapi-original.yml: declared missing tag: Authorization",
+    "astronomer-astro-openapi-original.yml: declared missing tag: Deploy",
+    "astronomer-astro-openapi-original.yml: declared missing tag: Environment",
+    "astronomer-astro-openapi-original.yml: declared missing tag: Invite",
+    "astronomer-astro-openapi-original.yml: declared missing tag: Options",
+    "astronomer-astro-openapi-original.yml: declared missing tag: Role",
+    "superseded outputs removed: astronomer-agent-token-api-openapi.yml, astronomer-api-token-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 15 total)"
+  ],
+  "skipped": [
+    "astronomer-agent-token-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-allowedipaddressrange-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-api-token-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-authorization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-cluster-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-deploy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-deployment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-environment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-invite-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-options-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-organization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-role-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-team-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "astronomer-workspace-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

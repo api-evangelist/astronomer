@@ -1,8 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact: {}
   description: Astro Platform API
-  title: Astro Platform AgentToken AllowedIpAddressRange API
+  title: Astro Platform Allowed Ip Address Range API
   version: v1.0
 servers:
 - url: https://api.astronomer.io/v1
@@ -331,73 +331,6 @@ paths:
       - action: organization.allowedIpAddressRanges.delete
 components:
   schemas:
-    BulkCreateAllowedIpAddressRangesRequest:
-      properties:
-        allowedIpAddressRanges:
-          description: 'The allowed IP address ranges, in CIDR format. The batch is created atomically: if any value fails validation or conflicts with an existing range, no rows are inserted.'
-          example:
-          - 1.1.1.1/32
-          - 2.2.2.2/32
-          items:
-            type: string
-          maxItems: 1000
-          minItems: 1
-          type: array
-      required:
-      - allowedIpAddressRanges
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    BulkDeleteAllowedIpAddressRangesRequest:
-      properties:
-        allowedIpAddressRangeIds:
-          description: The allowed IP address range IDs to delete. Duplicate and unknown IDs are accepted; existing matching rows are deleted atomically.
-          example:
-          - clm9sq6s0000008kz7uvl7yz7
-          - clm9sq6s0000108kz8ybn9r1c
-          items:
-            type: string
-          maxItems: 1000
-          minItems: 1
-          type: array
-      required:
-      - allowedIpAddressRangeIds
-      type: object
-    AllowedIpAddressRangesPaginated:
-      properties:
-        allowedIpAddressRanges:
-          items:
-            $ref: '#/components/schemas/AllowedIpAddressRange'
-          type: array
-        limit:
-          description: The maximum number of allowed IP address ranges in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of allowed IP address ranges.
-          example: 0
-          type: integer
-        totalCount:
-          description: The total number of allowed IP address ranges.
-          example: 10
-          type: integer
-      required:
-      - allowedIpAddressRanges
-      - limit
-      - offset
-      - totalCount
-      type: object
     AllowedIpAddressRange:
       properties:
         createdAt:
@@ -433,14 +366,33 @@ components:
       - organizationId
       - updatedAt
       type: object
-    CreateAllowedIpAddressRangeRequest:
+    FieldValidationError:
       properties:
-        ipAddressRange:
-          description: The allowed IP address range in CIDR format.
-          example: 1.1.1.1/32
+        code:
+          type: string
+        field:
+          type: string
+        message:
           type: string
       required:
-      - ipAddressRange
+      - code
+      - field
+      - message
+      type: object
+    BulkDeleteAllowedIpAddressRangesRequest:
+      properties:
+        allowedIpAddressRangeIds:
+          description: The allowed IP address range IDs to delete. Duplicate and unknown IDs are accepted; existing matching rows are deleted atomically.
+          example:
+          - clm9sq6s0000008kz7uvl7yz7
+          - clm9sq6s0000108kz8ybn9r1c
+          items:
+            type: string
+          maxItems: 1000
+          minItems: 1
+          type: array
+      required:
+      - allowedIpAddressRangeIds
       type: object
     AllowedIpAddressRangesList:
       properties:
@@ -483,6 +435,39 @@ components:
       required:
       - id
       type: object
+    AllowedIpAddressRangesPaginated:
+      properties:
+        allowedIpAddressRanges:
+          items:
+            $ref: '#/components/schemas/AllowedIpAddressRange'
+          type: array
+        limit:
+          description: The maximum number of allowed IP address ranges in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of allowed IP address ranges.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of allowed IP address ranges.
+          example: 10
+          type: integer
+      required:
+      - allowedIpAddressRanges
+      - limit
+      - offset
+      - totalCount
+      type: object
+    CreateAllowedIpAddressRangeRequest:
+      properties:
+        ipAddressRange:
+          description: The allowed IP address range in CIDR format.
+          example: 1.1.1.1/32
+          type: string
+      required:
+      - ipAddressRange
+      type: object
     Error:
       properties:
         fieldErrors:
@@ -504,6 +489,21 @@ components:
       - message
       - requestId
       - statusCode
+      type: object
+    BulkCreateAllowedIpAddressRangesRequest:
+      properties:
+        allowedIpAddressRanges:
+          description: 'The allowed IP address ranges, in CIDR format. The batch is created atomically: if any value fails validation or conflicts with an existing range, no rows are inserted.'
+          example:
+          - 1.1.1.1/32
+          - 2.2.2.2/32
+          items:
+            type: string
+          maxItems: 1000
+          minItems: 1
+          type: array
+      required:
+      - allowedIpAddressRanges
       type: object
   securitySchemes:
     JWT:

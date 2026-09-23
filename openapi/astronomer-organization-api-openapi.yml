@@ -1,15 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact: {}
   description: Astro Platform API
-  title: Astro Platform AgentToken Organization API
+  title: Astro Platform Organization API
   version: v1.0
 servers:
 - url: https://api.astronomer.io/v1
 security:
 - JWT: []
 tags:
-- description: The `organization` object contains the metadata and configurations of an Astro Organization. It does not include objects within the Organization, such as users and clusters. Make requests to `organization` endpoints to view and update high level settings for your Organization, including settings related to authentication and billing. To manage resources within an Organization, make requests to the endpoints related to those resources, such as `users`. See [Billing](https://astronomer.io/docs/astro/manage-billing), [Set up single sign-on](https://astronomer.io/docs/astro/configure-idp), and [Manage domains](https://astronomer.io/docs/astro/manage-domains).
+- description: The `organization` object contains the metadata and configurations of an Astro Organization.
   name: Organization
 paths:
   /organizations:
@@ -295,6 +295,117 @@ paths:
       - action: organization.auditLogs.get
 components:
   schemas:
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    OrganizationProductPlan:
+      properties:
+        astronomerProduct:
+          enum:
+          - ASTRO
+          type: string
+        organizationId:
+          type: string
+        productPlanId:
+          type: string
+        productPlanName:
+          enum:
+          - INACTIVE
+          - INTERNAL
+          - POV
+          - TRIAL
+          - BASIC
+          - BASIC_PAYGO
+          - TEAM_PAYGO
+          - STANDARD
+          - PREMIUM
+          - BUSINESS_CRITICAL
+          - BUSINESS
+          - TEAM
+          - ENTERPRISE
+          - DEVELOPER
+          - DEVELOPER_PAYGO
+          - TEAM_V2
+          - BUSINESS_V2
+          - ENTERPRISE_V2
+          - TRIAL_V2
+          - ENTERPRISE_BUSINESS_CRITICAL
+          - IBM_ENTERPRISE
+          example: BUSINESS_CRITICAL
+          type: string
+      required:
+      - astronomerProduct
+      - organizationId
+      - productPlanId
+      - productPlanName
+      type: object
+    OrganizationsPaginated:
+      properties:
+        limit:
+          description: The maximum number of Organizations in the page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the Organizations in the page.
+          example: 0
+          type: integer
+        organizations:
+          description: The list of Organizations in the page.
+          items:
+            $ref: '#/components/schemas/Organization'
+          type: array
+        totalCount:
+          description: The total number of Organizations.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - organizations
+      - totalCount
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
     UpdateOrganizationRequest:
       properties:
         allowEnhancedSupportAccess:
@@ -322,19 +433,6 @@ components:
       - billingEmail
       - isScimEnabled
       - name
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
       type: object
     ManagedDomain:
       properties:
@@ -379,46 +477,27 @@ components:
       - status
       - updatedAt
       type: object
-    OrganizationProductPlan:
+    Error:
       properties:
-        astronomerProduct:
-          enum:
-          - ASTRO
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
           type: string
-        organizationId:
+        requestId:
           type: string
-        productPlanId:
-          type: string
-        productPlanName:
-          enum:
-          - INACTIVE
-          - INTERNAL
-          - POV
-          - TRIAL
-          - BASIC
-          - BASIC_PAYGO
-          - TEAM_PAYGO
-          - STANDARD
-          - PREMIUM
-          - BUSINESS_CRITICAL
-          - BUSINESS
-          - TEAM
-          - ENTERPRISE
-          - DEVELOPER
-          - DEVELOPER_PAYGO
-          - TEAM_V2
-          - BUSINESS_V2
-          - ENTERPRISE_V2
-          - TRIAL_V2
-          - ENTERPRISE_BUSINESS_CRITICAL
-          - IBM_ENTERPRISE
-          example: BUSINESS_CRITICAL
-          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
       required:
-      - astronomerProduct
-      - organizationId
-      - productPlanId
-      - productPlanName
+      - message
+      - requestId
+      - statusCode
       type: object
     Organization:
       properties:
@@ -519,85 +598,6 @@ components:
       - shouldEnforceDedicatedClusters
       - updatedAt
       - updatedBy
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    OrganizationsPaginated:
-      properties:
-        limit:
-          description: The maximum number of Organizations in the page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the Organizations in the page.
-          example: 0
-          type: integer
-        organizations:
-          description: The list of Organizations in the page.
-          items:
-            $ref: '#/components/schemas/Organization'
-          type: array
-        totalCount:
-          description: The total number of Organizations.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - organizations
-      - totalCount
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
       type: object
   securitySchemes:
     JWT:
