@@ -66,6 +66,20 @@ paths:
       - Authorization
 components:
   schemas:
+    PermissionEntry:
+      properties:
+        action:
+          description: The permission's action.
+          example: get
+          type: string
+        description:
+          description: The permission's description.
+          example: Subject is permitted to get the scope.
+          type: string
+      required:
+      - action
+      - description
+      type: object
     Error:
       properties:
         fieldErrors:
@@ -87,6 +101,19 @@ components:
       - message
       - requestId
       - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
       type: object
     PermissionGroup:
       properties:
@@ -112,33 +139,6 @@ components:
       - name
       - permissions
       - scope
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    PermissionEntry:
-      properties:
-        action:
-          description: The permission's action.
-          example: get
-          type: string
-        description:
-          description: The permission's description.
-          example: Subject is permitted to get the scope.
-          type: string
-      required:
-      - action
-      - description
       type: object
   securitySchemes:
     JWT:

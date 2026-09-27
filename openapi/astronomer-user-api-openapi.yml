@@ -433,60 +433,36 @@ components:
       - name
       - organizationRole
       type: object
-    WorkspaceRole:
+    DeploymentRole:
       properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
         role:
-          description: The role of the subject in the Workspace.
-          enum:
-          - WORKSPACE_OWNER
-          - WORKSPACE_OPERATOR
-          - WORKSPACE_AUTHOR
-          - WORKSPACE_MEMBER
-          - WORKSPACE_ACCESSOR
-          example: WORKSPACE_MEMBER
-          type: string
-        workspaceId:
-          description: The Workspace ID.
-          example: clm8t5u4q000008jq4qoc3036
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
           type: string
       required:
+      - deploymentId
       - role
-      - workspaceId
       type: object
-    FieldValidationError:
+    SelfUserInvite:
       properties:
-        code:
+        expiresAt:
+          description: The time when the invite expires.
+          format: date-time
           type: string
-        field:
+        inviteId:
+          description: The invite ID.
           type: string
-        message:
+        organizationId:
+          description: The Organization ID.
           type: string
       required:
-      - code
-      - field
-      - message
-      type: object
-    UpdateUserRolesRequest:
-      properties:
-        dagRoles:
-          description: The user's updated DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: The user's updated Deployment roles. Requires also specifying an `OrganizationRole`.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The user's updated Organization role.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
-          type: string
-        workspaceRoles:
-          description: The user's updated Workspace roles. Requires also specifying an `OrganizationRole`.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
+      - expiresAt
+      - inviteId
+      - organizationId
       type: object
     SelfUserFeatureFlag:
       properties:
@@ -571,42 +547,6 @@ components:
       - updatedAt
       - username
       type: object
-    SubjectRoles:
-      properties:
-        dagRoles:
-          description: A list of the subject's DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: A list of the subject's Deployment roles. Currently only for API tokens.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The subject's Organization role.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
-          type: string
-        workspaceRoles:
-          description: A list of the subject's Workspace roles.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
-      type: object
-    DeploymentRole:
-      properties:
-        deploymentId:
-          description: The Deployment ID.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The name of the role for the subject in the Deployment.
-          example: DEPLOYMENT_ADMIN
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
     UserTeamsPaginated:
       properties:
         limit:
@@ -631,6 +571,86 @@ components:
       - offset
       - teams
       - totalCount
+      type: object
+    SubjectRoles:
+      properties:
+        dagRoles:
+          description: A list of the subject's DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: A list of the subject's Deployment roles. Currently only for API tokens.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The subject's Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: A list of the subject's Workspace roles.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    UsersPaginated:
+      properties:
+        limit:
+          description: The maximum number of users in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of users.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of users.
+          example: 100
+          type: integer
+        users:
+          description: The list of users in the current page.
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+      required:
+      - limit
+      - offset
+      - totalCount
+      - users
+      type: object
+    SelfUserRole:
+      properties:
+        role:
+          description: The role name.
+          type: string
+        scope:
+          $ref: '#/components/schemas/SelfUserRoleScope'
+      required:
+      - role
+      - scope
       type: object
     SelfUser:
       properties:
@@ -692,98 +712,40 @@ components:
       - updatedAt
       - username
       type: object
-    SelfUserRole:
+    FieldValidationError:
       properties:
-        role:
-          description: The role name.
+        code:
           type: string
-        scope:
-          $ref: '#/components/schemas/SelfUserRoleScope'
-      required:
-      - role
-      - scope
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
+        field:
+          type: string
         message:
           type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
       required:
+      - code
+      - field
       - message
-      - requestId
-      - statusCode
       type: object
-    SelfUserInvite:
+    UpdateUserRolesRequest:
       properties:
-        expiresAt:
-          description: The time when the invite expires.
-          format: date-time
-          type: string
-        inviteId:
-          description: The invite ID.
-          type: string
-        organizationId:
-          description: The Organization ID.
-          type: string
-      required:
-      - expiresAt
-      - inviteId
-      - organizationId
-      type: object
-    SelfUserRoleScope:
-      properties:
-        dagTag:
-          description: The DAG tag (only for DAG tag-scoped roles).
-          type: string
-        deploymentId:
-          description: The Deployment ID (only for DAG-scoped roles).
-          type: string
-        entityId:
-          description: The ID of the scoped entity.
-          type: string
-        type:
-          description: The scope type (e.g. ORGANIZATION, WORKSPACE, DEPLOYMENT, DAG).
-          type: string
-      required:
-      - entityId
-      - type
-      type: object
-    UsersPaginated:
-      properties:
-        limit:
-          description: The maximum number of users in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of users.
-          example: 0
-          type: integer
-        totalCount:
-          description: The total number of users.
-          example: 100
-          type: integer
-        users:
-          description: The list of users in the current page.
+        dagRoles:
+          description: The user's updated DAG roles.
           items:
-            $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/DagRole'
           type: array
-      required:
-      - limit
-      - offset
-      - totalCount
-      - users
+        deploymentRoles:
+          description: The user's updated Deployment roles. Requires also specifying an `OrganizationRole`.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The user's updated Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: The user's updated Workspace roles. Requires also specifying an `OrganizationRole`.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
       type: object
     DagRole:
       properties:
@@ -806,6 +768,44 @@ components:
       required:
       - deploymentId
       - role
+      type: object
+    WorkspaceRole:
+      properties:
+        role:
+          description: The role of the subject in the Workspace.
+          enum:
+          - WORKSPACE_OWNER
+          - WORKSPACE_OPERATOR
+          - WORKSPACE_AUTHOR
+          - WORKSPACE_MEMBER
+          - WORKSPACE_ACCESSOR
+          example: WORKSPACE_MEMBER
+          type: string
+        workspaceId:
+          description: The Workspace ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+      required:
+      - role
+      - workspaceId
+      type: object
+    SelfUserRoleScope:
+      properties:
+        dagTag:
+          description: The DAG tag (only for DAG tag-scoped roles).
+          type: string
+        deploymentId:
+          description: The Deployment ID (only for DAG-scoped roles).
+          type: string
+        entityId:
+          description: The ID of the scoped entity.
+          type: string
+        type:
+          description: The scope type (e.g. ORGANIZATION, WORKSPACE, DEPLOYMENT, DAG).
+          type: string
+      required:
+      - entityId
+      - type
       type: object
   securitySchemes:
     JWT:

@@ -308,6 +308,76 @@ paths:
       - action: deployment.agentTokens.get
 components:
   schemas:
+    CreateAgentTokenRequest:
+      properties:
+        description:
+          description: The description for the API token.
+          example: This is my API token
+          type: string
+        name:
+          description: The name of the API token.
+          example: My token
+          type: string
+        tokenExpiryPeriodInDays:
+          description: The expiry period of the API token in days. If not specified, the token will never expire.
+          example: 30
+          maximum: 3650
+          minimum: 1
+          type: integer
+      required:
+      - name
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    ApiTokenRole:
+      properties:
+        deploymentId:
+          description: Required when EntityType is DAG or TAG. The deployment containing the DAG.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        entityId:
+          description: The ID of the entity. For DAG roles, this is the DAG ID. For TAG roles, this is the tag value.
+          example: clm8sgvai000008l794psbkdv
+          type: string
+        entityType:
+          description: The type of the entity.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          - DAG
+          - DAG_TAG
+          example: WORKSPACE
+          type: string
+        role:
+          description: The role of the API token.
+          example: WORKSPACE_MEMBER
+          type: string
+      required:
+      - entityId
+      - entityType
+      - role
+      type: object
     ApiTokensPaginated:
       properties:
         limit:
@@ -345,86 +415,6 @@ components:
       - code
       - field
       - message
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    ApiTokenRole:
-      properties:
-        deploymentId:
-          description: Required when EntityType is DAG or TAG. The deployment containing the DAG.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        entityId:
-          description: The ID of the entity. For DAG roles, this is the DAG ID. For TAG roles, this is the tag value.
-          example: clm8sgvai000008l794psbkdv
-          type: string
-        entityType:
-          description: The type of the entity.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          - DAG
-          - DAG_TAG
-          example: WORKSPACE
-          type: string
-        role:
-          description: The role of the API token.
-          example: WORKSPACE_MEMBER
-          type: string
-      required:
-      - entityId
-      - entityType
-      - role
-      type: object
-    CreateAgentTokenRequest:
-      properties:
-        description:
-          description: The description for the API token.
-          example: This is my API token
-          type: string
-        name:
-          description: The name of the API token.
-          example: My token
-          type: string
-        tokenExpiryPeriodInDays:
-          description: The expiry period of the API token in days. If not specified, the token will never expire.
-          example: 30
-          maximum: 3650
-          minimum: 1
-          type: integer
-      required:
-      - name
       type: object
     ApiToken:
       properties:
@@ -517,27 +507,37 @@ components:
       - startAt
       - updatedAt
       type: object
-    Error:
+    BasicSubjectProfile:
       properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
           type: string
-        requestId:
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
           type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
       required:
-      - message
-      - requestId
-      - statusCode
+      - id
       type: object
   securitySchemes:
     JWT:

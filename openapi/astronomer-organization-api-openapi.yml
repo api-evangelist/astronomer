@@ -295,6 +295,81 @@ paths:
       - action: organization.auditLogs.get
 components:
   schemas:
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    UpdateOrganizationRequest:
+      properties:
+        allowEnhancedSupportAccess:
+          example: false
+          type: boolean
+        billingEmail:
+          description: The Organization's billing email.
+          example: billing@company.com
+          type: string
+        hasAiFeaturesDisabled:
+          example: false
+          type: boolean
+        isScimEnabled:
+          description: Whether SCIM is enabled for the Organization.
+          example: false
+          type: boolean
+        name:
+          description: The name of the Organization.
+          example: My Organization
+          maxLength: 50
+          type: string
+        shouldEnforceDedicatedClusters:
+          type: boolean
+      required:
+      - billingEmail
+      - isScimEnabled
+      - name
+      type: object
+    OrganizationsPaginated:
+      properties:
+        limit:
+          description: The maximum number of Organizations in the page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the Organizations in the page.
+          example: 0
+          type: integer
+        organizations:
+          description: The list of Organizations in the page.
+          items:
+            $ref: '#/components/schemas/Organization'
+          type: array
+        totalCount:
+          description: The total number of Organizations.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - organizations
+      - totalCount
+      type: object
     FieldValidationError:
       properties:
         code:
@@ -349,31 +424,6 @@ components:
       - productPlanId
       - productPlanName
       type: object
-    OrganizationsPaginated:
-      properties:
-        limit:
-          description: The maximum number of Organizations in the page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the Organizations in the page.
-          example: 0
-          type: integer
-        organizations:
-          description: The list of Organizations in the page.
-          items:
-            $ref: '#/components/schemas/Organization'
-          type: array
-        totalCount:
-          description: The total number of Organizations.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - organizations
-      - totalCount
-      type: object
     BasicSubjectProfile:
       properties:
         apiTokenName:
@@ -405,34 +455,6 @@ components:
           type: string
       required:
       - id
-      type: object
-    UpdateOrganizationRequest:
-      properties:
-        allowEnhancedSupportAccess:
-          example: false
-          type: boolean
-        billingEmail:
-          description: The Organization's billing email.
-          example: billing@company.com
-          type: string
-        hasAiFeaturesDisabled:
-          example: false
-          type: boolean
-        isScimEnabled:
-          description: Whether SCIM is enabled for the Organization.
-          example: false
-          type: boolean
-        name:
-          description: The name of the Organization.
-          example: My Organization
-          maxLength: 50
-          type: string
-        shouldEnforceDedicatedClusters:
-          type: boolean
-      required:
-      - billingEmail
-      - isScimEnabled
-      - name
       type: object
     ManagedDomain:
       properties:
@@ -476,28 +498,6 @@ components:
       - organizationId
       - status
       - updatedAt
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
       type: object
     Organization:
       properties:

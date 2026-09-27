@@ -434,6 +434,113 @@ paths:
       - action: organization.customRoles.get
 components:
   schemas:
+    DefaultRole:
+      properties:
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The role's permissions.
+          example:
+          - deployment.get
+          items:
+            type: string
+          type: array
+        scopeType:
+          description: The role's scope.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          - SYSTEM
+          - DAG
+          example: DEPLOYMENT
+          type: string
+      required:
+      - name
+      - permissions
+      - scopeType
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    Role:
+      properties:
+        createdAt:
+          description: The time the role was created.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        id:
+          description: The role's ID.
+          example: cluc9tapx000901qn2xrgqdmn
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        restrictedWorkspaceIds:
+          description: The IDs of Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
+          items:
+            type: string
+          type: array
+        scopeType:
+          description: The role's scope.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          example: DEPLOYMENT
+          type: string
+        updatedAt:
+          description: The time the role was last updated.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+      required:
+      - createdAt
+      - createdBy
+      - id
+      - name
+      - restrictedWorkspaceIds
+      - scopeType
+      - updatedAt
+      - updatedBy
+      type: object
     CreateCustomRoleRequest:
       properties:
         description:
@@ -463,145 +570,6 @@ components:
           description: The scope of the role.
           enum:
           - DEPLOYMENT
-          - DAG
-          example: DEPLOYMENT
-          type: string
-      required:
-      - name
-      - permissions
-      - scopeType
-      type: object
-    RoleTemplate:
-      properties:
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The role's permissions.
-          example:
-          - deployment.get
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The role's scope.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          - SYSTEM
-          - DAG
-          example: DEPLOYMENT
-          type: string
-      required:
-      - name
-      - permissions
-      - scopeType
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    RolesPaginated:
-      properties:
-        defaultRoles:
-          description: The list of default roles.
-          items:
-            $ref: '#/components/schemas/DefaultRole'
-          type: array
-        limit:
-          description: The number of custom roles returned.
-          example: 1
-          type: integer
-        offset:
-          description: The offset of the custom roles.
-          example: 1
-          type: integer
-        roles:
-          description: The list of custom roles.
-          items:
-            $ref: '#/components/schemas/Role'
-          type: array
-        totalCount:
-          description: The total number of custom roles.
-          example: 1
-          type: integer
-      required:
-      - limit
-      - offset
-      - roles
-      - totalCount
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    DefaultRole:
-      properties:
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The role's permissions.
-          example:
-          - deployment.get
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The role's scope.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          - SYSTEM
           - DAG
           example: DEPLOYMENT
           type: string
@@ -671,80 +639,18 @@ components:
       - updatedAt
       - updatedBy
       type: object
-    Role:
+    FieldValidationError:
       properties:
-        createdAt:
-          description: The time the role was created.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
+        code:
           type: string
-        createdBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
+        field:
           type: string
-        id:
-          description: The role's ID.
-          example: cluc9tapx000901qn2xrgqdmn
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        restrictedWorkspaceIds:
-          description: The IDs of Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The role's scope.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          example: DEPLOYMENT
-          type: string
-        updatedAt:
-          description: The time the role was last updated.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
-      required:
-      - createdAt
-      - createdBy
-      - id
-      - name
-      - restrictedWorkspaceIds
-      - scopeType
-      - updatedAt
-      - updatedBy
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
         message:
           type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
       required:
+      - code
+      - field
       - message
-      - requestId
-      - statusCode
       type: object
     UpdateCustomRoleRequest:
       properties:
@@ -774,6 +680,100 @@ components:
       required:
       - name
       - permissions
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    RolesPaginated:
+      properties:
+        defaultRoles:
+          description: The list of default roles.
+          items:
+            $ref: '#/components/schemas/DefaultRole'
+          type: array
+        limit:
+          description: The number of custom roles returned.
+          example: 1
+          type: integer
+        offset:
+          description: The offset of the custom roles.
+          example: 1
+          type: integer
+        roles:
+          description: The list of custom roles.
+          items:
+            $ref: '#/components/schemas/Role'
+          type: array
+        totalCount:
+          description: The total number of custom roles.
+          example: 1
+          type: integer
+      required:
+      - limit
+      - offset
+      - roles
+      - totalCount
+      type: object
+    RoleTemplate:
+      properties:
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The role's permissions.
+          example:
+          - deployment.get
+          items:
+            type: string
+          type: array
+        scopeType:
+          description: The role's scope.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          - SYSTEM
+          - DAG
+          example: DEPLOYMENT
+          type: string
+      required:
+      - name
+      - permissions
+      - scopeType
       type: object
   securitySchemes:
     JWT:

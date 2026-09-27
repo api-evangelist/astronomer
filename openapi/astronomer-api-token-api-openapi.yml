@@ -514,6 +514,113 @@ paths:
       - action: organization.apiTokens.access
 components:
   schemas:
+    DeploymentRole:
+      properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
+    WorkspaceRole:
+      properties:
+        role:
+          description: The role of the subject in the Workspace.
+          enum:
+          - WORKSPACE_OWNER
+          - WORKSPACE_OPERATOR
+          - WORKSPACE_AUTHOR
+          - WORKSPACE_MEMBER
+          - WORKSPACE_ACCESSOR
+          example: WORKSPACE_MEMBER
+          type: string
+        workspaceId:
+          description: The Workspace ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+      required:
+      - role
+      - workspaceId
+      type: object
+    SubjectRoles:
+      properties:
+        dagRoles:
+          description: A list of the subject's DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: A list of the subject's Deployment roles. Currently only for API tokens.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The subject's Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: A list of the subject's Workspace roles.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
+    ApiTokenRole:
+      properties:
+        deploymentId:
+          description: Required when EntityType is DAG or TAG. The deployment containing the DAG.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        entityId:
+          description: The ID of the entity. For DAG roles, this is the DAG ID. For TAG roles, this is the tag value.
+          example: clm8sgvai000008l794psbkdv
+          type: string
+        entityType:
+          description: The type of the entity.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          - DAG
+          - DAG_TAG
+          example: WORKSPACE
+          type: string
+        role:
+          description: The role of the API token.
+          example: WORKSPACE_MEMBER
+          type: string
+      required:
+      - entityId
+      - entityType
+      - role
+      type: object
+    DagRole:
+      properties:
+        dagId:
+          description: The DAG ID. Required if Tag is not specified.
+          example: my_dag
+          type: string
+        dagTag:
+          description: The DAG tag. Required if DagId is not specified.
+          example: team-a
+          type: string
+        deploymentId:
+          description: The Deployment ID containing the DAG.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The role name (DAG_VIEWER, DAG_AUTHOR, or custom DAG role).
+          example: DAG_VIEWER
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
     ApiTokensPaginated:
       properties:
         limit:
@@ -539,52 +646,6 @@ components:
       - tokens
       - totalCount
       type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    DagRole:
-      properties:
-        dagId:
-          description: The DAG ID. Required if Tag is not specified.
-          example: my_dag
-          type: string
-        dagTag:
-          description: The DAG tag. Required if DagId is not specified.
-          example: team-a
-          type: string
-        deploymentId:
-          description: The Deployment ID containing the DAG.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The role name (DAG_VIEWER, DAG_AUTHOR, or custom DAG role).
-          example: DAG_VIEWER
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    UpdateApiTokenRolesRequest:
-      properties:
-        roles:
-          description: The roles of the API token, including DAG roles.
-          items:
-            $ref: '#/components/schemas/ApiTokenRole'
-          minItems: 1
-          type: array
-      required:
-      - roles
-      type: object
     UpdateApiTokenRequest:
       properties:
         description:
@@ -601,59 +662,40 @@ components:
       required:
       - name
       type: object
-    BasicSubjectProfile:
+    Error:
       properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
           type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
+        requestId:
           type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
           type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
+        field:
           type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
+        message:
           type: string
       required:
-      - id
-      type: object
-    SubjectRoles:
-      properties:
-        dagRoles:
-          description: A list of the subject's DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: A list of the subject's Deployment roles. Currently only for API tokens.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The subject's Organization role.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
-          type: string
-        workspaceRoles:
-          description: A list of the subject's Workspace roles.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
+      - code
+      - field
+      - message
       type: object
     ApiToken:
       properties:
@@ -746,70 +788,16 @@ components:
       - startAt
       - updatedAt
       type: object
-    DeploymentRole:
+    UpdateApiTokenRolesRequest:
       properties:
-        deploymentId:
-          description: The Deployment ID.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The name of the role for the subject in the Deployment.
-          example: DEPLOYMENT_ADMIN
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    ApiTokenRole:
-      properties:
-        deploymentId:
-          description: Required when EntityType is DAG or TAG. The deployment containing the DAG.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        entityId:
-          description: The ID of the entity. For DAG roles, this is the DAG ID. For TAG roles, this is the tag value.
-          example: clm8sgvai000008l794psbkdv
-          type: string
-        entityType:
-          description: The type of the entity.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          - DAG
-          - DAG_TAG
-          example: WORKSPACE
-          type: string
-        role:
-          description: The role of the API token.
-          example: WORKSPACE_MEMBER
-          type: string
-      required:
-      - entityId
-      - entityType
-      - role
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
+        roles:
+          description: The roles of the API token, including DAG roles.
           items:
-            $ref: '#/components/schemas/FieldValidationError'
+            $ref: '#/components/schemas/ApiTokenRole'
+          minItems: 1
           type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
       required:
-      - message
-      - requestId
-      - statusCode
+      - roles
       type: object
     CreateApiTokenRequest:
       properties:
@@ -855,25 +843,37 @@ components:
       - role
       - scope
       type: object
-    WorkspaceRole:
+    BasicSubjectProfile:
       properties:
-        role:
-          description: The role of the subject in the Workspace.
-          enum:
-          - WORKSPACE_OWNER
-          - WORKSPACE_OPERATOR
-          - WORKSPACE_AUTHOR
-          - WORKSPACE_MEMBER
-          - WORKSPACE_ACCESSOR
-          example: WORKSPACE_MEMBER
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
           type: string
-        workspaceId:
-          description: The Workspace ID.
-          example: clm8t5u4q000008jq4qoc3036
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
           type: string
       required:
-      - role
-      - workspaceId
+      - id
       type: object
   securitySchemes:
     JWT:

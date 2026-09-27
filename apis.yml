@@ -54,7 +54,7 @@ tags:
 - Apache Airflow
 - Data Pipeline
 - Data Engineering
-- Workflow-Automation
+- Workflow Automation
 - MLOps
 - Managed Platform
 tags_raw:
@@ -66,6 +66,7 @@ tags_raw:
 - Workflow Automation
 - MLOps
 - Managed Platform
+- Workflow-Automation
 image: https://www.astronomer.io/img/logos/astronomer-logo.png
 apis:
 - aid: astronomer:astronomer-allowedipaddressrange-api

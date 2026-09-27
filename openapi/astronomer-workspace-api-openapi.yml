@@ -353,111 +353,27 @@ paths:
       - action: workspace.settings.update
 components:
   schemas:
-    FieldValidationError:
+    Error:
       properties:
-        code:
-          type: string
-        field:
-          type: string
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
         message:
           type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
       required:
-      - code
-      - field
       - message
-      type: object
-    WorkspacesPaginated:
-      properties:
-        limit:
-          description: The maximum number of workspaces that can be retrieved per page.
-          example: 0
-          type: integer
-        offset:
-          description: The offset for the current page of workspaces in the complete result.
-          example: 0
-          type: integer
-        totalCount:
-          description: The total number of Workspaces in the paginated result.
-          example: 0
-          type: integer
-        workspaces:
-          description: An array of Workspace objects representing a list of workspaces.
-          items:
-            $ref: '#/components/schemas/Workspace'
-          type: array
-      required:
-      - limit
-      - offset
-      - totalCount
-      - workspaces
-      type: object
-    UpdateWorkspaceRequest:
-      properties:
-        cicdEnforcedDefault:
-          description: Whether new Deployments enforce CI/CD deploys by default.
-          example: true
-          type: boolean
-        defaultCloudProvider:
-          description: The default cloud provider for new Deployments. Must be provided together with `defaultRegion`. Mutually exclusive with `defaultClusterId`.
-          enum:
-          - AWS
-          - AZURE
-          - GCP
-          example: AWS
-          type: string
-        defaultClusterId:
-          description: The ID of the default cluster for new Deployments. Mutually exclusive with `defaultCloudProvider` and `defaultRegion`.
-          example: clmh9g6zj000008mg77if5wa2
-          type: string
-        defaultRegion:
-          description: The default region for new Deployments. Must be provided together with `defaultCloudProvider`. Mutually exclusive with `defaultClusterId`.
-          example: us-east-1
-          type: string
-        description:
-          description: The Workspace's description.
-          example: This is a test workspace
-          type: string
-        name:
-          description: The Workspace's name.
-          example: My Workspace
-          maxLength: 50
-          type: string
-      required:
-      - cicdEnforcedDefault
-      - description
-      - name
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
+      - requestId
+      - statusCode
       type: object
     CreateWorkspaceRequest:
       properties:
@@ -492,28 +408,6 @@ components:
           type: string
       required:
       - name
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
       type: object
     Workspace:
       properties:
@@ -578,6 +472,112 @@ components:
       - name
       - organizationId
       - updatedAt
+      type: object
+    WorkspacesPaginated:
+      properties:
+        limit:
+          description: The maximum number of workspaces that can be retrieved per page.
+          example: 0
+          type: integer
+        offset:
+          description: The offset for the current page of workspaces in the complete result.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of Workspaces in the paginated result.
+          example: 0
+          type: integer
+        workspaces:
+          description: An array of Workspace objects representing a list of workspaces.
+          items:
+            $ref: '#/components/schemas/Workspace'
+          type: array
+      required:
+      - limit
+      - offset
+      - totalCount
+      - workspaces
+      type: object
+    UpdateWorkspaceRequest:
+      properties:
+        cicdEnforcedDefault:
+          description: Whether new Deployments enforce CI/CD deploys by default.
+          example: true
+          type: boolean
+        defaultCloudProvider:
+          description: The default cloud provider for new Deployments. Must be provided together with `defaultRegion`. Mutually exclusive with `defaultClusterId`.
+          enum:
+          - AWS
+          - AZURE
+          - GCP
+          example: AWS
+          type: string
+        defaultClusterId:
+          description: The ID of the default cluster for new Deployments. Mutually exclusive with `defaultCloudProvider` and `defaultRegion`.
+          example: clmh9g6zj000008mg77if5wa2
+          type: string
+        defaultRegion:
+          description: The default region for new Deployments. Must be provided together with `defaultCloudProvider`. Mutually exclusive with `defaultClusterId`.
+          example: us-east-1
+          type: string
+        description:
+          description: The Workspace's description.
+          example: This is a test workspace
+          type: string
+        name:
+          description: The Workspace's name.
+          example: My Workspace
+          maxLength: 50
+          type: string
+      required:
+      - cicdEnforcedDefault
+      - description
+      - name
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
       type: object
   securitySchemes:
     JWT:

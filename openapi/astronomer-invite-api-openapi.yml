@@ -133,71 +133,6 @@ paths:
       - action: organization.users.delete
 components:
   schemas:
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    CreateUserInviteRequest:
-      properties:
-        inviteeEmail:
-          description: The email of the user to invite.
-          example: user1@company.com
-          type: string
-        role:
-          description: The user's Organization role.
-          enum:
-          - ORGANIZATION_OWNER
-          - ORGANIZATION_OBSERVE_ADMIN
-          - ORGANIZATION_OBSERVE_MEMBER
-          - ORGANIZATION_BILLING_ADMIN
-          - ORGANIZATION_MEMBER
-          example: ORGANIZATION_MEMBER
-          type: string
-      required:
-      - inviteeEmail
-      - role
-      type: object
     Error:
       properties:
         fieldErrors:
@@ -253,6 +188,71 @@ components:
       - invitee
       - inviter
       - organizationId
+      type: object
+    CreateUserInviteRequest:
+      properties:
+        inviteeEmail:
+          description: The email of the user to invite.
+          example: user1@company.com
+          type: string
+        role:
+          description: The user's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
+      required:
+      - inviteeEmail
+      - role
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
       type: object
   securitySchemes:
     JWT:
