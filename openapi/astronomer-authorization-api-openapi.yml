@@ -66,19 +66,18 @@ paths:
       - Authorization
 components:
   schemas:
-    PermissionEntry:
+    FieldValidationError:
       properties:
-        action:
-          description: The permission's action.
-          example: get
+        code:
           type: string
-        description:
-          description: The permission's description.
-          example: Subject is permitted to get the scope.
+        field:
+          type: string
+        message:
           type: string
       required:
-      - action
-      - description
+      - code
+      - field
+      - message
       type: object
     Error:
       properties:
@@ -102,18 +101,19 @@ components:
       - requestId
       - statusCode
       type: object
-    FieldValidationError:
+    PermissionEntry:
       properties:
-        code:
+        action:
+          description: The permission's action.
+          example: get
           type: string
-        field:
-          type: string
-        message:
+        description:
+          description: The permission's description.
+          example: Subject is permitted to get the scope.
           type: string
       required:
-      - code
-      - field
-      - message
+      - action
+      - description
       type: object
     PermissionGroup:
       properties:

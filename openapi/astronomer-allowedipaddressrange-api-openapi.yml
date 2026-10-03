@@ -331,6 +331,60 @@ paths:
       - action: organization.allowedIpAddressRanges.delete
 components:
   schemas:
+    AllowedIpAddressRangesList:
+      properties:
+        allowedIpAddressRanges:
+          items:
+            $ref: '#/components/schemas/AllowedIpAddressRange'
+          type: array
+      required:
+      - allowedIpAddressRanges
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
     AllowedIpAddressRange:
       properties:
         createdAt:
@@ -366,20 +420,29 @@ components:
       - organizationId
       - updatedAt
       type: object
-    BulkCreateAllowedIpAddressRangesRequest:
+    CreateAllowedIpAddressRangeRequest:
       properties:
-        allowedIpAddressRanges:
-          description: 'The allowed IP address ranges, in CIDR format. The batch is created atomically: if any value fails validation or conflicts with an existing range, no rows are inserted.'
+        ipAddressRange:
+          description: The allowed IP address range in CIDR format.
+          example: 1.1.1.1/32
+          type: string
+      required:
+      - ipAddressRange
+      type: object
+    BulkDeleteAllowedIpAddressRangesRequest:
+      properties:
+        allowedIpAddressRangeIds:
+          description: The allowed IP address range IDs to delete. Duplicate and unknown IDs are accepted; existing matching rows are deleted atomically.
           example:
-          - 1.1.1.1/32
-          - 2.2.2.2/32
+          - clm9sq6s0000008kz7uvl7yz7
+          - clm9sq6s0000108kz8ybn9r1c
           items:
             type: string
           maxItems: 1000
           minItems: 1
           type: array
       required:
-      - allowedIpAddressRanges
+      - allowedIpAddressRangeIds
       type: object
     Error:
       properties:
@@ -402,6 +465,21 @@ components:
       - message
       - requestId
       - statusCode
+      type: object
+    BulkCreateAllowedIpAddressRangesRequest:
+      properties:
+        allowedIpAddressRanges:
+          description: 'The allowed IP address ranges, in CIDR format. The batch is created atomically: if any value fails validation or conflicts with an existing range, no rows are inserted.'
+          example:
+          - 1.1.1.1/32
+          - 2.2.2.2/32
+          items:
+            type: string
+          maxItems: 1000
+          minItems: 1
+          type: array
+      required:
+      - allowedIpAddressRanges
       type: object
     AllowedIpAddressRangesPaginated:
       properties:
@@ -426,84 +504,6 @@ components:
       - limit
       - offset
       - totalCount
-      type: object
-    CreateAllowedIpAddressRangeRequest:
-      properties:
-        ipAddressRange:
-          description: The allowed IP address range in CIDR format.
-          example: 1.1.1.1/32
-          type: string
-      required:
-      - ipAddressRange
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    BulkDeleteAllowedIpAddressRangesRequest:
-      properties:
-        allowedIpAddressRangeIds:
-          description: The allowed IP address range IDs to delete. Duplicate and unknown IDs are accepted; existing matching rows are deleted atomically.
-          example:
-          - clm9sq6s0000008kz7uvl7yz7
-          - clm9sq6s0000108kz8ybn9r1c
-          items:
-            type: string
-          maxItems: 1000
-          minItems: 1
-          type: array
-      required:
-      - allowedIpAddressRangeIds
-      type: object
-    AllowedIpAddressRangesList:
-      properties:
-        allowedIpAddressRanges:
-          items:
-            $ref: '#/components/schemas/AllowedIpAddressRange'
-          type: array
-      required:
-      - allowedIpAddressRanges
       type: object
   securitySchemes:
     JWT:

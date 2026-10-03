@@ -439,11 +439,27 @@ paths:
       - action: deployment.deploys.update
 components:
   schemas:
-    DeployRollbackRequest:
+    DeploysPaginated:
       properties:
-        description:
-          maxLength: 500
-          type: string
+        deploys:
+          description: A list of deploys in the current page.
+          items:
+            $ref: '#/components/schemas/Deploy'
+          type: array
+        limit:
+          description: The maximum number of deploys in one page.
+          type: integer
+        offset:
+          description: The offset of the current page of deploys.
+          type: integer
+        totalCount:
+          description: The total number of deploys.
+          type: integer
+      required:
+      - deploys
+      - limit
+      - offset
+      - totalCount
       type: object
     BasicSubjectProfile:
       properties:
@@ -477,49 +493,33 @@ components:
       required:
       - id
       type: object
-    DeploysPaginated:
+    DeployRollbackRequest:
       properties:
-        deploys:
-          description: A list of deploys in the current page.
-          items:
-            $ref: '#/components/schemas/Deploy'
-          type: array
-        limit:
-          description: The maximum number of deploys in one page.
-          type: integer
-        offset:
-          description: The offset of the current page of deploys.
-          type: integer
-        totalCount:
-          description: The total number of deploys.
-          type: integer
-      required:
-      - deploys
-      - limit
-      - offset
-      - totalCount
+        description:
+          maxLength: 500
+          type: string
       type: object
-    Error:
+    FieldValidationError:
       properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
+        code:
+          type: string
+        field:
+          type: string
         message:
           type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
       required:
+      - code
+      - field
       - message
-      - requestId
-      - statusCode
+      type: object
+    FinalizeDeployRequest:
+      properties:
+        bundleTarballVersion:
+          description: The deploy's bundle tarball version. Required if DAG deploy is enabled on the Deployment and deploy type is BUNDLE.
+          type: string
+        dagTarballVersion:
+          description: The deploy's DAG tarball version, also known as the Bundle Version in the Astro UI. Required if DAG deploys are enabled on the Deployment, and deploy type is either IMAGE_AND_DAG or DAG_ONLY.
+          type: string
       type: object
     CreateDeployGitRequest:
       properties:
@@ -578,18 +578,13 @@ components:
       - commitSha
       - provider
       type: object
-    FieldValidationError:
+    UpdateDeployRequest:
       properties:
-        code:
+        description:
+          description: The deploy's description.
+          example: My deploy description
+          maxLength: 500
           type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
       type: object
     DeployGit:
       properties:
@@ -648,6 +643,28 @@ components:
       - commitSha
       - provider
       type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
     CreateDeployRequest:
       properties:
         bundleMountPath:
@@ -675,6 +692,28 @@ components:
           type: string
       required:
       - type
+      type: object
+    Bundle:
+      properties:
+        bundleType:
+          description: The type of bundle.
+          type: string
+        currentVersion:
+          description: The current bundle version.
+          type: string
+        deployId:
+          description: The ID of the deploy that included the bundle.
+          type: string
+        desiredVersion:
+          description: The desired version of the bundle.
+          type: string
+        mountPath:
+          description: The path where the Astro mounts the bundle on the Airflow component pods.
+          type: string
+      required:
+      - bundleType
+      - deployId
+      - mountPath
       type: object
     Deploy:
       properties:
@@ -774,45 +813,6 @@ components:
       - isDagDeployEnabled
       - status
       - type
-      type: object
-    UpdateDeployRequest:
-      properties:
-        description:
-          description: The deploy's description.
-          example: My deploy description
-          maxLength: 500
-          type: string
-      type: object
-    Bundle:
-      properties:
-        bundleType:
-          description: The type of bundle.
-          type: string
-        currentVersion:
-          description: The current bundle version.
-          type: string
-        deployId:
-          description: The ID of the deploy that included the bundle.
-          type: string
-        desiredVersion:
-          description: The desired version of the bundle.
-          type: string
-        mountPath:
-          description: The path where the Astro mounts the bundle on the Airflow component pods.
-          type: string
-      required:
-      - bundleType
-      - deployId
-      - mountPath
-      type: object
-    FinalizeDeployRequest:
-      properties:
-        bundleTarballVersion:
-          description: The deploy's bundle tarball version. Required if DAG deploy is enabled on the Deployment and deploy type is BUNDLE.
-          type: string
-        dagTarballVersion:
-          description: The deploy's DAG tarball version, also known as the Bundle Version in the Astro UI. Required if DAG deploys are enabled on the Deployment, and deploy type is either IMAGE_AND_DAG or DAG_ONLY.
-          type: string
       type: object
   securitySchemes:
     JWT:

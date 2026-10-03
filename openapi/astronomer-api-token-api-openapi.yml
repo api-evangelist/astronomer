@@ -514,40 +514,6 @@ paths:
       - action: organization.apiTokens.access
 components:
   schemas:
-    DeploymentRole:
-      properties:
-        deploymentId:
-          description: The Deployment ID.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The name of the role for the subject in the Deployment.
-          example: DEPLOYMENT_ADMIN
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    WorkspaceRole:
-      properties:
-        role:
-          description: The role of the subject in the Workspace.
-          enum:
-          - WORKSPACE_OWNER
-          - WORKSPACE_OPERATOR
-          - WORKSPACE_AUTHOR
-          - WORKSPACE_MEMBER
-          - WORKSPACE_ACCESSOR
-          example: WORKSPACE_MEMBER
-          type: string
-        workspaceId:
-          description: The Workspace ID.
-          example: clm8t5u4q000008jq4qoc3036
-          type: string
-      required:
-      - role
-      - workspaceId
-      type: object
     SubjectRoles:
       properties:
         dagRoles:
@@ -569,6 +535,82 @@ components:
           items:
             $ref: '#/components/schemas/WorkspaceRole'
           type: array
+      type: object
+    CreateApiTokenRequest:
+      properties:
+        description:
+          description: The description for the API token.
+          example: This is my API token
+          type: string
+        entityId:
+          description: The ID of the Workspace or Deployment to which the API token is scoped. It is required if `Scope` is `WORKSPACE` or `DEPLOYMENT`.
+          example: clm8pxjjw000008l23jm08hyu
+          type: string
+        kind:
+          description: The kind of API token. Defaults to STANDARD if not specified.
+          enum:
+          - STANDARD
+          - DIRECT_ACCESS
+          example: STANDARD
+          type: string
+        name:
+          description: The name of the API token.
+          example: My token
+          type: string
+        role:
+          description: The role of the API token.
+          example: WORKSPACE_OWNER
+          type: string
+        scope:
+          description: The scope of the API token.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          example: WORKSPACE
+          type: string
+        tokenExpiryPeriodInDays:
+          description: The expiry period of the API token in days. If not specified, the token will never expire.
+          example: 30
+          maximum: 3650
+          minimum: 1
+          type: integer
+      required:
+      - name
+      - role
+      - scope
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
       type: object
     ApiTokenRole:
       properties:
@@ -621,6 +663,33 @@ components:
       - deploymentId
       - role
       type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    DeploymentRole:
+      properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
     ApiTokensPaginated:
       properties:
         limit:
@@ -645,57 +714,6 @@ components:
       - offset
       - tokens
       - totalCount
-      type: object
-    UpdateApiTokenRequest:
-      properties:
-        description:
-          description: The description of the API token.
-          example: This is my API token
-          maxLength: 500
-          type: string
-        name:
-          description: The name of the API token.
-          example: My token
-          maxLength: 256
-          minLength: 1
-          type: string
-      required:
-      - name
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
       type: object
     ApiToken:
       properties:
@@ -788,6 +806,28 @@ components:
       - startAt
       - updatedAt
       type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
     UpdateApiTokenRolesRequest:
       properties:
         roles:
@@ -799,81 +839,41 @@ components:
       required:
       - roles
       type: object
-    CreateApiTokenRequest:
+    WorkspaceRole:
+      properties:
+        role:
+          description: The role of the subject in the Workspace.
+          enum:
+          - WORKSPACE_OWNER
+          - WORKSPACE_OPERATOR
+          - WORKSPACE_AUTHOR
+          - WORKSPACE_MEMBER
+          - WORKSPACE_ACCESSOR
+          example: WORKSPACE_MEMBER
+          type: string
+        workspaceId:
+          description: The Workspace ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+      required:
+      - role
+      - workspaceId
+      type: object
+    UpdateApiTokenRequest:
       properties:
         description:
-          description: The description for the API token.
+          description: The description of the API token.
           example: This is my API token
-          type: string
-        entityId:
-          description: The ID of the Workspace or Deployment to which the API token is scoped. It is required if `Scope` is `WORKSPACE` or `DEPLOYMENT`.
-          example: clm8pxjjw000008l23jm08hyu
-          type: string
-        kind:
-          description: The kind of API token. Defaults to STANDARD if not specified.
-          enum:
-          - STANDARD
-          - DIRECT_ACCESS
-          example: STANDARD
+          maxLength: 500
           type: string
         name:
           description: The name of the API token.
           example: My token
+          maxLength: 256
+          minLength: 1
           type: string
-        role:
-          description: The role of the API token.
-          example: WORKSPACE_OWNER
-          type: string
-        scope:
-          description: The scope of the API token.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          example: WORKSPACE
-          type: string
-        tokenExpiryPeriodInDays:
-          description: The expiry period of the API token in days. If not specified, the token will never expire.
-          example: 30
-          maximum: 3650
-          minimum: 1
-          type: integer
       required:
       - name
-      - role
-      - scope
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
       type: object
   securitySchemes:
     JWT:

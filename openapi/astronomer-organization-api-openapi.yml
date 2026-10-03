@@ -295,94 +295,6 @@ paths:
       - action: organization.auditLogs.get
 components:
   schemas:
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
-      type: object
-    UpdateOrganizationRequest:
-      properties:
-        allowEnhancedSupportAccess:
-          example: false
-          type: boolean
-        billingEmail:
-          description: The Organization's billing email.
-          example: billing@company.com
-          type: string
-        hasAiFeaturesDisabled:
-          example: false
-          type: boolean
-        isScimEnabled:
-          description: Whether SCIM is enabled for the Organization.
-          example: false
-          type: boolean
-        name:
-          description: The name of the Organization.
-          example: My Organization
-          maxLength: 50
-          type: string
-        shouldEnforceDedicatedClusters:
-          type: boolean
-      required:
-      - billingEmail
-      - isScimEnabled
-      - name
-      type: object
-    OrganizationsPaginated:
-      properties:
-        limit:
-          description: The maximum number of Organizations in the page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the Organizations in the page.
-          example: 0
-          type: integer
-        organizations:
-          description: The list of Organizations in the page.
-          items:
-            $ref: '#/components/schemas/Organization'
-          type: array
-        totalCount:
-          description: The total number of Organizations.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - organizations
-      - totalCount
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
     OrganizationProductPlan:
       properties:
         astronomerProduct:
@@ -456,48 +368,93 @@ components:
       required:
       - id
       type: object
-    ManagedDomain:
+    FieldValidationError:
       properties:
-        createdAt:
-          description: The time when the domain was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
-          format: date-time
+        code:
           type: string
-        enforcedLogins:
-          description: A list of login types that are enforced for users belonging to the domain.
-          example:
-          - password
-          items:
-            type: string
-          type: array
-        id:
-          description: The managed domain's ID.
-          example: cln203mz7000008jv0jyz9m3y
+        field:
           type: string
-        name:
-          description: The managed domain's name/ URL.
-          example: mycompany.com
-          type: string
-        organizationId:
-          description: The ID of the Organization to which the managed domain belongs.
-          example: cln204xr2000008mu3hhe3zwe
-          type: string
-        status:
-          description: Whether the managed domain has completed the verification process.
-          enum:
-          - PENDING
-          - VERIFIED
-          type: string
-        updatedAt:
-          description: The time when the domain was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
-          format: date-time
+        message:
           type: string
       required:
-      - createdAt
-      - id
+      - code
+      - field
+      - message
+      type: object
+    OrganizationsPaginated:
+      properties:
+        limit:
+          description: The maximum number of Organizations in the page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the Organizations in the page.
+          example: 0
+          type: integer
+        organizations:
+          description: The list of Organizations in the page.
+          items:
+            $ref: '#/components/schemas/Organization'
+          type: array
+        totalCount:
+          description: The total number of Organizations.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - organizations
+      - totalCount
+      type: object
+    UpdateOrganizationRequest:
+      properties:
+        allowEnhancedSupportAccess:
+          example: false
+          type: boolean
+        billingEmail:
+          description: The Organization's billing email.
+          example: billing@company.com
+          type: string
+        hasAiFeaturesDisabled:
+          example: false
+          type: boolean
+        isScimEnabled:
+          description: Whether SCIM is enabled for the Organization.
+          example: false
+          type: boolean
+        name:
+          description: The name of the Organization.
+          example: My Organization
+          maxLength: 50
+          type: string
+        shouldEnforceDedicatedClusters:
+          type: boolean
+      required:
+      - billingEmail
+      - isScimEnabled
       - name
-      - organizationId
-      - status
-      - updatedAt
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
       type: object
     Organization:
       properties:
@@ -598,6 +555,49 @@ components:
       - shouldEnforceDedicatedClusters
       - updatedAt
       - updatedBy
+      type: object
+    ManagedDomain:
+      properties:
+        createdAt:
+          description: The time when the domain was created in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          format: date-time
+          type: string
+        enforcedLogins:
+          description: A list of login types that are enforced for users belonging to the domain.
+          example:
+          - password
+          items:
+            type: string
+          type: array
+        id:
+          description: The managed domain's ID.
+          example: cln203mz7000008jv0jyz9m3y
+          type: string
+        name:
+          description: The managed domain's name/ URL.
+          example: mycompany.com
+          type: string
+        organizationId:
+          description: The ID of the Organization to which the managed domain belongs.
+          example: cln204xr2000008mu3hhe3zwe
+          type: string
+        status:
+          description: Whether the managed domain has completed the verification process.
+          enum:
+          - PENDING
+          - VERIFIED
+          type: string
+        updatedAt:
+          description: The time when the domain was last updated in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          format: date-time
+          type: string
+      required:
+      - createdAt
+      - id
+      - name
+      - organizationId
+      - status
+      - updatedAt
       type: object
   securitySchemes:
     JWT:
