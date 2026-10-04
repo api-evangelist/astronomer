@@ -1,0 +1,67 @@
+slug: astronomer
+provider: Astronomer
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Role
+  spec_file: astronomer-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /organizations/{organizationId}/roles  CreateCustomRole  Create a custom role; schemas
+    RoleWithPermission, RoleTemplate, DefaultRole
+  reason: Custom role definition with permissions and role templates is authorisation model management
+    — squarely Identity & Access Management. No plausible alternative reading.
+- tag: Cluster
+  spec_file: astronomer-cluster-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.8
+  evidence: '"Create a cluster", "Delete a cluster", schemas CreateAwsClusterRequest, CreateGcpClusterRequest,
+    CreateAzureClusterRequest, NodePool, ClusterHealthStatus'
+  reason: Provisioning and lifecycle of cloud compute clusters and node pools across AWS/GCP/Azure is
+    IT infrastructure management (compute/cloud infrastructure).
+- tag: User
+  spec_file: astronomer-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: POST /organizations/{organizationId}/users/{userId}/roles  UpdateUserRoles  Update a user's
+    roles
+  reason: Platform user directory listing plus role assignment and self-identity lookup — identity and
+    access management, not employee records (these are platform principals, with SubjectRoles/WorkspaceRole
+    schemas).
+- tag: Invite
+  spec_file: astronomer-invite-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /organizations/{organizationId}/invites  CreateUserInvite  Create a user invitation
+  reason: Inviting and revoking user accounts into an organization is user account lifecycle / joiner
+    provisioning, i.e. identity and access management. Not talent acquisition despite 'invite' sounding
+    recruitment-adjacent — the subject is a platform user account.
+- tag: Deploy
+  spec_file: astronomer-deploy-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.7
+  evidence: '"Create a Deploy", "Finalize a deploy", "DeployRollback Deploy rollback of a deployment",
+    schemas CreateDeployGitRequest, Bundle'
+  reason: Operations push code bundles to a running deployment with finalize and rollback steps — deployment
+    orchestration with controlled blast radius. Some ambiguity between deployment orchestration and release
+    engineering, hence 0.7.
