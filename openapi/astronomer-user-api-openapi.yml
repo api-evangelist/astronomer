@@ -380,28 +380,6 @@ paths:
       - User
 components:
   schemas:
-    SubjectRoles:
-      properties:
-        dagRoles:
-          description: A list of the subject's DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: A list of the subject's Deployment roles. Currently only for API tokens.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The subject's Organization role.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
-          type: string
-        workspaceRoles:
-          description: A list of the subject's Workspace roles.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
-      type: object
     DagRole:
       properties:
         dagId:
@@ -424,204 +402,22 @@ components:
       - deploymentId
       - role
       type: object
-    FieldValidationError:
+    SelfUserInvite:
       properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    UserTeamsPaginated:
-      properties:
-        limit:
-          description: The maximum number of teams in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page.
-          example: 0
-          type: integer
-        teams:
-          description: The list of teams the user belongs to in the current page.
-          items:
-            $ref: '#/components/schemas/UserTeamMembership'
-          type: array
-        totalCount:
-          description: The total number of teams.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - teams
-      - totalCount
-      type: object
-    DeploymentRole:
-      properties:
-        deploymentId:
-          description: The Deployment ID.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The name of the role for the subject in the Deployment.
-          example: DEPLOYMENT_ADMIN
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    UserTeamMembership:
-      properties:
-        dagRoles:
-          description: The Team's role in each DAG it belongs to.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: The Team's role in each Deployment it belongs to.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        description:
-          description: The Team's description.
-          example: My Team description
-          type: string
-        id:
-          description: The Team's ID.
-          example: clma5ftgk000008mhgev00k7d
-          type: string
-        isIdpManaged:
-          description: Whether the Team is managed by an identity provider (IdP).
-          example: false
-          type: boolean
-        name:
-          description: The Team's name.
-          example: My Team
-          type: string
-        organizationRole:
-          description: The Team's Organization role.
-          enum:
-          - ORGANIZATION_OWNER
-          - ORGANIZATION_OBSERVE_ADMIN
-          - ORGANIZATION_OBSERVE_MEMBER
-          - ORGANIZATION_BILLING_ADMIN
-          - ORGANIZATION_MEMBER
-          example: ORGANIZATION_MEMBER
-          type: string
-        rolesCount:
-          description: The number of roles the Team has.
-          example: 1
-          type: integer
-        workspaceRoles:
-          description: The Team's role in each Workspace it belongs to.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
-      required:
-      - id
-      - isIdpManaged
-      - name
-      - organizationRole
-      type: object
-    SelfUser:
-      properties:
-        avatarUrl:
-          description: The URL for the user's profile image.
-          type: string
-        createdAt:
-          description: The time when the user was created.
+        expiresAt:
+          description: The time when the invite expires.
           format: date-time
           type: string
-        featureFlags:
-          description: The user's feature flags.
-          items:
-            $ref: '#/components/schemas/SelfUserFeatureFlag'
-          type: array
-        fullName:
-          description: The user's full name.
+        inviteId:
+          description: The invite ID.
           type: string
-        id:
-          description: The user's ID.
-          type: string
-        invites:
-          description: The user's pending Organization invites.
-          items:
-            $ref: '#/components/schemas/SelfUserInvite'
-          type: array
-        isIdpManaged:
-          description: Whether the user is managed by an identity provider.
-          type: boolean
         organizationId:
-          description: The user's primary Organization ID.
-          type: string
-        roles:
-          description: The user's roles across all scopes.
-          items:
-            $ref: '#/components/schemas/SelfUserRole'
-          type: array
-        status:
-          description: The user's status.
-          enum:
-          - ACTIVE
-          - INACTIVE
-          - PENDING
-          - BANNED
-          type: string
-        updatedAt:
-          description: The time when the user was last updated.
-          format: date-time
-          type: string
-        username:
-          description: The user's username.
+          description: The Organization ID.
           type: string
       required:
-      - avatarUrl
-      - createdAt
-      - fullName
-      - id
-      - status
-      - updatedAt
-      - username
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
-      type: object
-    SelfUserFeatureFlag:
-      properties:
-        key:
-          description: The feature flag key.
-          type: string
-        value:
-          description: The feature flag value.
-          type: boolean
-      required:
-      - key
-      - value
+      - expiresAt
+      - inviteId
+      - organizationId
       type: object
     SelfUserRoleScope:
       properties:
@@ -640,6 +436,17 @@ components:
       required:
       - entityId
       - type
+      type: object
+    SelfUserRole:
+      properties:
+        role:
+          description: The role name.
+          type: string
+        scope:
+          $ref: '#/components/schemas/SelfUserRoleScope'
+      required:
+      - role
+      - scope
       type: object
     User:
       properties:
@@ -712,6 +519,88 @@ components:
       - updatedAt
       - username
       type: object
+    UserTeamsPaginated:
+      properties:
+        limit:
+          description: The maximum number of teams in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page.
+          example: 0
+          type: integer
+        teams:
+          description: The list of teams the user belongs to in the current page.
+          items:
+            $ref: '#/components/schemas/UserTeamMembership'
+          type: array
+        totalCount:
+          description: The total number of teams.
+          example: 100
+          type: integer
+      required:
+      - limit
+      - offset
+      - teams
+      - totalCount
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    UpdateUserRolesRequest:
+      properties:
+        dagRoles:
+          description: The user's updated DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: The user's updated Deployment roles. Requires also specifying an `OrganizationRole`.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The user's updated Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: The user's updated Workspace roles. Requires also specifying an `OrganizationRole`.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
     UsersPaginated:
       properties:
         limit:
@@ -737,17 +626,6 @@ components:
       - totalCount
       - users
       type: object
-    SelfUserRole:
-      properties:
-        role:
-          description: The role name.
-          type: string
-        scope:
-          $ref: '#/components/schemas/SelfUserRoleScope'
-      required:
-      - role
-      - scope
-      type: object
     WorkspaceRole:
       properties:
         role:
@@ -768,44 +646,166 @@ components:
       - role
       - workspaceId
       type: object
-    UpdateUserRolesRequest:
+    SubjectRoles:
       properties:
         dagRoles:
-          description: The user's updated DAG roles.
+          description: A list of the subject's DAG roles.
           items:
             $ref: '#/components/schemas/DagRole'
           type: array
         deploymentRoles:
-          description: The user's updated Deployment roles. Requires also specifying an `OrganizationRole`.
+          description: A list of the subject's Deployment roles. Currently only for API tokens.
           items:
             $ref: '#/components/schemas/DeploymentRole'
           type: array
         organizationRole:
-          description: The user's updated Organization role.
+          description: The subject's Organization role.
           example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
           type: string
         workspaceRoles:
-          description: The user's updated Workspace roles. Requires also specifying an `OrganizationRole`.
+          description: A list of the subject's Workspace roles.
           items:
             $ref: '#/components/schemas/WorkspaceRole'
           type: array
       type: object
-    SelfUserInvite:
+    UserTeamMembership:
       properties:
-        expiresAt:
-          description: The time when the invite expires.
-          format: date-time
+        dagRoles:
+          description: The Team's role in each DAG it belongs to.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: The Team's role in each Deployment it belongs to.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        description:
+          description: The Team's description.
+          example: My Team description
           type: string
-        inviteId:
-          description: The invite ID.
+        id:
+          description: The Team's ID.
+          example: clma5ftgk000008mhgev00k7d
           type: string
-        organizationId:
-          description: The Organization ID.
+        isIdpManaged:
+          description: Whether the Team is managed by an identity provider (IdP).
+          example: false
+          type: boolean
+        name:
+          description: The Team's name.
+          example: My Team
+          type: string
+        organizationRole:
+          description: The Team's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
+        rolesCount:
+          description: The number of roles the Team has.
+          example: 1
+          type: integer
+        workspaceRoles:
+          description: The Team's role in each Workspace it belongs to.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      required:
+      - id
+      - isIdpManaged
+      - name
+      - organizationRole
+      type: object
+    DeploymentRole:
+      properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
           type: string
       required:
-      - expiresAt
-      - inviteId
-      - organizationId
+      - deploymentId
+      - role
+      type: object
+    SelfUserFeatureFlag:
+      properties:
+        key:
+          description: The feature flag key.
+          type: string
+        value:
+          description: The feature flag value.
+          type: boolean
+      required:
+      - key
+      - value
+      type: object
+    SelfUser:
+      properties:
+        avatarUrl:
+          description: The URL for the user's profile image.
+          type: string
+        createdAt:
+          description: The time when the user was created.
+          format: date-time
+          type: string
+        featureFlags:
+          description: The user's feature flags.
+          items:
+            $ref: '#/components/schemas/SelfUserFeatureFlag'
+          type: array
+        fullName:
+          description: The user's full name.
+          type: string
+        id:
+          description: The user's ID.
+          type: string
+        invites:
+          description: The user's pending Organization invites.
+          items:
+            $ref: '#/components/schemas/SelfUserInvite'
+          type: array
+        isIdpManaged:
+          description: Whether the user is managed by an identity provider.
+          type: boolean
+        organizationId:
+          description: The user's primary Organization ID.
+          type: string
+        roles:
+          description: The user's roles across all scopes.
+          items:
+            $ref: '#/components/schemas/SelfUserRole'
+          type: array
+        status:
+          description: The user's status.
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - PENDING
+          - BANNED
+          type: string
+        updatedAt:
+          description: The time when the user was last updated.
+          format: date-time
+          type: string
+        username:
+          description: The user's username.
+          type: string
+      required:
+      - avatarUrl
+      - createdAt
+      - fullName
+      - id
+      - status
+      - updatedAt
+      - username
       type: object
   securitySchemes:
     JWT:

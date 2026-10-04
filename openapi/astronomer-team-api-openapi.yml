@@ -650,54 +650,75 @@ paths:
       - action: organization.teamRoles.access
 components:
   schemas:
-    SubjectRoles:
+    DagRole:
       properties:
-        dagRoles:
-          description: A list of the subject's DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: A list of the subject's Deployment roles. Currently only for API tokens.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The subject's Organization role.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+        dagId:
+          description: The DAG ID. Required if Tag is not specified.
+          example: my_dag
           type: string
-        workspaceRoles:
-          description: A list of the subject's Workspace roles.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
-      type: object
-    TeamMember:
-      properties:
-        avatarUrl:
-          description: The URL for the Team member's profile image.
-          example: https://avatar.url
+        dagTag:
+          description: The DAG tag. Required if DagId is not specified.
+          example: team-a
           type: string
-        createdAt:
-          description: The time when the Team member was added in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
+        deploymentId:
+          description: The Deployment ID containing the DAG.
+          example: clm8t5u4q000008jq4qoc3031
           type: string
-        fullName:
-          description: The Team member's full name.
-          example: Jane Doe
-          type: string
-        userId:
-          description: The Team member's ID.
-          example: clma5vzk2000108k20jhq3f7n
-          type: string
-        username:
-          description: The Team member's username.
-          example: user1@company.com
+        role:
+          description: The role name (DAG_VIEWER, DAG_AUTHOR, or custom DAG role).
+          example: DAG_VIEWER
           type: string
       required:
-      - userId
-      - username
+      - deploymentId
+      - role
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    UpdateTeamRequest:
+      properties:
+        description:
+          description: The Team's description.
+          example: My Team Description
+          type: string
+        name:
+          description: The Team's name.
+          example: My Team
+          type: string
+      required:
+      - name
       type: object
     BasicSubjectProfile:
       properties:
@@ -730,122 +751,6 @@ components:
           type: string
       required:
       - id
-      type: object
-    DagRole:
-      properties:
-        dagId:
-          description: The DAG ID. Required if Tag is not specified.
-          example: my_dag
-          type: string
-        dagTag:
-          description: The DAG tag. Required if DagId is not specified.
-          example: team-a
-          type: string
-        deploymentId:
-          description: The Deployment ID containing the DAG.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The role name (DAG_VIEWER, DAG_AUTHOR, or custom DAG role).
-          example: DAG_VIEWER
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    DeploymentRole:
-      properties:
-        deploymentId:
-          description: The Deployment ID.
-          example: clm8t5u4q000008jq4qoc3031
-          type: string
-        role:
-          description: The name of the role for the subject in the Deployment.
-          example: DEPLOYMENT_ADMIN
-          type: string
-      required:
-      - deploymentId
-      - role
-      type: object
-    CreateTeamRequest:
-      properties:
-        description:
-          description: The Team's description.
-          example: My Team description
-          type: string
-        memberIds:
-          description: The list of IDs for users to add to the Team.
-          example:
-          - clma67byh000008md1gr995ez
-          items:
-            type: string
-          type: array
-        name:
-          description: The Team's name.
-          example: My Team
-          type: string
-        organizationRole:
-          description: The Team's Organization role.
-          enum:
-          - ORGANIZATION_OWNER
-          - ORGANIZATION_OBSERVE_ADMIN
-          - ORGANIZATION_OBSERVE_MEMBER
-          - ORGANIZATION_BILLING_ADMIN
-          - ORGANIZATION_MEMBER
-          example: ORGANIZATION_MEMBER
-          type: string
-      required:
-      - name
-      type: object
-    AddTeamMembersRequest:
-      properties:
-        memberIds:
-          description: The list of IDs for users to add to the Team.
-          example:
-          - clma5y9hu000208k2aumf7pbd
-          items:
-            type: string
-          minItems: 1
-          type: array
-      required:
-      - memberIds
-      type: object
-    UpdateTeamRolesRequest:
-      properties:
-        dagRoles:
-          description: The Team's updated DAG roles.
-          items:
-            $ref: '#/components/schemas/DagRole'
-          type: array
-        deploymentRoles:
-          description: The user's updated Deployment roles. The Deployments you specify must belong to the Team's Organization.
-          items:
-            $ref: '#/components/schemas/DeploymentRole'
-          type: array
-        organizationRole:
-          description: The Team's Organization roles.
-          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
-          type: string
-        workspaceRoles:
-          description: The Team's updated Workspace roles. The Workspaces you specify must belong to the Team's Organization.
-          items:
-            $ref: '#/components/schemas/WorkspaceRole'
-          type: array
-      required:
-      - organizationRole
       type: object
     Team:
       properties:
@@ -921,40 +826,128 @@ components:
       - organizationRole
       - updatedAt
       type: object
-    UpdateTeamRequest:
+    WorkspaceRole:
+      properties:
+        role:
+          description: The role of the subject in the Workspace.
+          enum:
+          - WORKSPACE_OWNER
+          - WORKSPACE_OPERATOR
+          - WORKSPACE_AUTHOR
+          - WORKSPACE_MEMBER
+          - WORKSPACE_ACCESSOR
+          example: WORKSPACE_MEMBER
+          type: string
+        workspaceId:
+          description: The Workspace ID.
+          example: clm8t5u4q000008jq4qoc3036
+          type: string
+      required:
+      - role
+      - workspaceId
+      type: object
+    TeamMember:
+      properties:
+        avatarUrl:
+          description: The URL for the Team member's profile image.
+          example: https://avatar.url
+          type: string
+        createdAt:
+          description: The time when the Team member was added in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        fullName:
+          description: The Team member's full name.
+          example: Jane Doe
+          type: string
+        userId:
+          description: The Team member's ID.
+          example: clma5vzk2000108k20jhq3f7n
+          type: string
+        username:
+          description: The Team member's username.
+          example: user1@company.com
+          type: string
+      required:
+      - userId
+      - username
+      type: object
+    SubjectRoles:
+      properties:
+        dagRoles:
+          description: A list of the subject's DAG roles.
+          items:
+            $ref: '#/components/schemas/DagRole'
+          type: array
+        deploymentRoles:
+          description: A list of the subject's Deployment roles. Currently only for API tokens.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The subject's Organization role.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
+          type: string
+        workspaceRoles:
+          description: A list of the subject's Workspace roles.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
+      type: object
+    CreateTeamRequest:
       properties:
         description:
           description: The Team's description.
-          example: My Team Description
+          example: My Team description
           type: string
+        memberIds:
+          description: The list of IDs for users to add to the Team.
+          example:
+          - clma67byh000008md1gr995ez
+          items:
+            type: string
+          type: array
         name:
           description: The Team's name.
           example: My Team
           type: string
+        organizationRole:
+          description: The Team's Organization role.
+          enum:
+          - ORGANIZATION_OWNER
+          - ORGANIZATION_OBSERVE_ADMIN
+          - ORGANIZATION_OBSERVE_MEMBER
+          - ORGANIZATION_BILLING_ADMIN
+          - ORGANIZATION_MEMBER
+          example: ORGANIZATION_MEMBER
+          type: string
       required:
       - name
       type: object
-    Error:
+    UpdateTeamRolesRequest:
       properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
+        dagRoles:
+          description: The Team's updated DAG roles.
           items:
-            $ref: '#/components/schemas/FieldValidationError'
+            $ref: '#/components/schemas/DagRole'
           type: array
-        message:
+        deploymentRoles:
+          description: The user's updated Deployment roles. The Deployments you specify must belong to the Team's Organization.
+          items:
+            $ref: '#/components/schemas/DeploymentRole'
+          type: array
+        organizationRole:
+          description: The Team's Organization roles.
+          example: ORGANIZATION_OWNER,ORGANIZATION_OBSERVE_ADMIN,ORGANIZATION_OBSERVE_MEMBER,ORGANIZATION_BILLING_ADMIN,ORGANIZATION_MEMBER
           type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
+        workspaceRoles:
+          description: The Team's updated Workspace roles. The Workspaces you specify must belong to the Team's Organization.
+          items:
+            $ref: '#/components/schemas/WorkspaceRole'
+          type: array
       required:
-      - message
-      - requestId
-      - statusCode
+      - organizationRole
       type: object
     TeamsPaginated:
       properties:
@@ -981,6 +974,33 @@ components:
       - teams
       - totalCount
       type: object
+    DeploymentRole:
+      properties:
+        deploymentId:
+          description: The Deployment ID.
+          example: clm8t5u4q000008jq4qoc3031
+          type: string
+        role:
+          description: The name of the role for the subject in the Deployment.
+          example: DEPLOYMENT_ADMIN
+          type: string
+      required:
+      - deploymentId
+      - role
+      type: object
+    AddTeamMembersRequest:
+      properties:
+        memberIds:
+          description: The list of IDs for users to add to the Team.
+          example:
+          - clma5y9hu000208k2aumf7pbd
+          items:
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - memberIds
+      type: object
     TeamMembersPaginated:
       properties:
         limit:
@@ -1005,26 +1025,6 @@ components:
       - offset
       - teamMembers
       - totalCount
-      type: object
-    WorkspaceRole:
-      properties:
-        role:
-          description: The role of the subject in the Workspace.
-          enum:
-          - WORKSPACE_OWNER
-          - WORKSPACE_OPERATOR
-          - WORKSPACE_AUTHOR
-          - WORKSPACE_MEMBER
-          - WORKSPACE_ACCESSOR
-          example: WORKSPACE_MEMBER
-          type: string
-        workspaceId:
-          description: The Workspace ID.
-          example: clm8t5u4q000008jq4qoc3036
-          type: string
-      required:
-      - role
-      - workspaceId
       type: object
   securitySchemes:
     JWT:

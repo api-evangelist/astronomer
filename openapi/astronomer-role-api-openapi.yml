@@ -434,34 +434,40 @@ paths:
       - action: organization.customRoles.get
 components:
   schemas:
-    UpdateCustomRoleRequest:
+    Error:
       properties:
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The permissions included in the role.
-          example:
-          - deployment.get
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
           items:
-            type: string
-          minItems: 1
+            $ref: '#/components/schemas/FieldValidationError'
           type: array
-        restrictedWorkspaceIds:
-          description: The IDs of the Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
       required:
-      - name
-      - permissions
+      - message
+      - requestId
+      - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
       type: object
     BasicSubjectProfile:
       properties:
@@ -495,88 +501,11 @@ components:
       required:
       - id
       type: object
-    Role:
+    DefaultRole:
       properties:
-        createdAt:
-          description: The time the role was created.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
         description:
           description: The role's description.
           example: Subject can only view deployments.
-          type: string
-        id:
-          description: The role's ID.
-          example: cluc9tapx000901qn2xrgqdmn
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        restrictedWorkspaceIds:
-          description: The IDs of Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The role's scope.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          example: DEPLOYMENT
-          type: string
-        updatedAt:
-          description: The time the role was last updated.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
-      required:
-      - createdAt
-      - createdBy
-      - id
-      - name
-      - restrictedWorkspaceIds
-      - scopeType
-      - updatedAt
-      - updatedBy
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    RoleWithPermission:
-      properties:
-        createdAt:
-          description: The time the role was created.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        id:
-          description: The role's ID.
-          example: cluc9tapx000901qn2xrgqdmn
           type: string
         name:
           description: The role's name.
@@ -589,38 +518,49 @@ components:
           items:
             type: string
           type: array
-        restrictedWorkspaceIds:
-          description: The IDs of Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
         scopeType:
           description: The role's scope.
           enum:
           - DEPLOYMENT
           - WORKSPACE
           - ORGANIZATION
+          - SYSTEM
+          - DAG
           example: DEPLOYMENT
           type: string
-        updatedAt:
-          description: The time the role was last updated.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
       required:
-      - createdAt
-      - createdBy
-      - id
       - name
       - permissions
-      - restrictedWorkspaceIds
       - scopeType
-      - updatedAt
-      - updatedBy
+      type: object
+    UpdateCustomRoleRequest:
+      properties:
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The permissions included in the role.
+          example:
+          - deployment.get
+          items:
+            type: string
+          minItems: 1
+          type: array
+        restrictedWorkspaceIds:
+          description: The IDs of the Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - permissions
       type: object
     RoleTemplate:
       properties:
@@ -691,11 +631,22 @@ components:
       - permissions
       - scopeType
       type: object
-    DefaultRole:
+    RoleWithPermission:
       properties:
+        createdAt:
+          description: The time the role was created.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
         description:
           description: The role's description.
           example: Subject can only view deployments.
+          type: string
+        id:
+          description: The role's ID.
+          example: cluc9tapx000901qn2xrgqdmn
           type: string
         name:
           description: The role's name.
@@ -708,42 +659,91 @@ components:
           items:
             type: string
           type: array
+        restrictedWorkspaceIds:
+          description: The IDs of Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
+          items:
+            type: string
+          type: array
         scopeType:
           description: The role's scope.
           enum:
           - DEPLOYMENT
           - WORKSPACE
           - ORGANIZATION
-          - SYSTEM
-          - DAG
           example: DEPLOYMENT
           type: string
+        updatedAt:
+          description: The time the role was last updated.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
       required:
+      - createdAt
+      - createdBy
+      - id
       - name
       - permissions
+      - restrictedWorkspaceIds
       - scopeType
+      - updatedAt
+      - updatedBy
       type: object
-    Error:
+    Role:
       properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
+        createdAt:
+          description: The time the role was created.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        id:
+          description: The role's ID.
+          example: cluc9tapx000901qn2xrgqdmn
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        restrictedWorkspaceIds:
+          description: The IDs of Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
           items:
-            $ref: '#/components/schemas/FieldValidationError'
+            type: string
           type: array
-        message:
+        scopeType:
+          description: The role's scope.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          example: DEPLOYMENT
           type: string
-        requestId:
+        updatedAt:
+          description: The time the role was last updated.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
           type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
       required:
-      - message
-      - requestId
-      - statusCode
+      - createdAt
+      - createdBy
+      - id
+      - name
+      - restrictedWorkspaceIds
+      - scopeType
+      - updatedAt
+      - updatedBy
       type: object
     RolesPaginated:
       properties:

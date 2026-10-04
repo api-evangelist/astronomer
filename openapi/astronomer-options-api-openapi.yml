@@ -167,6 +167,113 @@ paths:
       - action: organization.deploymentConfigurations.get
 components:
   schemas:
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    WorkerQueueOptions:
+      properties:
+        maxWorkers:
+          $ref: '#/components/schemas/Range'
+        minWorkers:
+          $ref: '#/components/schemas/Range'
+        workerConcurrency:
+          $ref: '#/components/schemas/Range'
+      required:
+      - maxWorkers
+      - minWorkers
+      - workerConcurrency
+      type: object
+    WorkloadIdentityOption:
+      properties:
+        label:
+          description: The workload identity label.
+          example: workload-label
+          type: string
+        role:
+          description: The workload identity role.
+          example: workload-role
+          type: string
+      required:
+      - label
+      - role
+      type: object
+    RuntimeRelease:
+      properties:
+        airflowDatabaseMigration:
+          description: Whether the release requires an Airflow database migration.
+          example: false
+          type: boolean
+        airflowVersion:
+          description: The Airflow version that the Runtime image is based on.
+          example: 2.7.1
+          type: string
+        channel:
+          description: The release channel.
+          example: stable
+          type: string
+        releaseDate:
+          description: The time when the version is released in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        stellarDatabaseMigration:
+          description: Whether the release requires a Stellar database migration.
+          example: false
+          type: boolean
+        version:
+          description: The Astro Runtime version.
+          example: 9.1.0
+          type: string
+      required:
+      - airflowDatabaseMigration
+      - airflowVersion
+      - channel
+      - releaseDate
+      - stellarDatabaseMigration
+      - version
+      type: object
+    ResourceQuotaOptions:
+      properties:
+        defaultPodSize:
+          $ref: '#/components/schemas/ResourceOption'
+        resourceQuota:
+          $ref: '#/components/schemas/ResourceOption'
+      required:
+      - defaultPodSize
+      - resourceQuota
+      type: object
     ProviderRegion:
       properties:
         bannedInstances:
@@ -263,15 +370,24 @@ components:
       - provider
       - regions
       type: object
-    ResourceOption:
+    ProviderInstanceType:
       properties:
         cpu:
-          $ref: '#/components/schemas/ResourceRange'
+          description: The number of CPUs. Units are in number of CPU cores.
+          example: 4
+          type: integer
         memory:
-          $ref: '#/components/schemas/ResourceRange'
+          description: The amount of memory. Units in Gibibytes or `Gi`.
+          example: 16Gi
+          type: string
+        name:
+          description: The name of the instance type.
+          example: e2-standard-4
+          type: string
       required:
       - cpu
       - memory
+      - name
       type: object
     DeploymentOptions:
       properties:
@@ -312,28 +428,37 @@ components:
       - workerMachines
       - workerQueues
       type: object
-    ResourceQuotaOptions:
+    MachineSpec:
       properties:
-        defaultPodSize:
-          $ref: '#/components/schemas/ResourceOption'
-        resourceQuota:
-          $ref: '#/components/schemas/ResourceOption'
+        concurrency:
+          description: The maximum number of tasks that a given machine instance can run at once.
+          example: 10
+          type: number
+        cpu:
+          description: The CPU quantity. Units are in number of CPU cores.
+          example: '1'
+          type: string
+        ephemeralStorage:
+          description: The ephemeral storage quantity. Units in Gibibytes or `Gi`.
+          example: 10Gi
+          type: string
+        memory:
+          description: The memory quantity. Units in Gibibytes or `Gi`.
+          example: 2Gi
+          type: string
       required:
-      - defaultPodSize
-      - resourceQuota
+      - cpu
+      - memory
       type: object
-    FieldValidationError:
+    ResourceOption:
       properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
+        cpu:
+          $ref: '#/components/schemas/ResourceRange'
+        memory:
+          $ref: '#/components/schemas/ResourceRange'
       required:
-      - code
-      - field
-      - message
+      - cpu
+      - memory
       type: object
     WorkerMachine:
       properties:
@@ -357,27 +482,21 @@ components:
       - name
       - spec
       type: object
-    MachineSpec:
+    SchedulerMachine:
       properties:
-        concurrency:
-          description: The maximum number of tasks that a given machine instance can run at once.
-          example: 10
-          type: number
-        cpu:
-          description: The CPU quantity. Units are in number of CPU cores.
-          example: '1'
+        name:
+          description: The machine's name.
+          enum:
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - EXTRA_LARGE
           type: string
-        ephemeralStorage:
-          description: The ephemeral storage quantity. Units in Gibibytes or `Gi`.
-          example: 10Gi
-          type: string
-        memory:
-          description: The memory quantity. Units in Gibibytes or `Gi`.
-          example: 2Gi
-          type: string
+        spec:
+          $ref: '#/components/schemas/MachineSpec'
       required:
-      - cpu
-      - memory
+      - name
+      - spec
       type: object
     Range:
       properties:
@@ -397,125 +516,6 @@ components:
       - ceiling
       - default
       - floor
-      type: object
-    SchedulerMachine:
-      properties:
-        name:
-          description: The machine's name.
-          enum:
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - EXTRA_LARGE
-          type: string
-        spec:
-          $ref: '#/components/schemas/MachineSpec'
-      required:
-      - name
-      - spec
-      type: object
-    WorkloadIdentityOption:
-      properties:
-        label:
-          description: The workload identity label.
-          example: workload-label
-          type: string
-        role:
-          description: The workload identity role.
-          example: workload-role
-          type: string
-      required:
-      - label
-      - role
-      type: object
-    ProviderInstanceType:
-      properties:
-        cpu:
-          description: The number of CPUs. Units are in number of CPU cores.
-          example: 4
-          type: integer
-        memory:
-          description: The amount of memory. Units in Gibibytes or `Gi`.
-          example: 16Gi
-          type: string
-        name:
-          description: The name of the instance type.
-          example: e2-standard-4
-          type: string
-      required:
-      - cpu
-      - memory
-      - name
-      type: object
-    WorkerQueueOptions:
-      properties:
-        maxWorkers:
-          $ref: '#/components/schemas/Range'
-        minWorkers:
-          $ref: '#/components/schemas/Range'
-        workerConcurrency:
-          $ref: '#/components/schemas/Range'
-      required:
-      - maxWorkers
-      - minWorkers
-      - workerConcurrency
-      type: object
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
-      type: object
-    RuntimeRelease:
-      properties:
-        airflowDatabaseMigration:
-          description: Whether the release requires an Airflow database migration.
-          example: false
-          type: boolean
-        airflowVersion:
-          description: The Airflow version that the Runtime image is based on.
-          example: 2.7.1
-          type: string
-        channel:
-          description: The release channel.
-          example: stable
-          type: string
-        releaseDate:
-          description: The time when the version is released in UTC, formatted as `YYYY-MM-DDTHH:MM:SSZ`.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        stellarDatabaseMigration:
-          description: Whether the release requires a Stellar database migration.
-          example: false
-          type: boolean
-        version:
-          description: The Astro Runtime version.
-          example: 9.1.0
-          type: string
-      required:
-      - airflowDatabaseMigration
-      - airflowVersion
-      - channel
-      - releaseDate
-      - stellarDatabaseMigration
-      - version
       type: object
     ResourceRange:
       properties:

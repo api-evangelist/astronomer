@@ -308,6 +308,60 @@ paths:
       - action: deployment.agentTokens.get
 components:
   schemas:
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    CreateAgentTokenRequest:
+      properties:
+        description:
+          description: The description for the API token.
+          example: This is my API token
+          type: string
+        name:
+          description: The name of the API token.
+          example: My token
+          type: string
+        tokenExpiryPeriodInDays:
+          description: The expiry period of the API token in days. If not specified, the token will never expire.
+          example: 30
+          maximum: 3650
+          minimum: 1
+          type: integer
+      required:
+      - name
+      type: object
     BasicSubjectProfile:
       properties:
         apiTokenName:
@@ -368,44 +422,6 @@ components:
       - entityId
       - entityType
       - role
-      type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    ApiTokensPaginated:
-      properties:
-        limit:
-          description: The limit of values in this page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of values in this page.
-          example: 0
-          type: integer
-        tokens:
-          description: The list of API tokens in this page.
-          items:
-            $ref: '#/components/schemas/ApiToken'
-          type: array
-        totalCount:
-          description: The total number of API tokens.
-          example: 100
-          type: integer
-      required:
-      - limit
-      - offset
-      - tokens
-      - totalCount
       type: object
     ApiToken:
       properties:
@@ -498,46 +514,30 @@ components:
       - startAt
       - updatedAt
       type: object
-    Error:
+    ApiTokensPaginated:
       properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
+        limit:
+          description: The limit of values in this page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of values in this page.
+          example: 0
+          type: integer
+        tokens:
+          description: The list of API tokens in this page.
           items:
-            $ref: '#/components/schemas/FieldValidationError'
+            $ref: '#/components/schemas/ApiToken'
           type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
+        totalCount:
+          description: The total number of API tokens.
+          example: 100
           type: integer
       required:
-      - message
-      - requestId
-      - statusCode
-      type: object
-    CreateAgentTokenRequest:
-      properties:
-        description:
-          description: The description for the API token.
-          example: This is my API token
-          type: string
-        name:
-          description: The name of the API token.
-          example: My token
-          type: string
-        tokenExpiryPeriodInDays:
-          description: The expiry period of the API token in days. If not specified, the token will never expire.
-          example: 30
-          maximum: 3650
-          minimum: 1
-          type: integer
-      required:
-      - name
+      - limit
+      - offset
+      - tokens
+      - totalCount
       type: object
   securitySchemes:
     JWT:
