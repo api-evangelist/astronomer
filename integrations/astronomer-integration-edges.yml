@@ -3,6 +3,7 @@ method: searched
 checked:
 - https://aws.amazon.com/marketplace/
 - https://azuremarketplace.microsoft.com/
+- https://github.com/marketplace?type=actions
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -36,3 +37,24 @@ edges:
   seller_name: Astronomer
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/deploy-apache-airflow-dags-to-astro
+  listing_count: 3
+  apps:
+  - Deploy Apache Airflow DAGs to Astro
+  - Otto Review
+  - Setup Astro CLI
+  publisher_name: Astronomer
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+source:
+- https://github.com/marketplace?type=actions
