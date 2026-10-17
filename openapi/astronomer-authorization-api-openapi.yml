@@ -66,28 +66,6 @@ paths:
       - Authorization
 components:
   schemas:
-    Error:
-      properties:
-        fieldErrors:
-          description: 'FieldErrors carries one entry per failed request-validation constraint.
-
-            Only present on 400 responses caused by request binding/validation.'
-          items:
-            $ref: '#/components/schemas/FieldValidationError'
-          type: array
-        message:
-          type: string
-        requestId:
-          type: string
-        statusCode:
-          maximum: 600
-          minimum: 400
-          type: integer
-      required:
-      - message
-      - requestId
-      - statusCode
-      type: object
     PermissionEntry:
       properties:
         action:
@@ -139,6 +117,28 @@ components:
       - code
       - field
       - message
+      type: object
+    Error:
+      properties:
+        fieldErrors:
+          description: 'FieldErrors carries one entry per failed request-validation constraint.
+
+            Only present on 400 responses caused by request binding/validation.'
+          items:
+            $ref: '#/components/schemas/FieldValidationError'
+          type: array
+        message:
+          type: string
+        requestId:
+          type: string
+        statusCode:
+          maximum: 600
+          minimum: 400
+          type: integer
+      required:
+      - message
+      - requestId
+      - statusCode
       type: object
   securitySchemes:
     JWT:

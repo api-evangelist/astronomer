@@ -388,6 +388,39 @@ components:
       - requestId
       - statusCode
       type: object
+    AllowedIpAddressRangesPaginated:
+      properties:
+        allowedIpAddressRanges:
+          items:
+            $ref: '#/components/schemas/AllowedIpAddressRange'
+          type: array
+        limit:
+          description: The maximum number of allowed IP address ranges in one page.
+          example: 10
+          type: integer
+        offset:
+          description: The offset of the current page of allowed IP address ranges.
+          example: 0
+          type: integer
+        totalCount:
+          description: The total number of allowed IP address ranges.
+          example: 10
+          type: integer
+      required:
+      - allowedIpAddressRanges
+      - limit
+      - offset
+      - totalCount
+      type: object
+    CreateAllowedIpAddressRangeRequest:
+      properties:
+        ipAddressRange:
+          description: The allowed IP address range in CIDR format.
+          example: 1.1.1.1/32
+          type: string
+      required:
+      - ipAddressRange
+      type: object
     FieldValidationError:
       properties:
         code:
@@ -463,15 +496,6 @@ components:
       required:
       - allowedIpAddressRangeIds
       type: object
-    CreateAllowedIpAddressRangeRequest:
-      properties:
-        ipAddressRange:
-          description: The allowed IP address range in CIDR format.
-          example: 1.1.1.1/32
-          type: string
-      required:
-      - ipAddressRange
-      type: object
     AllowedIpAddressRangesList:
       properties:
         allowedIpAddressRanges:
@@ -480,30 +504,6 @@ components:
           type: array
       required:
       - allowedIpAddressRanges
-      type: object
-    AllowedIpAddressRangesPaginated:
-      properties:
-        allowedIpAddressRanges:
-          items:
-            $ref: '#/components/schemas/AllowedIpAddressRange'
-          type: array
-        limit:
-          description: The maximum number of allowed IP address ranges in one page.
-          example: 10
-          type: integer
-        offset:
-          description: The offset of the current page of allowed IP address ranges.
-          example: 0
-          type: integer
-        totalCount:
-          description: The total number of allowed IP address ranges.
-          example: 10
-          type: integer
-      required:
-      - allowedIpAddressRanges
-      - limit
-      - offset
-      - totalCount
       type: object
   securitySchemes:
     JWT:

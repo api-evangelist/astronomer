@@ -456,51 +456,6 @@ components:
       - requestId
       - statusCode
       type: object
-    FieldValidationError:
-      properties:
-        code:
-          type: string
-        field:
-          type: string
-        message:
-          type: string
-      required:
-      - code
-      - field
-      - message
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
     DefaultRole:
       properties:
         description:
@@ -532,165 +487,6 @@ components:
       - name
       - permissions
       - scopeType
-      type: object
-    UpdateCustomRoleRequest:
-      properties:
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The permissions included in the role.
-          example:
-          - deployment.get
-          items:
-            type: string
-          minItems: 1
-          type: array
-        restrictedWorkspaceIds:
-          description: The IDs of the Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
-      required:
-      - name
-      - permissions
-      type: object
-    RoleTemplate:
-      properties:
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The role's permissions.
-          example:
-          - deployment.get
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The role's scope.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          - SYSTEM
-          - DAG
-          example: DEPLOYMENT
-          type: string
-      required:
-      - name
-      - permissions
-      - scopeType
-      type: object
-    CreateCustomRoleRequest:
-      properties:
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The permissions included in the role.
-          example:
-          - deployment.get
-          items:
-            type: string
-          minItems: 1
-          type: array
-        restrictedWorkspaceIds:
-          description: The IDs of the Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The scope of the role.
-          enum:
-          - DEPLOYMENT
-          - DAG
-          example: DEPLOYMENT
-          type: string
-      required:
-      - name
-      - permissions
-      - scopeType
-      type: object
-    RoleWithPermission:
-      properties:
-        createdAt:
-          description: The time the role was created.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
-        description:
-          description: The role's description.
-          example: Subject can only view deployments.
-          type: string
-        id:
-          description: The role's ID.
-          example: cluc9tapx000901qn2xrgqdmn
-          type: string
-        name:
-          description: The role's name.
-          example: Deployment_Viewer
-          type: string
-        permissions:
-          description: The role's permissions.
-          example:
-          - deployment.get
-          items:
-            type: string
-          type: array
-        restrictedWorkspaceIds:
-          description: The IDs of Workspaces that the role is restricted to.
-          example:
-          - cldbvzoi20182g8odxt8ehi5i
-          items:
-            type: string
-          type: array
-        scopeType:
-          description: The role's scope.
-          enum:
-          - DEPLOYMENT
-          - WORKSPACE
-          - ORGANIZATION
-          example: DEPLOYMENT
-          type: string
-        updatedAt:
-          description: The time the role was last updated.
-          example: '2022-11-22T04:37:12Z'
-          format: date-time
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/BasicSubjectProfile'
-      required:
-      - createdAt
-      - createdBy
-      - id
-      - name
-      - permissions
-      - restrictedWorkspaceIds
-      - scopeType
-      - updatedAt
-      - updatedBy
       type: object
     Role:
       properties:
@@ -774,6 +570,210 @@ components:
       - offset
       - roles
       - totalCount
+      type: object
+    RoleWithPermission:
+      properties:
+        createdAt:
+          description: The time the role was created.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        createdBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        id:
+          description: The role's ID.
+          example: cluc9tapx000901qn2xrgqdmn
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The role's permissions.
+          example:
+          - deployment.get
+          items:
+            type: string
+          type: array
+        restrictedWorkspaceIds:
+          description: The IDs of Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
+          items:
+            type: string
+          type: array
+        scopeType:
+          description: The role's scope.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          example: DEPLOYMENT
+          type: string
+        updatedAt:
+          description: The time the role was last updated.
+          example: '2022-11-22T04:37:12Z'
+          format: date-time
+          type: string
+        updatedBy:
+          $ref: '#/components/schemas/BasicSubjectProfile'
+      required:
+      - createdAt
+      - createdBy
+      - id
+      - name
+      - permissions
+      - restrictedWorkspaceIds
+      - scopeType
+      - updatedAt
+      - updatedBy
+      type: object
+    CreateCustomRoleRequest:
+      properties:
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The permissions included in the role.
+          example:
+          - deployment.get
+          items:
+            type: string
+          minItems: 1
+          type: array
+        restrictedWorkspaceIds:
+          description: The IDs of the Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
+          items:
+            type: string
+          type: array
+        scopeType:
+          description: The scope of the role.
+          enum:
+          - DEPLOYMENT
+          - DAG
+          example: DEPLOYMENT
+          type: string
+      required:
+      - name
+      - permissions
+      - scopeType
+      type: object
+    FieldValidationError:
+      properties:
+        code:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
+      type: object
+    BasicSubjectProfile:
+      properties:
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
+          type: string
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
+          type: string
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
+          type: string
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
+          type: string
+        subjectType:
+          description: The subject type.
+          enum:
+          - USER
+          - SERVICEKEY
+          example: USER
+          type: string
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
+          type: string
+      required:
+      - id
+      type: object
+    RoleTemplate:
+      properties:
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The role's permissions.
+          example:
+          - deployment.get
+          items:
+            type: string
+          type: array
+        scopeType:
+          description: The role's scope.
+          enum:
+          - DEPLOYMENT
+          - WORKSPACE
+          - ORGANIZATION
+          - SYSTEM
+          - DAG
+          example: DEPLOYMENT
+          type: string
+      required:
+      - name
+      - permissions
+      - scopeType
+      type: object
+    UpdateCustomRoleRequest:
+      properties:
+        description:
+          description: The role's description.
+          example: Subject can only view deployments.
+          type: string
+        name:
+          description: The role's name.
+          example: Deployment_Viewer
+          type: string
+        permissions:
+          description: The permissions included in the role.
+          example:
+          - deployment.get
+          items:
+            type: string
+          minItems: 1
+          type: array
+        restrictedWorkspaceIds:
+          description: The IDs of the Workspaces that the role is restricted to.
+          example:
+          - cldbvzoi20182g8odxt8ehi5i
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - permissions
       type: object
   securitySchemes:
     JWT:

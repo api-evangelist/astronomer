@@ -439,6 +439,69 @@ paths:
       - action: deployment.deploys.update
 components:
   schemas:
+    DeployRollbackRequest:
+      properties:
+        description:
+          maxLength: 500
+          type: string
+      type: object
+    CreateDeployGitRequest:
+      properties:
+        account:
+          description: Required for GITHUB; must be empty for GENERIC. The git account or organization.
+          example: astronomer
+          type: string
+        authorName:
+          description: The git author's display name.
+          example: Astronomer Bot
+          type: string
+        authorUrl:
+          description: The URL to the author's profile.
+          example: https://github.com/astronomer-bot
+          type: string
+        authorUsername:
+          description: The git author's username.
+          example: astronomer-bot
+          type: string
+        beforeCommitSha:
+          description: The commit SHA before the deploy commit.
+          example: def456abc123
+          type: string
+        branch:
+          description: The git branch name.
+          example: main
+          type: string
+        commitSha:
+          description: The git commit SHA.
+          example: abc123def456
+          type: string
+        commitUrl:
+          description: The URL to the commit in the provider's web UI.
+          example: https://github.com/astronomer/astro-cli/commit/abc123def456
+          type: string
+        path:
+          description: The path within the repository.
+          example: dags/
+          type: string
+        provider:
+          description: The git provider.
+          enum:
+          - GITHUB
+          - GENERIC
+          example: GITHUB
+          type: string
+        remoteUrl:
+          description: Required for GENERIC; must be empty for GITHUB. The git remote URL (as configured by `git remote`).
+          example: git@gitlab.com:team/project.git
+          type: string
+        repo:
+          description: Required for GITHUB; must be empty for GENERIC. The git repository name.
+          example: astro-cli
+          type: string
+      required:
+      - commitSha
+      - provider
+      type: object
     Error:
       properties:
         fieldErrors:
@@ -461,18 +524,36 @@ components:
       - requestId
       - statusCode
       type: object
-    FieldValidationError:
+    FinalizeDeployRequest:
       properties:
-        code:
+        bundleTarballVersion:
+          description: The deploy's bundle tarball version. Required if DAG deploy is enabled on the Deployment and deploy type is BUNDLE.
           type: string
-        field:
+        dagTarballVersion:
+          description: The deploy's DAG tarball version, also known as the Bundle Version in the Astro UI. Required if DAG deploys are enabled on the Deployment, and deploy type is either IMAGE_AND_DAG or DAG_ONLY.
           type: string
-        message:
+      type: object
+    Bundle:
+      properties:
+        bundleType:
+          description: The type of bundle.
+          type: string
+        currentVersion:
+          description: The current bundle version.
+          type: string
+        deployId:
+          description: The ID of the deploy that included the bundle.
+          type: string
+        desiredVersion:
+          description: The desired version of the bundle.
+          type: string
+        mountPath:
+          description: The path where the Astro mounts the bundle on the Airflow component pods.
           type: string
       required:
-      - code
-      - field
-      - message
+      - bundleType
+      - deployId
+      - mountPath
       type: object
     CreateDeployRequest:
       properties:
@@ -502,72 +583,11 @@ components:
       required:
       - type
       type: object
-    FinalizeDeployRequest:
-      properties:
-        bundleTarballVersion:
-          description: The deploy's bundle tarball version. Required if DAG deploy is enabled on the Deployment and deploy type is BUNDLE.
-          type: string
-        dagTarballVersion:
-          description: The deploy's DAG tarball version, also known as the Bundle Version in the Astro UI. Required if DAG deploys are enabled on the Deployment, and deploy type is either IMAGE_AND_DAG or DAG_ONLY.
-          type: string
-      type: object
-    DeploysPaginated:
-      properties:
-        deploys:
-          description: A list of deploys in the current page.
-          items:
-            $ref: '#/components/schemas/Deploy'
-          type: array
-        limit:
-          description: The maximum number of deploys in one page.
-          type: integer
-        offset:
-          description: The offset of the current page of deploys.
-          type: integer
-        totalCount:
-          description: The total number of deploys.
-          type: integer
-      required:
-      - deploys
-      - limit
-      - offset
-      - totalCount
-      type: object
-    BasicSubjectProfile:
-      properties:
-        apiTokenName:
-          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
-          example: my-token
-          type: string
-        avatarUrl:
-          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
-          example: https://avatar.url
-          type: string
-        fullName:
-          description: The subject's full name. Returned only when `SubjectType` is `USER`.
-          example: Jane Doe
-          type: string
-        id:
-          description: The subject's ID.
-          example: clm8qv74h000008mlf08scq7k
-          type: string
-        subjectType:
-          description: The subject type.
-          enum:
-          - USER
-          - SERVICEKEY
-          example: USER
-          type: string
-        username:
-          description: The subject's username. Returned only when `SubjectType` is `USER`.
-          example: user1@company.com
-          type: string
-      required:
-      - id
-      type: object
-    DeployRollbackRequest:
+    UpdateDeployRequest:
       properties:
         description:
+          description: The deploy's description.
+          example: My deploy description
           maxLength: 500
           type: string
       type: object
@@ -670,13 +690,18 @@ components:
       - status
       - type
       type: object
-    UpdateDeployRequest:
+    FieldValidationError:
       properties:
-        description:
-          description: The deploy's description.
-          example: My deploy description
-          maxLength: 500
+        code:
           type: string
+        field:
+          type: string
+        message:
+          type: string
+      required:
+      - code
+      - field
+      - message
       type: object
     DeployGit:
       properties:
@@ -735,84 +760,59 @@ components:
       - commitSha
       - provider
       type: object
-    CreateDeployGitRequest:
+    BasicSubjectProfile:
       properties:
-        account:
-          description: Required for GITHUB; must be empty for GENERIC. The git account or organization.
-          example: astronomer
+        apiTokenName:
+          description: The API token's name. Returned only when `SubjectType` is `SERVICEKEY`.
+          example: my-token
           type: string
-        authorName:
-          description: The git author's display name.
-          example: Astronomer Bot
+        avatarUrl:
+          description: The URL for the user's profile image. Returned only when `SubjectType` is `USER`.
+          example: https://avatar.url
           type: string
-        authorUrl:
-          description: The URL to the author's profile.
-          example: https://github.com/astronomer-bot
+        fullName:
+          description: The subject's full name. Returned only when `SubjectType` is `USER`.
+          example: Jane Doe
           type: string
-        authorUsername:
-          description: The git author's username.
-          example: astronomer-bot
+        id:
+          description: The subject's ID.
+          example: clm8qv74h000008mlf08scq7k
           type: string
-        beforeCommitSha:
-          description: The commit SHA before the deploy commit.
-          example: def456abc123
-          type: string
-        branch:
-          description: The git branch name.
-          example: main
-          type: string
-        commitSha:
-          description: The git commit SHA.
-          example: abc123def456
-          type: string
-        commitUrl:
-          description: The URL to the commit in the provider's web UI.
-          example: https://github.com/astronomer/astro-cli/commit/abc123def456
-          type: string
-        path:
-          description: The path within the repository.
-          example: dags/
-          type: string
-        provider:
-          description: The git provider.
+        subjectType:
+          description: The subject type.
           enum:
-          - GITHUB
-          - GENERIC
-          example: GITHUB
+          - USER
+          - SERVICEKEY
+          example: USER
           type: string
-        remoteUrl:
-          description: Required for GENERIC; must be empty for GITHUB. The git remote URL (as configured by `git remote`).
-          example: git@gitlab.com:team/project.git
-          type: string
-        repo:
-          description: Required for GITHUB; must be empty for GENERIC. The git repository name.
-          example: astro-cli
+        username:
+          description: The subject's username. Returned only when `SubjectType` is `USER`.
+          example: user1@company.com
           type: string
       required:
-      - commitSha
-      - provider
+      - id
       type: object
-    Bundle:
+    DeploysPaginated:
       properties:
-        bundleType:
-          description: The type of bundle.
-          type: string
-        currentVersion:
-          description: The current bundle version.
-          type: string
-        deployId:
-          description: The ID of the deploy that included the bundle.
-          type: string
-        desiredVersion:
-          description: The desired version of the bundle.
-          type: string
-        mountPath:
-          description: The path where the Astro mounts the bundle on the Airflow component pods.
-          type: string
+        deploys:
+          description: A list of deploys in the current page.
+          items:
+            $ref: '#/components/schemas/Deploy'
+          type: array
+        limit:
+          description: The maximum number of deploys in one page.
+          type: integer
+        offset:
+          description: The offset of the current page of deploys.
+          type: integer
+        totalCount:
+          description: The total number of deploys.
+          type: integer
       required:
-      - bundleType
-      - deployId
-      - mountPath
+      - deploys
+      - limit
+      - offset
+      - totalCount
       type: object
   securitySchemes:
     JWT:
