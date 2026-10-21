@@ -39,19 +39,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: astronomer-okta-own
-  label: Okta (own)
-  partner: okta
-  partner_name: Okta (own)
-  category: Single Sign-On
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.okta.com/integrations/astro/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: astronomer-winget-windows-package-manager
   label: winget (Windows Package Manager)
   partner_name: winget (Windows Package Manager)
@@ -147,5 +134,31 @@
     sample_skills: []
     detected_by: sweep-agent-skills.py
     detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: astronomer-okta-own
+  label: Okta (own)
+  partner: okta
+  partner_name: Okta (own)
+  category: Single Sign-On
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.okta.com/integrations/astro/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: astronomer-eclipse-foundation-open-vsx
+  label: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_name: Eclipse Foundation (open-vsx)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: open-vsx
+  channel: partner-built
+  evidence: https://open-vsx.org/namespace/Astronomer
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
