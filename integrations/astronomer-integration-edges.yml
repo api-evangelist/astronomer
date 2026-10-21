@@ -24,6 +24,8 @@ checked:
 - https://www.antler.co/portfolio
 - https://www.techstars.com/portfolio
 - https://www.ycombinator.com/companies
+- opentofu/integrations/opentofu-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -203,6 +205,33 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-agent-skills.py
   first_seen: '2026-10-20'
+- partner_name: 500 Global
+  partner: 500-global
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://500.co/companies
+  category: accelerator portfolio participation
+  contract_reference:
+    register: 500 Global portfolio (500.co/companies; the page's own JSON 500.co/api/startups)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: Astronomer
+    register_id: https://500.co/companies
+    register_country: United States
+    register_website: www.astronomer.io
+    matched_domain: astronomer.io
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    year: '2015'
+  detected_by: sweep-accelerator-portfolios.py
+  first_seen: '2026-10-21'
 - partner_name: Okta (own)
   partner: okta
   partner_match: mirror
@@ -248,32 +277,44 @@ edges:
   category: IDE / developer extension marketplace listing
   badges:
   - Verified namespace
-- partner_name: 500 Global
-  partner: 500-global
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://500.co/companies
-  category: accelerator portfolio participation
-  contract_reference:
-    register: 500 Global portfolio (500.co/companies; the page's own JSON 500.co/api/startups)
-    standard: null
-    spec_file: null
-    role: accelerator-portfolio-company
-    registered_name: Astronomer
-    register_id: https://500.co/companies
-    register_country: United States
-    register_website: www.astronomer.io
-    matched_domain: astronomer.io
-    matched_by: domain
-    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
-      an ownership and participation record, not conformance or certification'
-    detected_by: sweep-accelerator-portfolios.py
-    detected: '2026-10-21'
-    year: '2015'
-  detected_by: sweep-accelerator-portfolios.py
-  first_seen: '2026-10-21'
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/astronomer/astro
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - astronomer/astro
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: register
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/astronomer/astro
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - astronomer/astro
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
+  - Verified publisher (GitHub domain-verified organization)
 source:
 - https://github.com/marketplace?type=actions
