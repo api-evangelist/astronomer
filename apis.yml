@@ -123,6 +123,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/astronomer/overview
 - url: https://www.astronomer.io/blog/
   type: Blog
 - url: https://www.astronomer.io/blog/rss.xml
