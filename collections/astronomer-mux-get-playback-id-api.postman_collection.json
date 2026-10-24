@@ -1,0 +1,349 @@
+{
+  "info": {
+    "_postman_id": "08fac809-2aff-45bf-adcf-79edd79eaf76",
+    "name": "Astronomer Marketing Site Function Mux Get Playback Id API",
+    "description": "Public function endpoints hosted on www.astronomer.io using Netlify Functions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:17:01.000Z",
+    "updatedAt": "2026-10-22T02:17:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-08fac809-2aff-45bf-adcf-79edd79eaf76"
+  },
+  "item": [
+    {
+      "name": "mux-get-playback-id",
+      "item": [
+        {
+          "name": "Get Mux playback readiness by upload ID",
+          "id": "366cece5-c0c3-4032-abe1-bbc524d99d3f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mux-get-playback-id?uploadId=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mux-get-playback-id"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "uploadId",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e2e8092-4770-4f15-a79c-a83a79f7e97b",
+              "name": "Playback status",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mux-get-playback-id?uploadId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-get-playback-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "uploadId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Limit",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Remaining",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Reset",
+                  "value": ""
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"processing\",\n  \"playbackId\": \"<string>\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:17:01.000Z",
+              "updatedAt": "2026-10-22T02:17:01.000Z",
+              "uid": "35240-6e2e8092-4770-4f15-a79c-a83a79f7e97b"
+            },
+            {
+              "id": "590dbf0f-43be-4a63-94cc-712d5b865f8a",
+              "name": "Missing uploadId",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mux-get-playback-id?uploadId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-get-playback-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "uploadId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:17:01.000Z",
+              "updatedAt": "2026-10-22T02:17:01.000Z",
+              "uid": "35240-590dbf0f-43be-4a63-94cc-712d5b865f8a"
+            },
+            {
+              "id": "730e5677-906d-4cf6-aa15-5a35d8ad117b",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mux-get-playback-id?uploadId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-get-playback-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "uploadId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:17:01.000Z",
+              "updatedAt": "2026-10-22T02:17:01.000Z",
+              "uid": "35240-730e5677-906d-4cf6-aa15-5a35d8ad117b"
+            },
+            {
+              "id": "a4057eab-2431-4ed9-bac9-91b8df08f233",
+              "name": "Rate limit exceeded \u2014 wait for the window to reset before retrying",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mux-get-playback-id?uploadId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-get-playback-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "uploadId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Limit",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Remaining",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Reset",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Seconds to wait before retrying",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:17:01.000Z",
+              "updatedAt": "2026-10-22T02:17:01.000Z",
+              "uid": "35240-a4057eab-2431-4ed9-bac9-91b8df08f233"
+            },
+            {
+              "id": "27681af2-d42f-4264-a8d5-5b59b9a00961",
+              "name": "Server or upstream API error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mux-get-playback-id?uploadId=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-get-playback-id"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "uploadId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:17:01.000Z",
+              "updatedAt": "2026-10-22T02:17:01.000Z",
+              "uid": "35240-27681af2-d42f-4264-a8d5-5b59b9a00961"
+            }
+          ],
+          "createdAt": "2026-10-22T02:17:01.000Z",
+          "updatedAt": "2026-10-22T02:17:01.000Z",
+          "uid": "35240-366cece5-c0c3-4032-abe1-bbc524d99d3f"
+        }
+      ],
+      "id": "8891c763-b5f7-491c-952c-aff4775b199c",
+      "createdAt": "2026-10-22T02:17:01.000Z",
+      "updatedAt": "2026-10-22T02:17:01.000Z",
+      "uid": "35240-8891c763-b5f7-491c-952c-aff4775b199c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.astronomer.io/.netlify/functions"
+    }
+  ]
+}

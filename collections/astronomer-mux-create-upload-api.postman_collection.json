@@ -1,0 +1,340 @@
+{
+  "info": {
+    "_postman_id": "5a5da586-b00c-4ca7-8a08-dce54ff9f417",
+    "name": "Astronomer Marketing Site Function Mux Create Upload API",
+    "description": "Public function endpoints hosted on www.astronomer.io using Netlify Functions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:16:54.000Z",
+    "updatedAt": "2026-10-22T02:16:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5a5da586-b00c-4ca7-8a08-dce54ff9f417"
+  },
+  "item": [
+    {
+      "name": "mux-create-upload",
+      "item": [
+        {
+          "name": "Create a Mux direct-upload URL",
+          "id": "1f7a9c10-ab11-4e95-ae58-93954de6c77c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/mux-create-upload",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mux-create-upload"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1b73b5b1-b8f3-46e5-a502-65b712873242",
+              "name": "Upload URL created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mux-create-upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-create-upload"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Limit",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Remaining",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Reset",
+                  "value": ""
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"uploadUrl\": \"<string>\",\n  \"uploadId\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:16:55.000Z",
+              "updatedAt": "2026-10-22T02:16:55.000Z",
+              "uid": "35240-1b73b5b1-b8f3-46e5-a502-65b712873242"
+            },
+            {
+              "id": "726931a5-adc7-4755-bd9c-f36d89e24130",
+              "name": "Method not allowed",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mux-create-upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-create-upload"
+                  ]
+                }
+              },
+              "status": "Method Not Allowed",
+              "code": 405,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:16:55.000Z",
+              "updatedAt": "2026-10-22T02:16:55.000Z",
+              "uid": "35240-726931a5-adc7-4755-bd9c-f36d89e24130"
+            },
+            {
+              "id": "c4e81991-cb68-4fa8-b27d-23bed389b110",
+              "name": "Rate limit exceeded \u2014 wait for the window to reset before retrying",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mux-create-upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-create-upload"
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Limit",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Remaining",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "key": "RateLimit-Reset",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Seconds to wait before retrying",
+                    "type": "text/plain"
+                  },
+                  "key": "Retry-After",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:16:55.000Z",
+              "updatedAt": "2026-10-22T02:16:55.000Z",
+              "uid": "35240-c4e81991-cb68-4fa8-b27d-23bed389b110"
+            },
+            {
+              "id": "2f84ebef-260a-4252-933f-69549a01e0f5",
+              "name": "Server or upstream API error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/mux-create-upload",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mux-create-upload"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"code\": \"<string>\",\n  \"hint\": \"<string>\"\n}",
+              "createdAt": "2026-10-22T02:16:55.000Z",
+              "updatedAt": "2026-10-22T02:16:55.000Z",
+              "uid": "35240-2f84ebef-260a-4252-933f-69549a01e0f5"
+            }
+          ],
+          "createdAt": "2026-10-22T02:16:55.000Z",
+          "updatedAt": "2026-10-22T02:16:55.000Z",
+          "uid": "35240-1f7a9c10-ab11-4e95-ae58-93954de6c77c"
+        }
+      ],
+      "id": "e3a416bd-ff12-4671-948a-c58bfe76b8be",
+      "createdAt": "2026-10-22T02:16:55.000Z",
+      "updatedAt": "2026-10-22T02:16:55.000Z",
+      "uid": "35240-e3a416bd-ff12-4671-948a-c58bfe76b8be"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://www.astronomer.io/.netlify/functions"
+    }
+  ]
+}
